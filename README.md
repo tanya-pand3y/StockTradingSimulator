@@ -44,7 +44,7 @@ Transaction
 - float price
 - str/datetimeObject date
 
-Market Data
+MarketData
 - str marketDataID
 - str stockID
 - float openPrice
