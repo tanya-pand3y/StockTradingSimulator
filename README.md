@@ -18,40 +18,4 @@ To give users a platform to invest in stocks, view their profits and losses, the
 
 5. Olivia is a data-driven finance enthusiast who loves analyzing market trends and stock performance. She uses our platform's advanced graphs to visualize market data and her portfolio's performance. With line charts, bar charts, and scatter plots, Olivia identifies patterns and insights that inform her trading decisions, helping her make more strategic investments.
 
-### **Proposed entities for domain:**
-User
-- string username
-- string userID
-- array userInventory
-- string Password
-
-Stock
-- str stock_id
-- float current_price
-- Dictionary/array historical_prices
-
-Portfolio
-- str portfolioID
-- str userID
-- ArrayList stockNames
-
-Transaction
-- str transactionID
-- str portfolioID
-- str stockID
-- str type
-- float/int quantity
-- float price
-- str/datetimeObject date
-
-MarketData
-- str marketDataID
-- str stockID
-- float openPrice
-- float closePrice
-- float highPrice
-- float lowPrice
-- float purchaseVolume
-
-
 
