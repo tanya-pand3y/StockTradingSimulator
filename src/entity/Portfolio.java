@@ -19,4 +19,9 @@ public class Portfolio {
     public double getCash() {
         return cash;
     }
+
+    public void addHolding (Holding holding) {
+
+    }
+
 }

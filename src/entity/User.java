@@ -12,4 +12,8 @@ public class User {
         this.password = password;
         portfolio = new Portfolio(1000000);
     }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
 }
