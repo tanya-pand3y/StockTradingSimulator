@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 
 public class Portfolio {
-    private double value;
+    private double AccountValue;
     private double cash;
+    private double PnL;
     private ArrayList<Holding> holdings;
 
     /**
@@ -13,7 +14,7 @@ public class Portfolio {
      * @param StartingCash the amount of starting cash
      */
     public Portfolio (double StartingCash){
-        value = StartingCash;
+        AccountValue = StartingCash;
         cash = StartingCash;
     }
 
