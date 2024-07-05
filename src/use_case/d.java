@@ -1,2 +1,4 @@
-package src.use_case;public class d {
+package src.use_case;
+
+public class d {
 }

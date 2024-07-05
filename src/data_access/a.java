@@ -1,2 +1,4 @@
-package src.data_access;public class a {
+package src.data_access;
+
+public class a {
 }

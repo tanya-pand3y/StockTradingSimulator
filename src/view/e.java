@@ -1,2 +1,4 @@
-package src.view;public class e {
+package src.view;
+
+public class e {
 }

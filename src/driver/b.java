@@ -1,2 +1,4 @@
-package src.driver;public class b {
+package src.driver;
+
+public class b {
 }

@@ -1,2 +1,4 @@
-package src.app;public class hello {
+package src.app;
+
+public class hello {
 }

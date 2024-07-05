@@ -1,2 +1,4 @@
-package src.interface_adapter;public class c {
+package src.interface_adapter;
+
+public class c {
 }
