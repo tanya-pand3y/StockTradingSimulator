@@ -1,19 +1,12 @@
 package src.entity;
 
-public class User {
-    private int id;
-    private String username;
-    private String password;
-    private Portfolio portfolio;
+import java.time.LocalDateTime;
 
+public interface User {
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        portfolio = new Portfolio(1000000);
-    }
+    String getName();
 
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
+    String getPassword();
+
+    LocalDateTime getCreationTime();
 }
