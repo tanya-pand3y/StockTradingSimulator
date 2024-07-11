@@ -4,11 +4,11 @@ public class Transaction {
     private Stock stock;
     private int quantity;
     private boolean isBuy;
-    private User user;
+    private CommonUser user;
     private double transactionPrice;
     // TODO add timestamp / id
 
-    public Transaction(User user, Stock stock, int quantity, boolean isBuy) {
+    public Transaction(CommonUser user, Stock stock, int quantity, boolean isBuy) {
         this.stock = stock;
         this.quantity = quantity;
         this.isBuy = isBuy;
@@ -46,7 +46,7 @@ public class Transaction {
      * @param stock the stock
      * @param user the user
      * @param quantity the quantity
-     * @return Whether or not the shares are present
+     * @return Whether the shares are present
      */
     private boolean hasShares(Stock stock, User user, int quantity) {
         //return user.getPortfolio().getHoldings().findHoldingQuantity(stock) >= quantity;

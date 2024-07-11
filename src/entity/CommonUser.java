@@ -7,6 +7,7 @@ class CommonUser implements User {
     private final String name;
     private final String password;
     private final LocalDateTime creationTime;
+    private final Portfolio portfolio;
 
     /**
      * Requires: password is valid.
@@ -17,6 +18,7 @@ class CommonUser implements User {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
+        this.portfolio = new Portfolio(1000);
     }
 
     @Override
@@ -32,5 +34,9 @@ class CommonUser implements User {
     @Override
     public LocalDateTime getCreationTime() {
         return creationTime;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 }
