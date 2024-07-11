@@ -1,6 +1,6 @@
 package src.data_access;
 
-import entity.User;
+import src.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;

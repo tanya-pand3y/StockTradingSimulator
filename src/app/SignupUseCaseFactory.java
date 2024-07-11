@@ -1,14 +1,14 @@
 package src.app;
 
-import data_access.FileUserDataAccessObject;
-import data_access.UserSignupDataAccessInterface;
-import entity.CommonUserFactory;
-import entity.UserFactory;
-import interface_adapter.*;
-import use_case.SignupInputBoundary;
-import use_case.SignupInteractor;
-import use_case.SignupOutputBoundary;
-import view.SignupView;
+import src.data_access.FileUserDataAccessObject;
+import src.data_access.UserSignupDataAccessInterface;
+import src.entity.CommonUserFactory;
+import src.entity.UserFactory;
+import src.interface_adapter.*;
+import src.use_case.SignupInputBoundary;
+import src.use_case.SignupInteractor;
+import src.use_case.SignupOutputBoundary;
+import src.view.SignupView;
 
 import javax.swing.*;
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package src.use_case;
 
-import data_access.UserSignupDataAccessInterface;
-import entity.User;
-import entity.UserFactory;
+import src.data_access.UserSignupDataAccessInterface;
+import src.entity.User;
+import src.entity.UserFactory;
 
 import java.time.LocalDateTime;
 

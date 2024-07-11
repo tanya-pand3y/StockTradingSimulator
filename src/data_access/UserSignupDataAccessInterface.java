@@ -1,6 +1,6 @@
 package src.data_access;
 
-import entity.User;
+import src.entity.User;
 
 public interface UserSignupDataAccessInterface {
     boolean existsByName(String identifier);

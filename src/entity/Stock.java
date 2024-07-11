@@ -7,4 +7,5 @@ public class Stock {
 
     public double getCurrentPrice() {
     }
+
 }

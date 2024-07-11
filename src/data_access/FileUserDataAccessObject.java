@@ -1,7 +1,7 @@
 package src.data_access;
 
-import entity.User;
-import entity.UserFactory;
+import src.entity.User;
+import src.entity.UserFactory;
 
 import java.io.*;
 import java.time.LocalDateTime;
