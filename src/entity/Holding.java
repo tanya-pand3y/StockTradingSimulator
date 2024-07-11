@@ -6,15 +6,15 @@ public class Holding {
     private int quantity;
     private double changeInValue;
 
-    public Holding(Stock stock, double costBasis, int quantity) {
+    public Holding(Stock stock, double purchasePrice, int quantity) {
         this.stock = stock;
-        this.costBasis = costBasis;
+        this.purchasePrice = purchasePrice;
         this.quantity = quantity;
-        this.value = costBasis * quantity;
+        this.changeInValue = purchasePrice * quantity;
     }
 
     private void recalculate() {
-        this.value = stock.getCurrentPrice() * quantity;
+        this.changeInValue = stock.getCurrentPrice() * quantity;
     }
 
     public Stock getStock() {
@@ -22,7 +22,7 @@ public class Holding {
     }
 
     public double getCostBasis() {
-        return costBasis;
+        return purchasePrice;
     }
 
     public int getQuantity() {
@@ -31,6 +31,6 @@ public class Holding {
 
     public double getValue() {
         this.recalculate();
-        return value;
+        return changeInValue;
     }
 }
