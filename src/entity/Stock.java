@@ -5,7 +5,19 @@ public class Stock {
     private String ticker;
     private double currentPrice;
 
-    public double getCurrentPrice() {
+    public Stock(String ticker) {
+        this.ticker = ticker;
+        // TODO initialize price with API call
     }
 
+    private void checkPrice() {
+        // TODO implement method with API call
+    }
+    public double getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public String getTicker() {
+        return ticker;
+    }
 }
