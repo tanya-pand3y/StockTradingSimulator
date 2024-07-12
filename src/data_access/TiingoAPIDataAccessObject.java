@@ -5,18 +5,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class TiingoAPIDataAccessObject {
     private final String ticker;
     private final Double close;
-    private final String date;
+    private final ZonedDateTime date;
+    private final int volume;
 
     public TiingoAPIDataAccessObject(String ticker) {
         this.ticker = ticker;
         JSONObject jsonObject = this.getAPIData(this.ticker);
         this.close = this.parseClosePrice(jsonObject);
         this.date = this.parseDate(jsonObject);
+        this.volume = this.parseVolume(jsonObject);
 
     }
 
@@ -61,20 +65,29 @@ public class TiingoAPIDataAccessObject {
         return jsonObject.getDouble("close");
     }
 
-    private String parseDate(JSONObject jsonObject) {
-        return jsonObject.getString("date");
+    private ZonedDateTime parseDate(JSONObject jsonObject) {
+        return ZonedDateTime.parse(jsonObject.getString("date"), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+
+    }
+
+    private int parseVolume(JSONObject jsonObject) {
+        return jsonObject.getInt("volume");
     }
 
     public Double getClose() {
-        return close;
+        return this.close;
     }
 
-    public String getDate() {
-        return date;
+    public ZonedDateTime getDate() {
+        return this.date;
     }
 
     public String getTicker() {
-        return ticker;
+        return this.ticker;
+    }
+
+    public int getVolume() {
+        return this.volume;
     }
 
     public static void main(String[] args) {
@@ -82,6 +95,7 @@ public class TiingoAPIDataAccessObject {
         System.out.println(dao.getClose());
         System.out.println(dao.getDate());
         System.out.println(dao.getTicker());
+        System.out.println(dao.getVolume());
     }
 
 
