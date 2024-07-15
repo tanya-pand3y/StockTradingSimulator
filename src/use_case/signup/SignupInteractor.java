@@ -1,4 +1,4 @@
-package src.use_case;
+package use_case.signup;
 
 import src.data_access.UserSignupDataAccessInterface;
 import src.entity.User;

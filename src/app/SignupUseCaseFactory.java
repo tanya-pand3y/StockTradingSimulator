@@ -5,9 +5,9 @@ import src.data_access.UserSignupDataAccessInterface;
 import src.entity.CommonUserFactory;
 import src.entity.UserFactory;
 import src.interface_adapter.*;
-import src.use_case.SignupInputBoundary;
-import src.use_case.SignupInteractor;
-import src.use_case.SignupOutputBoundary;
+import use_case.signup.SignupInputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
 import src.view.SignupView;
 
 import javax.swing.*;
