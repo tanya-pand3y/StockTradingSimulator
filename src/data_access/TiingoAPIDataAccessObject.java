@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class TiingoAPIDataAccessObject {
+public class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface{
     private final String ticker;
     private final Double close;
     private final ZonedDateTime date;
