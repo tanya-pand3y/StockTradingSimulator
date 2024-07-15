@@ -1,4 +1,4 @@
-package src.interface_adapter;
+package interface_adapter.login;
 
 public class LoginState {
     private String username = "";
