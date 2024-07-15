@@ -1,8 +1,8 @@
 package src.app;
 
-import src.interface_adapter.LoginViewModel;
-import src.interface_adapter.SignupViewModel;
-import src.interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.signup.ViewManagerModel;
 import src.view.LoginView;
 import src.view.SignupView;
 import src.view.ViewManager;
