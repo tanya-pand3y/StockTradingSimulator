@@ -20,8 +20,12 @@ public class Stock {
         this.date = apiDataAccessObject.getDate();
     }
 
-    private void checkPrice() {
-        // TODO implement method with API call
+    private void updateValues() {
+        TiingoAPIDataAccessObject apiDataAccessObject = new TiingoAPIDataAccessObject(this.ticker);
+        this.currentPrice = apiDataAccessObject.getClose();
+        this.volume = apiDataAccessObject.getVolume();
+        this.date = apiDataAccessObject.getDate();
+
     }
 
     public double getCurrentPrice() {
