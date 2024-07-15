@@ -1,6 +1,6 @@
-package src.entity;
+package entity;
 
-import src.data_access.TiingoAPIDataAccessObject;
+import data_access.TiingoAPIDataAccessObject;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 

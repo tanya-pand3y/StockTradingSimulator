@@ -1,8 +1,8 @@
 package use_case.signup;
 
-import src.data_access.UserSignupDataAccessInterface;
-import src.entity.User;
-import src.entity.UserFactory;
+import data_access.UserSignupDataAccessInterface;
+import entity.User;
+import entity.UserFactory;
 
 import java.time.LocalDateTime;
 

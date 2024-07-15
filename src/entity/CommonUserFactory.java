@@ -1,4 +1,4 @@
-package src.entity;
+package entity;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ public class CommonUserFactory implements UserFactory {
      */
 
     @Override
-    public src.entity.User create(String name, String password, LocalDateTime ltd) {
+    public entity.User create(String name, String password, LocalDateTime ltd) {
         return new CommonUser(name, password, ltd);
     }
 }
