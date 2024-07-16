@@ -1,5 +1,10 @@
 package src.app;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
+import interface_adapter.signup.SignupViewModel;
 import src.data_access.FileUserDataAccessObject;
 import src.data_access.UserSignupDataAccessInterface;
 import src.entity.CommonUserFactory;
