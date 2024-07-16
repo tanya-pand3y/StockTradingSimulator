@@ -1,12 +1,14 @@
 package entity;
 
-import data_access.TiingoAPIDataAccessObject;
+import data_access.StockCurrentAPIDataAccessInterface;
+import data_access.StockCurrentAPIDataAccessObject;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Stock {
-    private String name;
-    private String ticker;
+    private final String name;
+    private final String ticker;
     private double currentPrice;
     private int volume;
     private ZonedDateTime date;
@@ -14,25 +16,27 @@ public class Stock {
     public Stock(String ticker, String name) {
         this.ticker = ticker;
         this.name = name;
-        TiingoAPIDataAccessObject apiDataAccessObject = new TiingoAPIDataAccessObject(this.ticker);
+        StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
         this.currentPrice = apiDataAccessObject.getClose();
         this.volume = apiDataAccessObject.getVolume();
         this.date = apiDataAccessObject.getDate();
+
     }
 
     private void updateValues() {
-        TiingoAPIDataAccessObject apiDataAccessObject = new TiingoAPIDataAccessObject(this.ticker);
+        StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
         this.currentPrice = apiDataAccessObject.getClose();
         this.volume = apiDataAccessObject.getVolume();
         this.date = apiDataAccessObject.getDate();
-
     }
 
+    public String getName() {return this.name;}
+
     public double getCurrentPrice() {
-        return currentPrice;
+        return this.currentPrice;
     }
 
     public String getTicker() {
-        return ticker;
+        return this.ticker;
     }
 }

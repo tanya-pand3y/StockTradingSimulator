@@ -1,10 +1,8 @@
 package data_access;
 
-import java.time.ZonedDateTime;
+import org.json.JSONArray;
 
 public interface TiingoAPIDataAccessInterface {
-    Double getClose();
-    ZonedDateTime getDate();
+    JSONArray getApiArray();
     String getTicker();
-    int getVolume();
 }
