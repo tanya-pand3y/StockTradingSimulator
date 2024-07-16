@@ -1,6 +1,6 @@
 package src.view;
 
-import interface_adapter.signup.ViewManagerModel;
+import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
