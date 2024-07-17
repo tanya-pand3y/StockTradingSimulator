@@ -2,10 +2,10 @@ package app;
 
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.signup.ViewManagerModel;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import interface_adapter.ViewManagerModel;
+import src.view.LoginView;
+import src.view.SignupView;
+import src.view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
