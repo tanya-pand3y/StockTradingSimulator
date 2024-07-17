@@ -13,8 +13,7 @@ import src.interface_adapter.*;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import src.view.SignupView;
-
+import view.SignupView;
 import javax.swing.*;
 import java.io.IOException;
 

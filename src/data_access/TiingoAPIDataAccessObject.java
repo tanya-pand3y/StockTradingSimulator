@@ -1,34 +1,31 @@
-package src.data_access;
+package data_access;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
-import org.json.JSONObject;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
-
-public class TiingoAPIDataAccessObject {
+abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface{
+    private final JSONArray apiArray;
+    private final String url;
     private final String ticker;
-    private final Double close;
-    private final ZonedDateTime date;
-    private final int volume;
 
     public TiingoAPIDataAccessObject(String ticker) {
         this.ticker = ticker;
-        JSONObject jsonObject = this.getAPIData(this.ticker);
-        this.close = this.parseClosePrice(jsonObject);
-        this.date = this.parseDate(jsonObject);
-        this.volume = this.parseVolume(jsonObject);
-
+        this.url = "https://api.tiingo.com/tiingo/daily/" + ticker + "/prices";
+        this.apiArray = this.getAPIData(this.ticker);
     }
 
-    private JSONObject getAPIData(String ticker) {
-        JSONObject jsonObject = null;
+    public TiingoAPIDataAccessObject(String ticker, String startDate, String endDate) {
+        this.ticker = ticker;
+        this.url = "https://api.tiingo.com/tiingo/daily/" + ticker + "/prices?startDate=" + startDate + "&endDate=" + endDate;
+        this.apiArray = this.getAPIData(this.ticker);
+    }
+
+    private JSONArray getAPIData(String ticker) {
+        JSONArray jsonArray = null;
         try {
-            String urlString = "https://api.tiingo.com/tiingo/daily/" + ticker + "/prices";
-            URL url = new URL(urlString);
+            URL url = new URL(this.url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
@@ -48,9 +45,7 @@ public class TiingoAPIDataAccessObject {
                 }
                 in.close();
                 String rawResponse = response.toString();
-                System.out.println(rawResponse);
-                JSONArray jsonArray = new JSONArray(rawResponse);
-                jsonObject = jsonArray.getJSONObject(0);
+                jsonArray = new JSONArray(rawResponse);
 
             } else {
                 System.out.println("GET request not worked. Response Code: " + responseCode);
@@ -58,45 +53,15 @@ public class TiingoAPIDataAccessObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return jsonArray;
     }
 
-    private Double parseClosePrice(JSONObject jsonObject) {
-        return jsonObject.getDouble("close");
-    }
-
-    private ZonedDateTime parseDate(JSONObject jsonObject) {
-        return ZonedDateTime.parse(jsonObject.getString("date"), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-
-    }
-
-    private int parseVolume(JSONObject jsonObject) {
-        return jsonObject.getInt("volume");
-    }
-
-    public Double getClose() {
-        return this.close;
-    }
-
-    public ZonedDateTime getDate() {
-        return this.date;
+    public JSONArray getApiArray() {
+        return apiArray;
     }
 
     public String getTicker() {
-        return this.ticker;
+        return ticker;
     }
-
-    public int getVolume() {
-        return this.volume;
-    }
-
-    public static void main(String[] args) {
-        TiingoAPIDataAccessObject dao = new TiingoAPIDataAccessObject("MSFT");
-        System.out.println(dao.getClose());
-        System.out.println(dao.getDate());
-        System.out.println(dao.getTicker());
-        System.out.println(dao.getVolume());
-    }
-
 
 }
