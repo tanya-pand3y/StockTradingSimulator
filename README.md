@@ -1,4 +1,4 @@
-# Stock Trading Simulator
+# Stock Trading Simulator | CSC207 group project
 
 **Team Name:** Doubly Linked List
 
