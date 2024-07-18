@@ -54,4 +54,8 @@ public class Portfolio {
         this.holdings.add(holding);
     }
 
+    public int getQuantityHeld(Stock stock) {
+        return 0;
+        // TODO implement this method by searching through holdings!
+    }
 }
