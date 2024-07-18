@@ -3,9 +3,9 @@ package app;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import src.view.LoginView;
-import src.view.SignupView;
-import src.view.ViewManager;
+import view.LoginView;
+import view.SignupView;
+import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +36,7 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        SignupView signupView = src.app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = new LoginView(loginViewModel);

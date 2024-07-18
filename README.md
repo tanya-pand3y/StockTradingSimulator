@@ -1,4 +1,4 @@
-# Stock Trading Simulator
+# Stock Trading Simulator | CSC207 group project
 
 **Team Name:** Doubly Linked List
 
@@ -16,6 +16,6 @@ To give users a platform to invest in stocks, view their profits and losses, the
 
 4. Mia is a finance enthusiast who is learning by herself. She wants to get better and inspired by other people's portfolios to make better decisions herself and progress in her trading journey.
 
-5. Olivia is a data-driven finance enthusiast who loves analyzing market trends and stock performance. She uses our platform's advanced graphs to visualize market data and her portfolio's performance. With line charts, bar charts, and scatter plots, Olivia identifies patterns and insights that inform her trading decisions, helping her make more strategic investments.
+5. Olivia is a data-driven finance enthusiast who loves analyzing market trends and stock performance. She uses our platform tools like using fake money to learn more about investing in the real world and identifies patterns and insights to make more strategic investments.
 
 
