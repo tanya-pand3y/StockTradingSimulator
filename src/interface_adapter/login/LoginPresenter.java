@@ -3,7 +3,6 @@ package interface_adapter.login;
 import interface_adapter.ViewManagerModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
-import use_case.signup.SignupOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
 
@@ -17,7 +16,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the main view or another appropriate view.
+        // On success, switch to the main view.
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
         loginState.setLoggedIn(true);
@@ -25,10 +24,6 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView("MainView"); // Assuming "MainView" is the view you switch to after login
         viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareSuccessView(SignupOutputData user) {
     }
 
     @Override
