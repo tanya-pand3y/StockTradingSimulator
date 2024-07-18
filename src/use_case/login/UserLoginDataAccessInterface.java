@@ -1,10 +1,11 @@
 package use_case.login;
 
-import src.entity.User;
+import entity.User;
 
 public interface UserLoginDataAccessInterface {
 //    boolean existByEmail(String identifier);
-    boolean existByName(String identifier);
+    boolean existByName(String nameIdentifier);
+
     void save(User user);
 
     User get(String username);
