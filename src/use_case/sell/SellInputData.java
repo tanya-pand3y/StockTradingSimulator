@@ -51,11 +51,11 @@ public class SellInputData {
         return user.getPortfolio();
     }
 
+    /**
+     * Returns the quantity of the stock held in the portfolio of the user
+     * @return the quantity of the stock held in the portfolio of the user
+     */
     public int getQuantityHeld() {
-        return user.getPortfolio().getQuantityHeld(stock);
-    }
-
-    public boolean stockInAccount() {
-        return false;
+        return user.getPortfolio().getQuantityByStock(stock);
     }
 }

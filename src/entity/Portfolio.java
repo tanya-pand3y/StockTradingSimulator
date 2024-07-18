@@ -54,8 +54,35 @@ public class Portfolio {
         this.holdings.add(holding);
     }
 
-    public int getQuantityHeld(Stock stock) {
-        return 0;
-        // TODO implement this method by searching through holdings!
+    public void removeHolding (Stock stock) {
+        for (Holding holding : holdings) {
+            if (holding.getStock().equals(stock)) {
+                holdings.remove(holding);
+                break;
+            }
+        }
+    }
+
+    public Holding getHolding (Stock stock) {
+        for (Holding holding : holdings) {
+            if (holding.getStock().equals(stock)) {
+                return holding;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the quantity of a stock held in a portfolio
+     * @param stock the stock to search for
+     * @return the quantity of that stock in a holding in a portfolio
+     */
+    public int getQuantityByStock(Stock stock) {
+        for (Holding holding : holdings) {
+            if (holding.getStock().equals(stock)) {
+                return holding.getQuantity();
+            }
+        }
+        return 0; // Return 0 if no holding with the given stock is found
     }
 }
