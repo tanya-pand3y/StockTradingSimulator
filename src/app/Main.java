@@ -36,7 +36,7 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        SignupView signupView = src.app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = new LoginView(loginViewModel);
