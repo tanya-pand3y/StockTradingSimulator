@@ -11,3 +11,4 @@ public interface UserLoginDataAccessInterface {
 
     boolean existsByName(String username);
 }
+// edits
