@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.login.UserLoginDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
+public class FileUserDataAccessObject implements UserSignupDataAccessInterface, UserLoginDataAccessInterface {
 
     private final File csvFile;
 
@@ -52,9 +53,19 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface {
     }
 
     @Override
+    public boolean existByName(String nameIdentifier) {
+        return false;
+    }
+
+    @Override
     public void save(User user) {
         accounts.put(user.getName(), user);
         this.save();
+    }
+
+    @Override
+    public User get(String username) {
+        return null;
     }
 
     private void save() {

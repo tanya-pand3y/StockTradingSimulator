@@ -3,8 +3,7 @@ package use_case.login;
 import entity.User;
 
 public interface UserLoginDataAccessInterface {
-//    boolean existByEmail(String identifier);
-    boolean existByName(String nameIdentifier);
+    boolean existByName(String Identifier);
 
     void save(User user);
 
