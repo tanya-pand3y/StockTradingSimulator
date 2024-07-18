@@ -14,8 +14,7 @@ public class TransactStockUseCase {
         this.stockRepository = stockRepository;
     }
 
-    public boolean buyStock(CommonUser user, String stockID, int quantity) {
-        Stock stock = stockMarket.get(stockID); // get stock based on stockID
+    public boolean buyStock(CommonUser user, Stock stock, int quantity) {
         double totalPrice = stock.getCurrentPrice() * quantity; // Get current price of stock
         Portfolio portfolio = user.getPortfolio();
         double cash = portfolio.getCash();
@@ -24,15 +23,23 @@ public class TransactStockUseCase {
             Holding holding = new Holding(stock, stock.getCurrentPrice(), quantity); // Create new holding
             portfolio.deductCash(totalPrice); //Balance is updated after user buys
             portfolio.addHolding(holding); //Holding is added to portfolio
-            recordTransaction(user.getUserID(), stockID, "buy", quantity, stock.getCurrentPrice());
             return true;
         } else {
             // Insufficient funds
             return false;
         }
     }
-    public Transaction sellStock(String stockSymbol, int quantity) {
-        return stockRepository.sellStock(stockSymbol, quantity);
-    }
 
+    public boolean sellStock(CommonUser user, Stock stock, int quantity) {
+        Portfolio portfolio = user.getPortfolio(); // Get user portfolio
+        if (portfolio.getQuantity(stockID) >= quantity) {
+            double totalPrice = stock.getCurrentPrice() * quantity;
+            portfolio.setCash(portfolio.getCash() + totalPrice); //Update cash
+            portfolio.removeHolidng(stockID, quantity); //Remove stocks from portfolio
+            return true;
+        } else {
+            // Insufficient stock quantity
+            return false;
+        }
+    }
 }
