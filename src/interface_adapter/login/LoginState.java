@@ -47,4 +47,11 @@ public class LoginState {
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
+
+    public void setLoggedIn(boolean b) {
+
+    }
+
+    public void setLoginError(String error) {
+    }
 }
