@@ -1,7 +1,10 @@
 package view;
 
+import data_access.StockQuantityDataAccessObject;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardViewModel;
+import use_case.dashboard.DashboardInputData;
+import use_case.dashboard.DashboardInteractor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,14 +18,16 @@ public class DashboardView extends JFrame {
     private DashboardController controller;
 
 
-    public DashboardView() {
+    public DashboardView(DashboardViewModel viewModel, DashboardController controller) {
+        this.viewModel = viewModel;
+        this.controller  = controller;
         initializeUI();
     }
 
     private void initializeUI() {
         // Set up the frame
         setTitle("Stock Trading Simulator Dashboard");
-        setSize(800, 600);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -101,6 +106,10 @@ public class DashboardView extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DashboardView());
+        StockQuantityDataAccessObject a = new StockQuantityDataAccessObject("Meer");
+        DashboardInteractor interactor = new DashboardInteractor(a, new DashboardInputData("Meer"));
+        DashboardController controller = new DashboardController(interactor);
+        DashboardViewModel viewModel = new DashboardViewModel(controller, "Meer");
+        SwingUtilities.invokeLater(() -> new DashboardView(viewModel, controller));
     }
 }
