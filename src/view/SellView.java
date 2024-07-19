@@ -1,6 +1,6 @@
 package view;
 
-import use_case.sell.SellInteractor;
+import interface_adapter.sell.SellController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class SellView extends JFrame {
 
         // Stock selection
         JLabel stockLabel = new JLabel("Select Stock:");
-        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // Example stocks
+        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // TODO implement
 
         // Quantity input
         JLabel quantityLabel = new JLabel("Quantity:");
@@ -41,6 +41,7 @@ public class SellView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //executeSellOrder();
+                System.out.println("Sell " + quantityField.getText());
             }
         });
 
