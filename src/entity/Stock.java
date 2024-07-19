@@ -15,8 +15,8 @@ public class Stock {
 
     public Stock(String ticker, String name) {
         this.ticker = ticker;
-        this.name = name;
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
+        this.name = apiDataAccessObject.getName();
         this.currentPrice = apiDataAccessObject.getClose();
         this.volume = apiDataAccessObject.getVolume();
         this.date = apiDataAccessObject.getDate();

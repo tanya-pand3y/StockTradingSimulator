@@ -7,4 +7,5 @@ public interface StockHistoryDataInterface {
     ArrayList<Double> getClose();
     ArrayList<ZonedDateTime> getDate();
     ArrayList<Integer> getVolume();
+    String getName();
 }
