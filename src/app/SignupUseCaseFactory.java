@@ -1,4 +1,4 @@
-package src.app;
+package app;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;

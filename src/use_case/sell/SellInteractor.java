@@ -10,6 +10,7 @@ public class SellInteractor implements SellInputBoundary {
                           StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
         this.sellPresenter = sellOutputBoundary;
         this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
+        // TODO make this work with the new DAO implementation
     }
 
     public void execute(SellInputData sellInputData) {

@@ -33,13 +33,21 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
+
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        SignupView signupView = src.app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+//        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+//        views.add(signupView, signupView.viewName);
+
+//        LoginView loginView = new LoginView(loginViewModel, loginController);
+//        views.add(loginView, loginView.viewName);
+
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = new LoginView(loginViewModel);
+        // Creating Login View using LoginUseCaseFactory
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel);
         views.add(loginView, loginView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
