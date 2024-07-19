@@ -17,8 +17,7 @@ public class DashboardInteractor implements DashboardInputBoundary{
     }
 
     @Override
-    public Portfolio getUserPorfolio(DashboardInputData username) {
-        // TODO: Implement stockQuantityDao and add it here.
+    public Portfolio getUserPorfolio() {
         Portfolio portfolio = new Portfolio(0);
         ArrayList<String> tickers = this.stockQuantityDao.getTicker();
         ArrayList<Integer> quantities = this.stockQuantityDao.getQuantities();

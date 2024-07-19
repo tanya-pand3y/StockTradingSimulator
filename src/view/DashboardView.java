@@ -41,7 +41,7 @@ public class DashboardView extends JFrame {
         topPanel.setLayout(new GridLayout(2, 1));
         topPanel.setBackground(Color.DARK_GRAY);
 
-        JLabel welcomeLabel = new JLabel("Welcome, <Username>");
+        JLabel welcomeLabel = new JLabel("Welcome, " + this.viewModel.getUsername());
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         topPanel.add(welcomeLabel);

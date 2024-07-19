@@ -16,7 +16,7 @@ public class DashboardViewModel {
     public DashboardViewModel(DashboardController dashboardController, String username) {
         this.username = username;
         this.dashboardController = dashboardController;
-        this.portfolio = this.dashboardController.getUserPortfolio(this.username);
+        this.portfolio = this.dashboardController.getUserPortfolio();
     }
 
     public String getUsername() {
@@ -41,4 +41,6 @@ public class DashboardViewModel {
         obj = objList.toArray(obj);
         return obj;
     }
+
+
 }
