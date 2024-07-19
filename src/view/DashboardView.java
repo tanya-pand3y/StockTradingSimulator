@@ -46,7 +46,7 @@ public class DashboardView extends JFrame {
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         topPanel.add(welcomeLabel);
 
-        JLabel portfolioValueLabel = new JLabel("Portfolio Value: $308,265");
+        JLabel portfolioValueLabel = new JLabel("Portfolio Value: " + this.viewModel.getPortfolioValue());
         portfolioValueLabel.setForeground(Color.WHITE);
         portfolioValueLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         topPanel.add(portfolioValueLabel);

@@ -1,10 +1,12 @@
 package entity;
 
+import com.sun.management.HotSpotDiagnosticMXBean;
+
 import java.util.ArrayList;
 
 
 public class Portfolio {
-    private double AccountValue;
+    private double accountValue;
     private double cash;
     private double PnL;
     private ArrayList<Holding> holdings;
@@ -14,7 +16,7 @@ public class Portfolio {
      * @param StartingCash the amount of starting cash
      */
     public Portfolio (double StartingCash){
-        this.AccountValue = StartingCash;
+        this.accountValue = StartingCash;
         this.cash = StartingCash;
         this.holdings = new ArrayList<>();
     }
@@ -53,6 +55,7 @@ public class Portfolio {
      */
     public void addHolding (Holding holding) {
         this.holdings.add(holding);
+        this.updateAccountValue(holding);
     }
 
     public void removeHolding (Stock stock) {
@@ -86,4 +89,13 @@ public class Portfolio {
         }
         return 0; // Return 0 if no holding with the given stock is found
     }
+
+    public void updateAccountValue(Holding holding) {
+        this.accountValue += holding.getStock().getCurrentPrice() * holding.getQuantity();
+    }
+    public double getAccountValue() {
+        return accountValue;
+    }
+
+
 }

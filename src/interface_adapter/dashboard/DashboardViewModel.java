@@ -23,6 +23,10 @@ public class DashboardViewModel {
         return username;
     }
 
+    public double getPortfolioValue(){
+        return this.portfolio.getAccountValue();
+    }
+
     public Object[][] getStructuredDashboard(){
         ArrayList<Object[]> objList = new ArrayList<>();
         for(Holding holding : this.portfolio.getHoldings()) {
