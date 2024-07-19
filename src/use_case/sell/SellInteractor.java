@@ -1,25 +1,41 @@
 package use_case.sell;
 
-import entity.Stock;
+import data_access.StockQuantityDataAccessInterface;
 
 public class SellInteractor implements SellInputBoundary {
     final SellOutputBoundary sellPresenter;
+    final StockQuantityDataAccessInterface stockQuantityDataAccessObject;
 
-    public SellInteractor(SellOutputBoundary sellOutputBoundary) {
+    public SellInteractor(SellOutputBoundary sellOutputBoundary,
+                          StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
         this.sellPresenter = sellOutputBoundary;
+        this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
     }
 
     public void execute(SellInputData sellInputData) {
         if (sellInputData.getQuantity() > sellInputData.getQuantityHeld()) {
             sellPresenter.prepareFailView("Insufficient quantity in account");
         } else if (sellInputData.getQuantity() == sellInputData.getQuantityHeld()) {
-            // TODO use the sheet DAO to remove the holding from the sheet
+            for (String ticker: this.stockQuantityDataAccessObject.getTicker()) {
+                if(ticker.equals(sellInputData.getStock().getTicker())) {
+                    int i = this.stockQuantityDataAccessObject.getTicker().indexOf(ticker);
+                    this.stockQuantityDataAccessObject.getTicker().remove(i);
+                    this.stockQuantityDataAccessObject.getQuantities().remove(i);
+                }
+            }
             SellOutputData sellOutputData = new SellOutputData();
             sellInputData.getPortfolio().removeHolding(sellInputData.getStock()); // remove holding from portfolio
 
             sellPresenter.prepareSuccessView(sellOutputData);
         } else {
-            // TODO modify holding in portfolio to reduce quantity held and update sheet
+            for (String ticker: this.stockQuantityDataAccessObject.getTicker()) {
+                if(ticker.equals(sellInputData.getStock().getTicker())) {
+                    int i = this.stockQuantityDataAccessObject.getTicker().indexOf(ticker);
+                    int newQuantity = this.stockQuantityDataAccessObject.getQuantities().get(i)
+                                        + sellInputData.getQuantity();
+                    this.stockQuantityDataAccessObject.getQuantities().set(i, newQuantity);
+                }
+            }
             sellInputData.getPortfolio().getHolding(sellInputData.getStock())
                         .reduceQuantity(sellInputData.getQuantity());
             SellOutputData sellOutputData = new SellOutputData();
