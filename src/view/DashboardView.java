@@ -11,6 +11,10 @@ import java.time.format.DateTimeFormatter;
 
 public class DashboardView extends JFrame {
 
+    private DashboardViewModel viewModel;
+    private DashboardController controller;
+
+
     public DashboardView() {
         initializeUI();
     }
@@ -46,9 +50,7 @@ public class DashboardView extends JFrame {
 
         // Table panel
         String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
-        Object[][] data = {
-                {"Microsoft", "MSFT", 20, "$208.23", "$460.77", 2525.4, 221.17}
-        };
+        Object[][] data = this.viewModel.getStructuredDashboard();
 
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         JTable table = new JTable(tableModel);
