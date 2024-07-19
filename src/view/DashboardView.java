@@ -107,7 +107,7 @@ public class DashboardView extends JFrame {
 
     public static void main(String[] args) {
         StockQuantityDataAccessObject a = new StockQuantityDataAccessObject("Meer");
-        DashboardInteractor interactor = new DashboardInteractor(a, new DashboardInputData("Meer"));
+        DashboardInteractor interactor = new DashboardInteractor(a);
         DashboardController controller = new DashboardController(interactor);
         DashboardViewModel viewModel = new DashboardViewModel(controller, "Meer");
         SwingUtilities.invokeLater(() -> new DashboardView(viewModel, controller));
