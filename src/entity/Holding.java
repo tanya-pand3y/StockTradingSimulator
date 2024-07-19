@@ -10,11 +10,11 @@ public class Holding {
         this.stock = stock;
         this.purchasePrice = purchasePrice;
         this.quantity = quantity;
-        this.changeInValue = purchasePrice * quantity;
+        this.changeInValue = (this.stock.getCurrentPrice() - purchasePrice) * quantity;
     }
 
     private void recalculate() {
-        this.changeInValue = stock.getCurrentPrice() * quantity;
+        this.changeInValue = (stock.getCurrentPrice() - this.purchasePrice) * quantity;
     }
 
     public Stock getStock() {
@@ -29,9 +29,9 @@ public class Holding {
         return quantity;
     }
 
-    public double getValue() {
+    public double getChangeInValueValue() {
         this.recalculate();
-        return changeInValue;
+        return this.changeInValue;
     }
 
     public void setQuantity(int quantity) {

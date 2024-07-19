@@ -14,8 +14,9 @@ public class Portfolio {
      * @param StartingCash the amount of starting cash
      */
     public Portfolio (double StartingCash){
-        AccountValue = StartingCash;
-        cash = StartingCash;
+        this.AccountValue = StartingCash;
+        this.cash = StartingCash;
+        this.holdings = new ArrayList<>();
     }
 
     /**

@@ -6,4 +6,5 @@ public interface StockCurrentAPIDataAccessInterface {
     Double getClose();
     ZonedDateTime getDate();
     int getVolume();
+    String getName();
 }

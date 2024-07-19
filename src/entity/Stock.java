@@ -13,10 +13,10 @@ public class Stock {
     private int volume;
     private ZonedDateTime date;
 
-    public Stock(String ticker, String name) {
+    public Stock(String ticker) {
         this.ticker = ticker;
-        this.name = name;
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
+        this.name = apiDataAccessObject.getName();
         this.currentPrice = apiDataAccessObject.getClose();
         this.volume = apiDataAccessObject.getVolume();
         this.date = apiDataAccessObject.getDate();
