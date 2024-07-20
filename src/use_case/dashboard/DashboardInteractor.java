@@ -1,6 +1,5 @@
 package use_case.dashboard;
 
-import data_access.StockCurrentAPIDataAccessInterface;
 import data_access.StockQuantityDataAccessInterface;
 import entity.Holding;
 import entity.Portfolio;
@@ -16,8 +15,8 @@ public class DashboardInteractor implements DashboardInputBoundary{
         this.stockQuantityDao = stockQuantityDao;
     }
 
-    @Override
-    public Portfolio getUserPorfolio() {
+    public Portfolio getUserPortfolio(String username) {
+        stockQuantityDao.fetchData(username);
         Portfolio portfolio = new Portfolio(0);
         ArrayList<String> tickers = this.stockQuantityDao.getTicker();
         ArrayList<Integer> quantities = this.stockQuantityDao.getQuantities();
@@ -33,5 +32,25 @@ public class DashboardInteractor implements DashboardInputBoundary{
         }
         return portfolio;
 
+    }
+
+    public Object[][] getUserPortfolioArray(String username){
+        Portfolio portfolio = this.getUserPortfolio(username);
+        ArrayList<Object[]> objList = new ArrayList<>();
+        for(Holding holding : portfolio.getHoldings()) {
+            String name = holding.getStock().getName();
+            String ticker = holding.getStock().getTicker();
+            int quantity = holding.getQuantity();
+            double costbasis = holding.getCostBasis();
+            double currentPrice = holding.getStock().getCurrentPrice();
+            double gain = holding.getChangeInValueValue();
+            double gainPercent = currentPrice/costbasis;
+
+            Object[] temp = {name, ticker, quantity, costbasis, currentPrice, gain, gainPercent};
+            objList.add(temp);
+        }
+        Object[][] obj = new Object[objList.size()][];
+        obj = objList.toArray(obj);
+        return obj;
     }
 }

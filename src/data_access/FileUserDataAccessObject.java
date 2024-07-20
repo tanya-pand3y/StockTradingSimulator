@@ -64,7 +64,7 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
 
     @Override
     public User get(String username) {
-        return null;
+        return accounts.get(username);
     }
 
     private void save() {

@@ -4,6 +4,7 @@ import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
+import view.DashboardView;
 import view.LoginView;
 import view.SignupView;
 import view.ViewManager;
@@ -51,6 +52,11 @@ public class Main {
         // Creating Login View using LoginUseCaseFactory
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, dashboardViewModel);
         views.add(loginView, loginView.viewName);
+
+        // Creating Dashboard View
+        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel);
+        views.add(dashboardView, dashboardView.viewName);
+
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

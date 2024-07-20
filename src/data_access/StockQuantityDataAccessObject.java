@@ -8,22 +8,22 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class StockQuantityDataAccessObject implements StockQuantityDataAccessInterface{
-    private final String username;
-    private final String csvPath;
-    private final ArrayList<String> tickers;
-    private final ArrayList<Integer> quantities;
-    private final ArrayList<Double> purchasePrices;
+    private ArrayList<String> tickers;
+    private ArrayList<Integer> quantities;
+    private ArrayList<Double> purchasePrices;
 
-    public StockQuantityDataAccessObject(String username) {
-        this.username = username;
+    public StockQuantityDataAccessObject(){
         this.tickers = new ArrayList<>();
         this.quantities = new ArrayList<>();
         this.purchasePrices = new ArrayList<>();
-        this.csvPath = "UserPortfolioData/" + this.username + ".csv";
+    }
+
+    public void fetchData(String username) {
+        String csvPath = "UserPortfolioData/" + username + ".csv";
         String line;
         String csvSeparator = ",";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(this.csvPath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvPath))) {
             // Skip the header line
             br.readLine();
 
@@ -60,7 +60,7 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
     }
 
     public static void main(String[] args) {
-        StockQuantityDataAccessObject a = new StockQuantityDataAccessObject("Meer");
+        StockQuantityDataAccessObject a = new StockQuantityDataAccessObject();
     }
 }
 

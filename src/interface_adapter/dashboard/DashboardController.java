@@ -10,7 +10,7 @@ public class DashboardController {
         this.dashboardInteractor = dashboardInteractor;
     }
 
-    public Portfolio getUserPortfolio(){
-        return this.dashboardInteractor.getUserPorfolio();
+    public Object[][] getUserPortfolioArrays(String username){
+        return this.dashboardInteractor.getUserPortfolioArray(username);
     }
 }

@@ -2,49 +2,41 @@ package interface_adapter.dashboard;
 
 import entity.Holding;
 import entity.Portfolio;
-import use_case.dashboard.DashboardInputBoundary;
-import use_case.dashboard.DashboardInteractor;
+import interface_adapter.ViewModel;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-public class DashboardViewModel {
-    private String username;
-    private Portfolio portfolio;
-    private DashboardController dashboardController;
+public class DashboardViewModel extends ViewModel{
+    public final String TITLE_LABEL = "Dashboard";
+    public final String WELCOME_LABEL = "Welcome, ";
+    public final String PORTFOLIO_LABEL = "Portfolio Value: " ;
+    public final String BUY_BUTTON_LABEL = "Buy";
+    public final String SELL_BUTTON_LABEL = "Sell";
 
 
-    public DashboardViewModel(DashboardController dashboardController, String username) {
-        this.username = username;
-        this.dashboardController = dashboardController;
-        this.portfolio = this.dashboardController.getUserPortfolio();
+    public DashboardViewModel() {super("dashboard");}
+
+    private DashboardState state = new DashboardState();
+
+    public void setState(DashboardState state) {
+        this.state = state;
     }
 
-    public String getUsername() {
-        return username;
+    public DashboardState getState() {
+        return state;
+    }
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+
+    @Override
+    public void firePropertyChanged() {
+        support.firePropertyChange("UserLoggedIn", null, this.state);
     }
 
-    public double getPortfolioValue(){
-        return this.portfolio.getAccountValue();
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
-
-    public Object[][] getStructuredDashboard(){
-        ArrayList<Object[]> objList = new ArrayList<>();
-        for(Holding holding : this.portfolio.getHoldings()) {
-            String name = holding.getStock().getName();
-            String ticker = holding.getStock().getTicker();
-            int quantity = holding.getQuantity();
-            double costbasis = holding.getCostBasis();
-            double currentPrice = holding.getStock().getCurrentPrice();
-            double gain = holding.getChangeInValueValue();
-            double gainPercent = currentPrice/costbasis;
-
-            Object[] temp = {name, ticker, quantity, costbasis, currentPrice, gain, gainPercent};
-            objList.add(temp);
-        }
-        Object[][] obj = new Object[objList.size()][];
-        obj = objList.toArray(obj);
-        return obj;
-    }
-
-
 }
