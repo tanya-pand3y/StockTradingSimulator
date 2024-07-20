@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DashboardView extends JFrame {
+    public final String viewName = "dashboard";
 
     private DashboardViewModel viewModel;
     private DashboardController controller;

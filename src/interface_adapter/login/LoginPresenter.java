@@ -1,6 +1,7 @@
 package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -8,10 +9,12 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final DashboardViewModel dashboardViewModel;
 
-    public LoginPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
+    public LoginPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
+        this.dashboardViewModel = dashboardViewModel;
     }
 
     @Override
@@ -22,7 +25,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginState.setLoggedIn(true);
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView("MainView"); // Assuming "MainView" is the view you switch to after login
+        viewManagerModel.setActiveView("dashboard"); // Assuming "dashboard" is the view you switch to after login
         viewManagerModel.firePropertyChanged();
     }
 

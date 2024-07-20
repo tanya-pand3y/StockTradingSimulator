@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -16,7 +17,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("Welcome to your Stock Trading Simulator");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -36,6 +37,7 @@ public class Main {
 
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        DashboardViewModel dashboardViewModel = new DashboardViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -47,7 +49,7 @@ public class Main {
         views.add(signupView, signupView.viewName);
 
         // Creating Login View using LoginUseCaseFactory
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, dashboardViewModel);
         views.add(loginView, loginView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
