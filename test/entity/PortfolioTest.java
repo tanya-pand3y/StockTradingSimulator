@@ -1,10 +1,8 @@
-package test;
+package entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import entity.Holding;
-import entity.Portfolio;
-import entity.Stock;
+import data_access.StockCurrentAPIDataAccessObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,10 +14,13 @@ class PortfolioTest {
 
     private Portfolio portfolio;
 
+    private StockCurrentAPIDataAccessObject CurrentStockData;
+
     @BeforeEach
     public void setUp() {
         stock = new Stock("AAPL");
         portfolio = new Portfolio(1000.0);
+        CurrentStockData = new StockCurrentAPIDataAccessObject("AAPL");
     }
 
     @Test
@@ -48,24 +49,23 @@ class PortfolioTest {
 
     @Test
     void addHolding() {
+        //End of day stock price of Apple was 224.31, so the Account value should be 1000 + 224.31(10)
         Holding holding = new Holding(stock, 150.0, 10);
         portfolio.addHolding(holding);
-        assertEquals(2500.0, portfolio.getAccountValue(), 0.01);
+        double currentValue = CurrentStockData.getClose() * 10;
+        assertEquals(1000 + currentValue, portfolio.getAccountValue(), 0.01);
     }
 
     @org.junit.jupiter.api.Test
     void removeHolding() {
         Holding holding = new Holding(stock, 150.0, 2);
-        portfolio.addHolding(holding); //This makes account value 1448.62 based off of EOD stock value of apple
+        portfolio.addHolding(holding);
 
         portfolio.removeHolding(stock);
 
-        assertEquals(1448.62, portfolio.getAccountValue());
         assertEquals(0, portfolio.getHoldings().size());
 
-        portfolio.updateAccountValue(holding, false);
-
-        assertEquals(1000.0, portfolio.getAccountValue());
+        assertEquals(1000.0, portfolio.getAccountValue(), 0.1);
     }
 
     @org.junit.jupiter.api.Test
@@ -98,8 +98,9 @@ class PortfolioTest {
 
     @org.junit.jupiter.api.Test
     void getAccountValue() {
-        Holding holding = new Holding(stock, 150.0, 2); //price is 224.31
-        portfolio.addHolding(holding); //Do not need to call updateAccountValue because addHolding does it
-        assertEquals(1448.62, portfolio.getAccountValue());
+        Holding holding = new Holding(stock, 150.0, 2);
+        portfolio.addHolding(holding);
+        double currentValue = CurrentStockData.getClose() * 2;
+        assertEquals(1000 + currentValue, portfolio.getAccountValue());
     }
 }
