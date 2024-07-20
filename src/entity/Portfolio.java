@@ -55,13 +55,14 @@ public class Portfolio {
      */
     public void addHolding (Holding holding) {
         this.holdings.add(holding);
-        this.updateAccountValue(holding);
+        this.updateAccountValue(holding, true);
     }
 
     public void removeHolding (Stock stock) {
         for (Holding holding : holdings) {
             if (holding.getStock().equals(stock)) {
                 holdings.remove(holding);
+                this.updateAccountValue(holding, false);
                 break;
             }
         }
@@ -90,8 +91,13 @@ public class Portfolio {
         return 0; // Return 0 if no holding with the given stock is found
     }
 
-    public void updateAccountValue(Holding holding) {
-        this.accountValue += holding.getStock().getCurrentPrice() * holding.getQuantity();
+    public void updateAccountValue(Holding holding, boolean add) {
+        if (add){
+            this.accountValue += holding.getStock().getCurrentPrice() * holding.getQuantity();
+        }else{
+            this.accountValue -= holding.getStock().getCurrentPrice() * holding.getQuantity();
+        }
+
     }
     public double getAccountValue() {
         return accountValue;
