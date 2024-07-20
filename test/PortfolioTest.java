@@ -1,7 +1,10 @@
-package entity;
+package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import entity.Holding;
+import entity.Portfolio;
+import entity.Stock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,11 +56,15 @@ class PortfolioTest {
     @org.junit.jupiter.api.Test
     void removeHolding() {
         Holding holding = new Holding(stock, 150.0, 2);
-        portfolio.addHolding(holding);
+        portfolio.addHolding(holding); //This makes account value 1448.62 based off of EOD stock value of apple
 
         portfolio.removeHolding(stock);
 
+        assertEquals(1448.62, portfolio.getAccountValue());
         assertEquals(0, portfolio.getHoldings().size());
+
+        portfolio.updateAccountValue(holding, false);
+
         assertEquals(1000.0, portfolio.getAccountValue());
     }
 
@@ -85,15 +92,14 @@ class PortfolioTest {
     void updateAccountValue() {
         Holding holding = new Holding(stock, 150.0, 10);
         portfolio.addHolding(holding);
-        portfolio.updateAccountValue(holding);
+        portfolio.updateAccountValue(holding, true);
         assertTrue(portfolio.getAccountValue() > 1000.0);
     }
 
     @org.junit.jupiter.api.Test
     void getAccountValue() {
-        Holding holding = new Holding(stock, 150.0, 2);
-        portfolio.addHolding(holding);
-        portfolio.updateAccountValue(holding);
-        assertEquals(1300.0, portfolio.getAccountValue());
+        Holding holding = new Holding(stock, 150.0, 2); //price is 224.31
+        portfolio.addHolding(holding); //Do not need to call updateAccountValue because addHolding does it
+        assertEquals(1448.62, portfolio.getAccountValue());
     }
 }
