@@ -88,6 +88,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                         if (evt.getSource().equals(logIn)) {
                             loginController.execute(usernameInputField.getText(),
                                     String.valueOf(passwordInputField.getPassword()));
+//                            System.out.println("hello this works");
                         }
                     }
                 }
