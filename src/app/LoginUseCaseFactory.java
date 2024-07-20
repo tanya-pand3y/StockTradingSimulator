@@ -1,6 +1,7 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -19,10 +20,10 @@ public class LoginUseCaseFactory {
     /** Prevent instantiation. */
     private LoginUseCaseFactory() {}
 
-    public static LoginView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
+    public static LoginView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
 
         try {
-            LoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
+            LoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel, dashboardViewModel);
             return new LoginView(loginViewModel, loginController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -31,10 +32,10 @@ public class LoginUseCaseFactory {
         return null;
     }
 
-    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
+    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) throws IOException {
         UserLoginDataAccessInterface userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
 
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel);
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel, loginViewModel, dashboardViewModel);
 
         LoginInputBoundary userLoginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary);
 
