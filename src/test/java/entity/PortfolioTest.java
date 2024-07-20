@@ -85,7 +85,7 @@ class PortfolioTest {
     void updateAccountValue() {
         Holding holding = new Holding(stock, 150.0, 10);
         portfolio.addHolding(holding);
-        portfolio.updateAccountValue(holding);
+        portfolio.updateAccountValue(holding, true);
         assertTrue(portfolio.getAccountValue() > 1000.0);
     }
 
@@ -93,7 +93,7 @@ class PortfolioTest {
     void getAccountValue() {
         Holding holding = new Holding(stock, 150.0, 2);
         portfolio.addHolding(holding);
-        portfolio.updateAccountValue(holding);
+        portfolio.updateAccountValue(holding, true);
         assertEquals(1300.0, portfolio.getAccountValue());
     }
 }
