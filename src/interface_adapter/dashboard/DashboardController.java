@@ -10,8 +10,7 @@ public class DashboardController {
         this.dashboardInteractor = dashboardInteractor;
     }
 
-    public Portfolio getUserPortfolio(String username){
-        DashboardInputData usernameInputData = new DashboardInputData(username);
-        return this.dashboardInteractor.getUserPorfolio(usernameInputData);
+    public Portfolio getUserPortfolio(){
+        return this.dashboardInteractor.getUserPorfolio();
     }
 }

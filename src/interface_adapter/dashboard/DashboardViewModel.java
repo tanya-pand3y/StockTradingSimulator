@@ -16,11 +16,15 @@ public class DashboardViewModel {
     public DashboardViewModel(DashboardController dashboardController, String username) {
         this.username = username;
         this.dashboardController = dashboardController;
-        this.portfolio = this.dashboardController.getUserPortfolio(this.username);
+        this.portfolio = this.dashboardController.getUserPortfolio();
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public double getPortfolioValue(){
+        return this.portfolio.getAccountValue();
     }
 
     public Object[][] getStructuredDashboard(){
@@ -41,4 +45,6 @@ public class DashboardViewModel {
         obj = objList.toArray(obj);
         return obj;
     }
+
+
 }
