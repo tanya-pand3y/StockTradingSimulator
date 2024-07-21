@@ -38,11 +38,6 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Printing the ArrayLists to verify
-        System.out.println("Tickers: " + tickers);
-        System.out.println("Purchase Prices: " + purchasePrices);
-        System.out.println("Quantities: " + quantities);
     }
     @Override
     public ArrayList<String> getTicker() {
@@ -59,8 +54,5 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         return this.purchasePrices;
     }
 
-    public static void main(String[] args) {
-        StockQuantityDataAccessObject a = new StockQuantityDataAccessObject();
-    }
 }
 

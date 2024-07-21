@@ -5,6 +5,7 @@ import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardViewModel;
 import use_case.dashboard.DashboardInputData;
 import use_case.dashboard.DashboardInteractor;
+import use_case.dashboard.DashboardOutputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,6 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         this.viewModel = viewModel;
         this.controller = controller;
         this.viewModel.addPropertyChangeListener(this);
-
 
         // Constructing the UI
         try {
@@ -131,6 +131,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Sell button pressed");
+                        DashboardOutputData dashboardOutputData = new DashboardOutputData(viewModel.getState().getUsername());
+                        controller.sellButtonClicked(dashboardOutputData);
                     }
                 }
         );
@@ -156,9 +158,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void actionPerformed(ActionEvent e) {
 
-
     }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("UserLoggedIn")){
@@ -166,7 +166,6 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             Object[][] data = controller.getUserPortfolioArrays(this.viewModel.getState().getUsername());
             DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
             dashboardTable.setModel(tableModel);
-
         }
 
     }

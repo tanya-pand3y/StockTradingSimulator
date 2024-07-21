@@ -3,6 +3,7 @@ package interface_adapter.dashboard;
 import entity.Portfolio;
 import use_case.dashboard.DashboardInputBoundary;
 import use_case.dashboard.DashboardInputData;
+import use_case.dashboard.DashboardOutputData;
 
 public class DashboardController {
     private final DashboardInputBoundary dashboardInteractor;
@@ -12,5 +13,9 @@ public class DashboardController {
 
     public Object[][] getUserPortfolioArrays(String username){
         return this.dashboardInteractor.getUserPortfolioArray(username);
+    }
+
+    public void sellButtonClicked(DashboardOutputData dashboardOutputData){
+        this.dashboardInteractor.prepareSellView(dashboardOutputData);
     }
 }

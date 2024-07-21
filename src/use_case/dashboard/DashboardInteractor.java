@@ -10,9 +10,11 @@ import java.util.ArrayList;
 public class DashboardInteractor implements DashboardInputBoundary{
 
     private final StockQuantityDataAccessInterface stockQuantityDao;
+    private final DashboardOutputBoundary dashboardPresenter;
 
-    public DashboardInteractor(StockQuantityDataAccessInterface stockQuantityDao){
+    public DashboardInteractor(StockQuantityDataAccessInterface stockQuantityDao, DashboardOutputBoundary dashboardOutputBoundary){
         this.stockQuantityDao = stockQuantityDao;
+        this.dashboardPresenter = dashboardOutputBoundary;
     }
 
     public Portfolio getUserPortfolio(String username) {
@@ -52,5 +54,9 @@ public class DashboardInteractor implements DashboardInputBoundary{
         Object[][] obj = new Object[objList.size()][];
         obj = objList.toArray(obj);
         return obj;
+    }
+
+    public void prepareSellView(DashboardOutputData dashboardOutputData){
+        this.dashboardPresenter.prepareSellView(dashboardOutputData);
     }
 }

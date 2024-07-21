@@ -11,17 +11,12 @@ public class SellInteractor implements SellInputBoundary {
     public SellInteractor(SellOutputBoundary sellOutputBoundary,
                           StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
         this.sellPresenter = sellOutputBoundary;
-        this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
-        this.stockQuantityDataAccessObject.fetchData("Meer");
-        // TODO make this work with username of the actual user.
+        this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;;
     }
 
-    public String[] getHeldStocks() {
-        String[] tickers = new String[0];
-        for(String ticker: stockQuantityDataAccessObject.getTicker()) {
-            tickers[stockQuantityDataAccessObject.getTicker().indexOf(ticker)] = ticker;
-        }
-        return tickers;
+    public ArrayList<String> getHeldStocks(String username) {
+        this.stockQuantityDataAccessObject.fetchData(username);
+        return this.stockQuantityDataAccessObject.getTicker();
     }
 
     public void execute(SellInputData sellInputData) {
