@@ -7,4 +7,5 @@ public interface StockQuantityDataAccessInterface {
     ArrayList<Integer> getQuantities();
     ArrayList<Double> getPurchasePrices();
     void fetchData(String username);
+    void deleteStocks(String username, String ticker, Integer quantity);
 }

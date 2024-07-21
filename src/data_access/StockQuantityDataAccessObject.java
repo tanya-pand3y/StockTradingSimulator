@@ -1,11 +1,7 @@
 package data_access;
 
-import java.io.BufferedReader;
+import java.io.*;
 import java.util.ArrayList;
-
-
-import java.io.FileReader;
-import java.io.IOException;
 
 public class StockQuantityDataAccessObject implements StockQuantityDataAccessInterface{
     private ArrayList<String> tickers;
@@ -39,6 +35,53 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void deleteStocks(String username, String ticker, Integer quantity) {
+        String filePath = "UserPortfolioData/" + username + ".csv";
+        ArrayList<String> fileContent = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean found = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(ticker + ",")) {
+                    String[] parts = line.split(",");
+                    int currentQuantity = Integer.parseInt(parts[2]);
+                    if (currentQuantity < quantity) {
+                        System.out.println("Error: Not enough quantity to delete");
+                        return;
+                    }
+                    int newQuantity = currentQuantity - quantity;
+                    if (newQuantity > 0) {
+                        fileContent.add(parts[0] + "," + parts[1] + "," + newQuantity);
+                    }
+                    found = true;
+                } else {
+                    fileContent.add(line);
+                }
+            }
+
+            if (!found) {
+                System.out.println("Error: Ticker not found");
+                return;
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String content : fileContent) {
+                writer.write(content);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
+
     @Override
     public ArrayList<String> getTicker() {
         return this.tickers;
@@ -54,5 +97,9 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         return this.purchasePrices;
     }
 
+    public static void main(String[] args) {
+        StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
+        stockQuantityDataAccessObject.deleteStocks("Tanya", "GOOG", 10);
+    }
 }
 
