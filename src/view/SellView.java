@@ -48,7 +48,7 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
         this.sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //executeSellOrder();
+                executeSellOrder();
                 System.out.println("Sell " + quantityField.getText());
             }
         });

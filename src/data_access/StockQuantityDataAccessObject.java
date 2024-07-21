@@ -15,6 +15,9 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
     }
 
     public void fetchData(String username) {
+        this.tickers = new ArrayList<>();
+        this.quantities = new ArrayList<>();
+        this.purchasePrices = new ArrayList<>();
         String csvPath = "UserPortfolioData/" + username + ".csv";
         String line;
         String csvSeparator = ",";
@@ -80,6 +83,9 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         } catch (IOException e) {
             System.out.println("Error writing file: " + e.getMessage());
         }
+
+        int index = this.tickers.indexOf(ticker);
+        this.quantities.set(index, this.quantities.get(index) - quantity);
     }
 
     @Override
@@ -95,11 +101,6 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
     @Override
     public ArrayList<Double> getPurchasePrices() {
         return this.purchasePrices;
-    }
-
-    public static void main(String[] args) {
-        StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
-        stockQuantityDataAccessObject.deleteStocks("Tanya", "GOOG", 10);
     }
 }
 

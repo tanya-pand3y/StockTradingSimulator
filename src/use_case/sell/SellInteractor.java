@@ -51,5 +51,9 @@ public class SellInteractor implements SellInputBoundary {
 //            SellOutputData sellOutputData = new SellOutputData();
 //            sellPresenter.prepareSuccessView(sellOutputData);
 //        }
+        stockQuantityDataAccessObject.deleteStocks(sellInputData.getUsername(), sellInputData.getTicker(),
+                sellInputData.getQuantity());
+        SellOutputData sellOutputData = new SellOutputData();
+        sellPresenter.prepareSuccessView(sellOutputData);
     }
 }
