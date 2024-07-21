@@ -1,5 +1,6 @@
 package interface_adapter.sell;
 
+
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
