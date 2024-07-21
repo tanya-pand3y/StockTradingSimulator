@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.ViewStockHistory.ViewStockHistoryViewModel;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.sell.SellViewModel;
@@ -9,6 +10,7 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -61,6 +63,7 @@ public class Main {
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
+
 
         application.pack();
         application.setVisible(true);
