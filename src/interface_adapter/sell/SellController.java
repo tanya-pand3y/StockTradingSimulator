@@ -14,8 +14,8 @@ public class SellController {
 
     }
 
-    public String[] getHeldStocks() {
-        return sellUseCaseInteractor.getHeldStocks();
+    public ArrayList<String> getHeldStocks(String username) {
+        return sellUseCaseInteractor.getHeldStocks(username);
     }
 
     public void execute(Stock stock, int quantity, double price, User user) {

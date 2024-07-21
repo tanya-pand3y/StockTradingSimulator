@@ -5,6 +5,7 @@ import entity.Stock;
 import java.util.List;
 
 public class SellState {
+    private String username;
     private List<Stock> availableStocks;
     private String selectedStockSymbol;
     private int quantity;
@@ -40,5 +41,12 @@ public class SellState {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

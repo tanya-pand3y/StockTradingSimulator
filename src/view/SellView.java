@@ -7,26 +7,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
-public class SellView extends JFrame {
+public class SellView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sell";
     private SellViewModel viewModel;
     private final SellController controller;
 
-    private JComboBox<String> stockComboBox;
+    private JComboBox stockComboBox;
     private JTextField quantityField;
     private JButton sellButton;
 
     public SellView(SellViewModel viewModel, SellController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
-        initializeUI();
+        this.initializeUI();
+        this.viewModel.addPropertyChangeListener(this);
     }
 
     private void initializeUI() {
-        setTitle("Sell menu");
-        setSize(400, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(50, 100);
         setLayout(new BorderLayout());
         // Main panel
         JPanel mainPanel = new JPanel();
@@ -34,17 +36,16 @@ public class SellView extends JFrame {
 
         // Stock selection
         JLabel stockLabel = new JLabel(this.viewModel.TITLE_LABEL);
-        System.out.println(controller.getHeldStocks());
 //        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // TODO implement
-        stockComboBox = new JComboBox<>(controller.getHeldStocks());
+        this.stockComboBox = new JComboBox<>(new String[]{""});
 
         // Quantity input
         JLabel quantityLabel = new JLabel(this.viewModel.QUANTITY_LABEL);
-        quantityField = new JTextField();
+        this.quantityField = new JTextField();
 
         // Sell button
-        sellButton = new JButton(this.viewModel.EXECUTE_LABEL);
-        sellButton.addActionListener(new ActionListener() {
+        this.sellButton = new JButton(this.viewModel.EXECUTE_LABEL);
+        this.sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //executeSellOrder();
@@ -62,6 +63,20 @@ public class SellView extends JFrame {
 
         // Add main panel to the frame
         add(mainPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("state")){
+            ArrayList<String> tickers = controller.getHeldStocks(this.viewModel.getState().getUsername());
+            String[] tickersArray = tickers.toArray(new String[0]);
+            this.stockComboBox.setModel(new DefaultComboBoxModel<String>(tickersArray));
+        }
     }
 
 //    private void executeSellOrder() {

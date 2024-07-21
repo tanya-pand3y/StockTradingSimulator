@@ -2,12 +2,10 @@ package app;
 
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.sell.SellViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import view.DashboardView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +37,7 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         DashboardViewModel dashboardViewModel = new DashboardViewModel();
+        SellViewModel sellViewModel = new SellViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -54,11 +53,13 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         // Creating Dashboard View
-        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel);
+        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(dashboardView, dashboardView.viewName);
 
+        SellView sellView = SellViewFactory.create(viewManagerModel, sellViewModel);
+        views.add(sellView, sellView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

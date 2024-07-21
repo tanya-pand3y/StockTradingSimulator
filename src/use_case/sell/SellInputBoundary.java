@@ -9,5 +9,5 @@ public interface SellInputBoundary {
      * @param sellInputData the input data of the sell order to execute
      */
     void execute(SellInputData sellInputData);
-    String[] getHeldStocks();
+    ArrayList<String> getHeldStocks(String username);
 }

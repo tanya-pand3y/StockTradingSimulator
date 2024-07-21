@@ -29,18 +29,19 @@ import java.io.IOException;
 public class DashboardViewFactory {
     DashboardViewFactory() {}
 
-    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel) {
+    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel) {
 
-        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel);
+        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);
     }
 
-    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel){
+    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel){
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter();
-        DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject);
+        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, sellViewModel, dashboardViewModel);
+
+        DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject, dashboardPresenter);
 
         return new DashboardController(dashboardInteractor);
     }

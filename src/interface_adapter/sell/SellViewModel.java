@@ -10,7 +10,7 @@ public class SellViewModel extends ViewModel {
     public final String SELECT_LABEL = "Select stock:";
     public final String QUANTITY_LABEL = "Quantity:";
     public final String EXECUTE_LABEL = "Sell";
-    private final SellState state = new SellState();
+    private SellState state = new SellState();
 
     public SellViewModel() {
         super("sell");
@@ -25,5 +25,13 @@ public class SellViewModel extends ViewModel {
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    public SellState getState() {
+        return state;
+    }
+
+    public void setState(SellState state) {
+        this.state = state;
     }
 }
