@@ -102,10 +102,5 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
     public ArrayList<Double> getPurchasePrices() {
         return this.purchasePrices;
     }
-
-    public static void main(String[] args) {
-        StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
-        stockQuantityDataAccessObject.deleteStocks("Tanya", "GOOG", 10);
-    }
 }
 
