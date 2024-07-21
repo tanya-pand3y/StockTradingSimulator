@@ -49,7 +49,7 @@ public class Main {
         views.add(signupView, signupView.viewName);
 
         // Creating Login View using LoginUseCaseFactory
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, dashboardViewModel);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, dashboardViewModel, signupViewModel);
         views.add(loginView, loginView.viewName);
 
         // Creating Dashboard View

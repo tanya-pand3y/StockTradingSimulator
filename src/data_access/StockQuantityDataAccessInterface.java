@@ -8,4 +8,5 @@ public interface StockQuantityDataAccessInterface {
     ArrayList<Double> getPurchasePrices();
     void fetchData(String username);
     void deleteStocks(String username, String ticker, Integer quantity);
+    void createUserCSV(String username);
 }

@@ -1,5 +1,7 @@
 package app;
 
+import data_access.StockQuantityDataAccessInterface;
+import data_access.StockQuantityDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
@@ -36,6 +38,7 @@ public class SignupUseCaseFactory {
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
         UserSignupDataAccessInterface userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+        StockQuantityDataAccessInterface stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
@@ -43,7 +46,7 @@ public class SignupUseCaseFactory {
         UserFactory userFactory = new CommonUserFactory();
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary, userFactory);
+                userDataAccessObject, signupOutputBoundary, userFactory, stockQuantityDataAccessObject);
 
         return new SignupController(userSignupInteractor);
     }
