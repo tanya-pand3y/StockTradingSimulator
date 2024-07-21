@@ -2,6 +2,8 @@ package use_case.sell;
 
 import data_access.StockQuantityDataAccessInterface;
 
+import java.util.ArrayList;
+
 public class SellInteractor implements SellInputBoundary {
     final SellOutputBoundary sellPresenter;
     final StockQuantityDataAccessInterface stockQuantityDataAccessObject;
@@ -10,7 +12,16 @@ public class SellInteractor implements SellInputBoundary {
                           StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
         this.sellPresenter = sellOutputBoundary;
         this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
-        // TODO make this work with the new DAO implementation
+        this.stockQuantityDataAccessObject.fetchData("Meer");
+        // TODO make this work with username of the actual user.
+    }
+
+    public String[] getHeldStocks() {
+        String[] tickers = new String[0];
+        for(String ticker: stockQuantityDataAccessObject.getTicker()) {
+            tickers[stockQuantityDataAccessObject.getTicker().indexOf(ticker)] = ticker;
+        }
+        return tickers;
     }
 
     public void execute(SellInputData sellInputData) {

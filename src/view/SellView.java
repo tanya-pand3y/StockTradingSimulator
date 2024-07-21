@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.sell.SellController;
+import interface_adapter.sell.SellViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,12 +9,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SellView extends JFrame {
+    public final String viewName = "sell";
+    private SellViewModel viewModel;
+    private final SellController controller;
 
     private JComboBox<String> stockComboBox;
     private JTextField quantityField;
     private JButton sellButton;
 
-    public SellView() {
+    public SellView(SellViewModel viewModel, SellController controller) {
+        this.viewModel = viewModel;
+        this.controller = controller;
         initializeUI();
     }
 
@@ -22,21 +28,22 @@ public class SellView extends JFrame {
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
         // Main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(3, 2));
 
         // Stock selection
-        JLabel stockLabel = new JLabel("Select Stock:");
-        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // TODO implement
+        JLabel stockLabel = new JLabel(this.viewModel.TITLE_LABEL);
+        System.out.println(controller.getHeldStocks());
+//        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // TODO implement
+        stockComboBox = new JComboBox<>(controller.getHeldStocks());
 
         // Quantity input
-        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel quantityLabel = new JLabel(this.viewModel.QUANTITY_LABEL);
         quantityField = new JTextField();
 
         // Sell button
-        sellButton = new JButton("Sell");
+        sellButton = new JButton(this.viewModel.EXECUTE_LABEL);
         sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,7 +79,7 @@ public class SellView extends JFrame {
 //        sellInteractor.execute(selectedStock, quantity);
 //    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new SellView().setVisible(true));
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new SellView().setVisible(true));
+//    }
 }
