@@ -2,6 +2,7 @@ package app;
 
 import data_access.StockQuantityDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.sell.SellController;
 import interface_adapter.sell.SellPresenter;
 import interface_adapter.sell.SellViewModel;
@@ -13,15 +14,19 @@ import view.SellView;
 public class SellViewFactory {
     SellViewFactory() {}
 
-    public static SellView create(ViewManagerModel viewManagerModel, SellViewModel sellViewModel) {
-        SellController sellController = createSellUseCase(viewManagerModel, sellViewModel);
+    public static SellView create(ViewManagerModel viewManagerModel,
+                                  DashboardViewModel dashboardViewModel,
+                                  SellViewModel sellViewModel) {
+        SellController sellController = createSellUseCase(viewManagerModel, dashboardViewModel, sellViewModel);
         return new SellView(sellViewModel, sellController);
     }
 
-    private static SellController createSellUseCase(ViewManagerModel viewManagerModel, SellViewModel sellViewModel) {
+    private static SellController createSellUseCase(ViewManagerModel viewManagerModel,
+                                                    DashboardViewModel dashboardViewModel,
+                                                    SellViewModel sellViewModel) {
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
-        SellOutputBoundary sellPresenter = new SellPresenter(sellViewModel, viewManagerModel);
+        SellOutputBoundary sellPresenter = new SellPresenter(dashboardViewModel, sellViewModel, viewManagerModel);
         SellInputBoundary sellInteractor = new SellInteractor(sellPresenter, stockQuantityDataAccessObject);
 
         return new SellController(sellInteractor);
