@@ -1,7 +1,5 @@
 package interface_adapter.sell;
 
-import entity.Stock;
-import entity.User;
 import use_case.sell.SellInputBoundary;
 import use_case.sell.SellInputData;
 import java.util.ArrayList;
@@ -18,8 +16,8 @@ public class SellController {
         return sellUseCaseInteractor.getHeldStocks(username);
     }
 
-    public void execute(Stock stock, int quantity, double price, User user) {
-        SellInputData sellInputData = new SellInputData(stock, quantity, price, user);
+    public void execute(String ticker, int quantity, String username) {
+        SellInputData sellInputData = new SellInputData(ticker, quantity, username);
         sellUseCaseInteractor.execute(sellInputData);
     }
 }

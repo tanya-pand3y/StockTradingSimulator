@@ -36,7 +36,7 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
 
         // Stock selection
         JLabel stockLabel = new JLabel(this.viewModel.TITLE_LABEL);
-//        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"}); // TODO implement
+//        stockComboBox = new JComboBox<>(new String[]{"AAPL", "GOOGL", "MSFT"});
         this.stockComboBox = new JComboBox<>(new String[]{""});
 
         // Quantity input
@@ -79,20 +79,21 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
         }
     }
 
-//    private void executeSellOrder() {
-//        String selectedStock = (String) stockComboBox.getSelectedItem();
-//        int quantity;
-//        try {
-//            quantity = Integer.parseInt(quantityField.getText());
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(this, "Please enter a valid quantity", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//
+    private void executeSellOrder() {
+        String selectedStock = (String) stockComboBox.getSelectedItem();
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid quantity", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        controller.execute(selectedStock, quantity, this.viewModel.getState().getUsername());
+
 //        // Execute the sell order using SellInteractor
 //        SellInteractor sellInteractor = new SellInteractor();
 //        sellInteractor.execute(selectedStock, quantity);
-//    }
+    }
 
 //    public static void main(String[] args) {
 //        SwingUtilities.invokeLater(() -> new SellView().setVisible(true));

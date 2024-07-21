@@ -58,7 +58,7 @@ public class Main {
         DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(dashboardView, dashboardView.viewName);
 
-        SellView sellView = SellViewFactory.create(viewManagerModel, sellViewModel);
+        SellView sellView = SellViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(sellView, sellView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);

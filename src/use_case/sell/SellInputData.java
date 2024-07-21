@@ -5,30 +5,28 @@ import entity.Stock;
 import entity.User;
 
 public class SellInputData {
-    private final Stock stock;
+    private final String ticker;
     private final int quantity;
-    private final double price;
-    private final User user;
+    private final String username;
 
     /**
      * Creates a package of SellInputData
-     * @param stock the stock
+     * @param ticker the stock ticker
      * @param quantity the quantity
-     * @param price the price
+     * @param username the username
      */
-    public SellInputData(Stock stock, int quantity, double price, User user) {
-        this.stock = stock;
+    public SellInputData(String ticker, int quantity, String username) {
+        this.ticker = ticker;
         this.quantity = quantity;
-        this.price = price;
-        this.user = user;
+        this.username = username;
     }
 
     /**
-     * Returns the stock
-     * @return the stock
+     * Returns the stock ticker
+     * @return the stock ticker
      */
-    public Stock getStock() {
-        return stock;
+    public String getTicker() {
+        return ticker;
     }
 
     /**
@@ -39,23 +37,19 @@ public class SellInputData {
         return quantity;
     }
 
-    /**
-     * Returns the price
-     * @return the price
-     */
-    public double getPrice() {
-        return price;
+    public String getUsername() {
+        return username;
     }
 
-    public Portfolio getPortfolio() {
-        return user.getPortfolio();
-    }
-
-    /**
-     * Returns the quantity of the stock held in the portfolio of the user
-     * @return the quantity of the stock held in the portfolio of the user
-     */
-    public int getQuantityHeld() {
-        return user.getPortfolio().getQuantityByStock(stock);
-    }
+//    public Portfolio getPortfolio() {
+//        return user.getPortfolio();
+//    }
+//
+//    /**
+//     * Returns the quantity of the stock held in the portfolio of the user
+//     * @return the quantity of the stock held in the portfolio of the user
+//     */
+//    public int getQuantityHeld() {
+//        return user.getPortfolio().getQuantityByStock(stock);
+//    }
 }
