@@ -20,6 +20,7 @@ public class SellPresenter implements SellOutputBoundary {
     @Override
     public void prepareSuccessView(SellOutputData response) {
         System.out.println("Returning to dashboard, sale successful");
+        dashboardViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(dashboardViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
