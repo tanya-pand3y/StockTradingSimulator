@@ -10,7 +10,6 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,6 +39,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         DashboardViewModel dashboardViewModel = new DashboardViewModel();
         SellViewModel sellViewModel = new SellViewModel();
+        ViewStockHistoryViewModel viewStockHistoryViewModel = new ViewStockHistoryViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -60,6 +60,7 @@ public class Main {
 
         SellView sellView = SellViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(sellView, sellView.viewName);
+
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
