@@ -4,9 +4,13 @@
 
 **Domain:** Stock trading simulator
 
-### How to run:
-Running the main method in app/Main.java will start the login GUI. You can view users.csv to see the usernames and passwords you can use. Meer (password 1234)
- and Tanya (password 123) both have somewhat comprehensive portfolios already.
+### Installation Instructions - How to run:
+1. Running the main method in app/Main.java this will start the login GUI.
+2. You can view users.csv to see the usernames and passwords you can use.
+3. Choose between Meer (password 1234) and Tanya (password 123).
+4. When you login using Meer or Tanya you will be able to view their stock portfolios.
+Note: We have implemented Buy and Sell we are working on connecting them to the portfolio page. We are also working on any user who has signed up to be able to login to their accounts, we estimate to finish these bugs latest by Wednesday. 
+
 ### **Software Specification:**
 To give users a platform to invest in stocks, view their profits and losses, their own and other’s portfolios, view stock price trends, and use fake money to buy and sell stocks. The target audience are finance enthusiasts who want to learn stock trading. 
 
