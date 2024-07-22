@@ -89,6 +89,26 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
     }
 
     @Override
+    public void createUserCSV(String username) {
+        String folderPath = "UserPortfolioData";
+        String filePath = folderPath + "/" + username + ".csv";
+
+        // Create the directory if it doesn't exist
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        // Create the CSV file with headers
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write("Ticker,PurchasePrice,Quantity");
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+    }
+
+    @Override
     public ArrayList<String> getTicker() {
         return this.tickers;
     }

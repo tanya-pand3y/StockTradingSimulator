@@ -32,6 +32,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     final JButton logIn;
     final JButton cancel;
+    final JButton signUp;
 
     /**
      * A window with a title and a JButton.
@@ -54,6 +55,19 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         buttons.add(logIn);
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+        signUp = new JButton(loginViewModel.SIGN_UP_BUTTON_LABEL);
+        buttons.add(signUp);
+
+        signUp.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(signUp)){
+                            loginController.signUpClicked();
+                        }
+                    }
+                }
+        );
 
         logIn.addActionListener(this);
         cancel.addActionListener(this);

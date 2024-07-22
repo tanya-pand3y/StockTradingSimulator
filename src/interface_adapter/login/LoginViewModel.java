@@ -11,6 +11,7 @@ public class LoginViewModel extends ViewModel {
     public final String USERNAME_LABEL = "Enter username";
     public final String PASSWORD_LABEL = "Enter password";
 
+    public final String SIGN_UP_BUTTON_LABEL = "Sign Up";
     public final String LOGIN_BUTTON_LABEL = "Log in";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
