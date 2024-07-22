@@ -1,6 +1,5 @@
 package app;
 
-import interface_adapter.ViewStockHistory.ViewStockHistoryViewModel;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.sell.SellViewModel;
