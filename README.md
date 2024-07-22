@@ -10,7 +10,6 @@
 Note: Since the buy use case is not implemented, you cannot buy any stocks as of now. However, for the purpose demonstrating the other use cases we have created two UserPortfolioData csv files namely- Meer.csv and Tanya.csv. We estimate to finish the implementation for buy use case and fix related bugs latest by Wednesday.
 3. Choose between Meer (password 1234) and Tanya (password 123).
 4. When you login using Meer or Tanya you will be able to view their stock portfolios. Further if you press sell you can choose a stock and sell it. This will also update Meer.csv/Tanya.csv appropriately.  
-Note: We have implemented Buy and Sell we are working on connecting them to the portfolio page. We are also working on any user who has signed up to be able to login to their accounts,  
 
 ### **Software Specification:**
 To give users a platform to invest in stocks, view their profits and losses, their own and other’s portfolios, view stock price trends, and use fake money to buy and sell stocks. The target audience are finance enthusiasts who want to learn stock trading. 
