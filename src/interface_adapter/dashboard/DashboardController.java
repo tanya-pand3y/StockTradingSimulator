@@ -15,6 +15,10 @@ public class DashboardController {
         return this.dashboardInteractor.getUserPortfolioArray(username);
     }
 
+    public Portfolio getUserPortfolio(String username){
+        return this.dashboardInteractor.getUserPortfolio(username);
+    }
+
     public void sellButtonClicked(DashboardOutputData dashboardOutputData){
         this.dashboardInteractor.prepareSellView(dashboardOutputData);
     }

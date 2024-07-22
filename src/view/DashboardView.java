@@ -1,6 +1,7 @@
 package view;
 
 import data_access.StockQuantityDataAccessObject;
+import entity.Portfolio;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardViewModel;
 import use_case.dashboard.DashboardInputData;
@@ -168,6 +169,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             Object[][] data = controller.getUserPortfolioArrays(this.viewModel.getState().getUsername());
             DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
             dashboardTable.setModel(tableModel);
+            Portfolio portfolio = controller.getUserPortfolio(this.viewModel.getState().getUsername());
+            this.portfolioValueLabel.setText(this.viewModel.PORTFOLIO_LABEL + portfolio.getAccountValue());
             this.welcomeLabel.setText(this.viewModel.WELCOME_LABEL + this.viewModel.getState().getUsername());
         }
 
