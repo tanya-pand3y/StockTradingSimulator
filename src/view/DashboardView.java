@@ -27,6 +27,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     private JTable dashboardTable;
     private DashboardViewModel viewModel;
     private DashboardController controller;
+    private JLabel portfolioValueLabel;
+    private JLabel welcomeLabel;
 
     public DashboardView(DashboardViewModel viewModel, DashboardController controller) {
         this.viewModel = viewModel;
@@ -56,12 +58,12 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         topPanel.setBackground(Color.DARK_GRAY);
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel welcomeLabel = new JLabel(this.viewModel.WELCOME_LABEL);
+        welcomeLabel = new JLabel(this.viewModel.WELCOME_LABEL);
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         topPanel.add(welcomeLabel);
 
-        JLabel portfolioValueLabel = new JLabel(this.viewModel.PORTFOLIO_LABEL);
+        portfolioValueLabel = new JLabel(this.viewModel.PORTFOLIO_LABEL);
         portfolioValueLabel.setForeground(Color.WHITE);
         portfolioValueLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         topPanel.add(portfolioValueLabel);
@@ -166,6 +168,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             Object[][] data = controller.getUserPortfolioArrays(this.viewModel.getState().getUsername());
             DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
             dashboardTable.setModel(tableModel);
+            this.welcomeLabel.setText(this.viewModel.WELCOME_LABEL + this.viewModel.getState().getUsername());
         }
 
     }
