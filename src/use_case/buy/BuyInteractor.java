@@ -1,11 +1,21 @@
 package use_case.buy;
 
-public class BuyInteractor implements BuyInputBoundary {
-    public BuyInteractor() {
+import data_access.StockQuantityDataAccessInterface;
 
+public class BuyInteractor implements BuyInputBoundary {
+    final BuyOutputBoundary buyPresenter;
+    final StockQuantityDataAccessInterface stockQuantityDataAccessObject;
+
+    public BuyInteractor(BuyOutputBoundary buyOutputBoundary,
+                         StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
+        this.buyPresenter = buyOutputBoundary;
+        this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
     }
 
     public void execute(BuyInputData buyInputData) {
-
+        stockQuantityDataAccessObject.addStocks(buyInputData.getUsername(),
+                buyInputData.getTicker(), buyInputData.getQuantity());
+        BuyOutputData buyOutputData = new BuyOutputData();
+        buyPresenter.prepareSuccessView(buyOutputData);
     }
 }

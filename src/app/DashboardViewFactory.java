@@ -26,9 +26,19 @@ import view.SignupView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Creates dashboard instances
+ */
 public class DashboardViewFactory {
     DashboardViewFactory() {}
 
+    /**
+     * Creates a dashboard view
+     * @param viewManagerModel the View Manager Model
+     * @param dashboardViewModel the Dashboard View Model
+     * @param sellViewModel the Sell View model that it can switch to
+     * @return The dashboard view that was created
+     */
     public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel) {
 
         DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel);
