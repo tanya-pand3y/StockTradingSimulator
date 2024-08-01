@@ -8,8 +8,8 @@ public class QueryStockInputData {
 
     public QueryStockInputData(String ticker) {
         this.ticker = ticker;
-        this.start_date = null;
-        this.end_date = null;
+        this.start_date = "";
+        this.end_date = "";
     }
 
     public QueryStockInputData(String ticker, String start_date, String end_date) {
