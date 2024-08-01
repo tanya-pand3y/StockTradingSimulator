@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.buy.BuyViewModel;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.sell.SellViewModel;
@@ -38,6 +39,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         DashboardViewModel dashboardViewModel = new DashboardViewModel();
         SellViewModel sellViewModel = new SellViewModel();
+        BuyViewModel buyViewModel = new BuyViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -53,11 +55,16 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         // Creating Dashboard View
-        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
+        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel, buyViewModel);
         views.add(dashboardView, dashboardView.viewName);
 
+        // Creating sell view
         SellView sellView = SellViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(sellView, sellView.viewName);
+
+        // Creating buy view
+        BuyView buyView = BuyViewFactory.create(viewManagerModel, dashboardViewModel, buyViewModel);
+        views.add(buyView, buyView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();

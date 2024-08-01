@@ -6,6 +6,7 @@ import data_access.UserSignupDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buy.BuyViewModel;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardPresenter;
 import interface_adapter.dashboard.DashboardViewModel;
@@ -39,17 +40,25 @@ public class DashboardViewFactory {
      * @param sellViewModel the Sell View model that it can switch to
      * @return The dashboard view that was created
      */
-    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel) {
+    public static DashboardView create(ViewManagerModel viewManagerModel,
+                                       DashboardViewModel dashboardViewModel,
+                                       SellViewModel sellViewModel,
+                                       BuyViewModel buyViewModel) {
 
-        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel);
+        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel,
+                sellViewModel, buyViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);
     }
 
-    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel){
+    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel,
+                                                              DashboardViewModel dashboardViewModel,
+                                                              SellViewModel sellViewModel,
+                                                              BuyViewModel buyViewModel){
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, sellViewModel, dashboardViewModel);
+        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel,
+                sellViewModel, dashboardViewModel, buyViewModel);
 
         DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject, dashboardPresenter);
 

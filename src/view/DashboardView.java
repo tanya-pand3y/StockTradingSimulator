@@ -122,6 +122,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Buy button pressed");
+                        DashboardOutputData dashboardOutputData = new DashboardOutputData(viewModel.getState().getUsername());
+                        controller.buyButtonClicked(dashboardOutputData);
                     }
                 }
         );

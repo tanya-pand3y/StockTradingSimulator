@@ -22,4 +22,8 @@ public class DashboardController {
     public void sellButtonClicked(DashboardOutputData dashboardOutputData){
         this.dashboardInteractor.prepareSellView(dashboardOutputData);
     }
+
+    public void buyButtonClicked(DashboardOutputData dashboardOutputData) {
+        this.dashboardInteractor.prepareBuyView(dashboardOutputData);
+    }
 }
