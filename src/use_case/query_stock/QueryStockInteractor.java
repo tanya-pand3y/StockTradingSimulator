@@ -29,9 +29,6 @@ public class QueryStockInteractor implements QueryStockInputBoundary {
 //        Double currentPrice = currentDAO.getClose();
 //
 //        //Get Company name as well
-//
-//        //TODO update this and OutputData so that price history is either a list or null
-//
 //        //Prepare output data
 //        //QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, startDate, endDate);
 //

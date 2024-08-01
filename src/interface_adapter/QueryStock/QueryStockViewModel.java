@@ -1,6 +1,5 @@
 package interface_adapter.QueryStock;
 
-import entity.Stock;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
