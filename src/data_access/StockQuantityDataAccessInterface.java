@@ -41,7 +41,6 @@ public interface StockQuantityDataAccessInterface {
      * @param ticker the ticker of the stock
      * @param quantity the quantity of stock
      */
-    void addStocks(String username, String ticker, Integer quantity);
 
     /**
      * Creates a user csv file

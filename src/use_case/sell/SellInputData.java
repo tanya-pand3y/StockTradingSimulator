@@ -7,18 +7,18 @@ import entity.User;
 public class SellInputData {
     private final String ticker;
     private final int quantity;
-    private final String username;
+    private final Portfolio portfolio;
 
     /**
      * Creates a package of SellInputData
      * @param ticker the stock ticker
      * @param quantity the quantity
-     * @param username the username
+     * @param portfolio the username
      */
-    public SellInputData(String ticker, int quantity, String username) {
+    public SellInputData(String ticker, int quantity, Portfolio portfolio) {
         this.ticker = ticker;
         this.quantity = quantity;
-        this.username = username;
+        this.portfolio = portfolio;
     }
 
     /**
@@ -37,8 +37,8 @@ public class SellInputData {
         return quantity;
     }
 
-    public String getUsername() {
-        return username;
+    public Portfolio getPortfolio() {
+        return this.portfolio;
     }
 
 //    public Portfolio getPortfolio() {

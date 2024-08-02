@@ -36,9 +36,11 @@ public class Holding {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.recalculate();
     }
 
     public void reduceQuantity(int quantity) {
         this.quantity -= quantity;
+        this.recalculate();
     }
 }

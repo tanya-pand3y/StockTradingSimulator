@@ -22,6 +22,7 @@ public class DashboardPresenter implements DashboardOutputBoundary {
         System.out.println("Preparing sell view");
         SellState sellState = this.sellViewModel.getState();
         sellState.setUsername(dashboardOutputData.getUsername());
+        sellState.setPortfolio(dashboardOutputData.getPortfolio());
         this.sellViewModel.setState(sellState);
         this.sellViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(sellViewModel.getViewName());

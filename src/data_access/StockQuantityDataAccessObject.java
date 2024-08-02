@@ -41,6 +41,7 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
 
     @Override
     public void deleteStocks(String username, String ticker, Integer quantity) {
+        System.out.println("Yeehaa");
         String filePath = "UserPortfolioData/" + username + ".csv";
         ArrayList<String> fileContent = new ArrayList<>();
 

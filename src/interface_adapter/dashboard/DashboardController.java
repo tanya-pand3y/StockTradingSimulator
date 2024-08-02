@@ -11,8 +11,8 @@ public class DashboardController {
         this.dashboardInteractor = dashboardInteractor;
     }
 
-    public Object[][] getUserPortfolioArrays(String username){
-        return this.dashboardInteractor.getUserPortfolioArray(username);
+    public Object[][] getUserPortfolioArrays(Portfolio portfolio){
+        return this.dashboardInteractor.getUserPortfolioArray(portfolio);
     }
 
     public Portfolio getUserPortfolio(String username){

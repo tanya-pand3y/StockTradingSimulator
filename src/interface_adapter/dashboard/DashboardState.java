@@ -1,7 +1,10 @@
 package interface_adapter.dashboard;
 
+import entity.Portfolio;
+
 public class DashboardState {
     private String username = "";
+    private Portfolio portfolio = null;
 
     public DashboardState(DashboardState copy) {
         username = copy.username;
@@ -15,5 +18,13 @@ public class DashboardState {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 }

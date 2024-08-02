@@ -134,7 +134,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Sell button pressed");
-                        DashboardOutputData dashboardOutputData = new DashboardOutputData(viewModel.getState().getUsername());
+                        DashboardOutputData dashboardOutputData = new DashboardOutputData(viewModel.getState().getUsername(), viewModel.getState().getPortfolio());
                         controller.sellButtonClicked(dashboardOutputData);
                     }
                 }
@@ -166,12 +166,23 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("UserLoggedIn")){
             String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
-            Object[][] data = controller.getUserPortfolioArrays(this.viewModel.getState().getUsername());
-            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-            dashboardTable.setModel(tableModel);
-            Portfolio portfolio = controller.getUserPortfolio(this.viewModel.getState().getUsername());
+
+            Portfolio portfolio;
+            if (this.viewModel.getState().getPortfolio() == null){
+                portfolio = controller.getUserPortfolio(this.viewModel.getState().getUsername());
+                this.viewModel.getState().setPortfolio(portfolio);
+                Object[][] data = controller.getUserPortfolioArrays(portfolio);
+                DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+                dashboardTable.setModel(tableModel);
+            }else{
+                portfolio = this.viewModel.getState().getPortfolio();
+                Object[][] data = controller.getUserPortfolioArrays(portfolio);
+                DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+                dashboardTable.setModel(tableModel);
+            }
             this.portfolioValueLabel.setText(this.viewModel.PORTFOLIO_LABEL + portfolio.getAccountValue());
             this.welcomeLabel.setText(this.viewModel.WELCOME_LABEL + this.viewModel.getState().getUsername());
+
         }
 
     }

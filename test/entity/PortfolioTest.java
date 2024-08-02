@@ -61,7 +61,7 @@ class PortfolioTest {
         Holding holding = new Holding(stock, 150.0, 2);
         portfolio.addHolding(holding);
 
-        portfolio.removeHolding(stock);
+        portfolio.removeHolding(stock.getTicker());
 
         assertEquals(0, portfolio.getHoldings().size());
 
