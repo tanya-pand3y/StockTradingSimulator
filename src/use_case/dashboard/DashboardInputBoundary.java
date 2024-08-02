@@ -6,4 +6,5 @@ public interface DashboardInputBoundary {
     Object[][] getUserPortfolioArray(Portfolio portfolio);
     Portfolio getUserPortfolio(String username);
     void prepareSellView(DashboardOutputData dashboardOutputData);
+    void logoutPressed();
 }

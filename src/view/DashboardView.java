@@ -1,17 +1,14 @@
 package view;
 
-import data_access.StockQuantityDataAccessObject;
+
 import entity.Portfolio;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardViewModel;
-import use_case.dashboard.DashboardInputData;
-import use_case.dashboard.DashboardInteractor;
 import use_case.dashboard.DashboardOutputData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +16,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class DashboardView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "dashboard";
     private final JButton buyButton;
     private final JButton sellButton;
+    private final JButton logoutButton;  // New logout button
     private JTable dashboardTable;
     private DashboardViewModel viewModel;
     private DashboardController controller;
@@ -46,12 +43,10 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         setLayout(new BorderLayout());
         setBackground(Color.DARK_GRAY);
 
-
         // Main panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(Color.DARK_GRAY);
-
 
         // Top panel for user information
         JPanel topPanel = new JPanel();
@@ -88,11 +83,9 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-
-
         // Right panel for market status and buttons
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(5, 1, 0, 10));
+        rightPanel.setLayout(new GridLayout(6, 1, 0, 10));  // Increased rows to 6 for the logout button
         rightPanel.setBackground(Color.DARK_GRAY);
         rightPanel.setPreferredSize(new Dimension(250, 0));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -140,6 +133,19 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                 }
         );
 
+        // Create the logout button and add it to the right panel
+        logoutButton = createButton("Logout", new Color(128, 0, 0), "Logout from the application");
+        rightPanel.add(logoutButton);
+
+        logoutButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controller.logoutPressed();
+                    }
+                }
+        );
+
         mainPanel.add(rightPanel, BorderLayout.EAST);
 
         add(mainPanel, BorderLayout.CENTER);
@@ -162,19 +168,20 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     public void actionPerformed(ActionEvent e) {
 
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("UserLoggedIn")){
+        if (evt.getPropertyName().equals("UserLoggedIn")) {
             String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
 
             Portfolio portfolio;
-            if (this.viewModel.getState().getPortfolio() == null){
+            if (this.viewModel.getState().getPortfolio() == null) {
                 portfolio = controller.getUserPortfolio(this.viewModel.getState().getUsername());
                 this.viewModel.getState().setPortfolio(portfolio);
                 Object[][] data = controller.getUserPortfolioArrays(portfolio);
                 DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
                 dashboardTable.setModel(tableModel);
-            }else{
+            } else {
                 portfolio = this.viewModel.getState().getPortfolio();
                 Object[][] data = controller.getUserPortfolioArrays(portfolio);
                 DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
@@ -182,8 +189,13 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             }
             this.portfolioValueLabel.setText(this.viewModel.PORTFOLIO_LABEL + portfolio.getAccountValue());
             this.welcomeLabel.setText(this.viewModel.WELCOME_LABEL + this.viewModel.getState().getUsername());
-
         }
 
+        if (evt.getPropertyName().equals("UserLogout")) {
+            String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
+            Object[][] data = {};
+            DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+            dashboardTable.setModel(tableModel);
+        }
     }
 }

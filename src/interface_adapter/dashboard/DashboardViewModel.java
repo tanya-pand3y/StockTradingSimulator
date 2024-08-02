@@ -35,6 +35,10 @@ public class DashboardViewModel extends ViewModel{
         support.firePropertyChange("UserLoggedIn", null, this.state);
     }
 
+    public void firePropertyChanged(String propertyName) {
+        support.firePropertyChange(propertyName, null, this.state);
+    }
+
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);

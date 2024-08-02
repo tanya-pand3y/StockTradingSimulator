@@ -47,4 +47,9 @@ public class DashboardInteractor implements DashboardInputBoundary{
     public void prepareSellView(DashboardOutputData dashboardOutputData){
         this.dashboardPresenter.prepareSellView(dashboardOutputData);
     }
+
+    @Override
+    public void logoutPressed(){
+        this.dashboardPresenter.prepareLogout();
+    }
 }

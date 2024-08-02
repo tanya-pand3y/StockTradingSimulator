@@ -39,17 +39,17 @@ public class DashboardViewFactory {
      * @param sellViewModel the Sell View model that it can switch to
      * @return The dashboard view that was created
      */
-    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel) {
+    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel) {
 
-        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel);
+        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);
     }
 
-    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel){
+    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel){
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, sellViewModel, dashboardViewModel);
+        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, sellViewModel, loginViewModel, dashboardViewModel);
 
         DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject, dashboardPresenter);
 
