@@ -13,8 +13,8 @@ public class BuyInteractor implements BuyInputBoundary {
     }
 
     public void execute(BuyInputData buyInputData) {
-        stockQuantityDataAccessObject.addStocks(buyInputData.getUsername(),
-                buyInputData.getTicker(), buyInputData.getQuantity());
+        // stockQuantityDataAccessObject.addStocks(buyInputData.getUsername(),
+                // buyInputData.getTicker(), buyInputData.getQuantity());
         BuyOutputData buyOutputData = new BuyOutputData();
         buyPresenter.prepareSuccessView(buyOutputData);
     }

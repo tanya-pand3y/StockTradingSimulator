@@ -1,5 +1,6 @@
 package view;
 
+import entity.Portfolio;
 import interface_adapter.sell.SellController;
 import interface_adapter.sell.SellViewModel;
 
@@ -73,12 +74,12 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")){
-            ArrayList<String> tickers = controller.getHeldStocks(this.viewModel.getState().getUsername());
+            Portfolio portfolio = this.viewModel.getState().getPortfolio();
+            ArrayList<String> tickers = controller.getHeldStocks(portfolio);
             String[] tickersArray = tickers.toArray(new String[0]);
             this.stockComboBox.setModel(new DefaultComboBoxModel<String>(tickersArray));
         }
     }
-
     private void executeSellOrder() {
         String selectedStock = (String) stockComboBox.getSelectedItem();
         int quantity;
@@ -88,14 +89,7 @@ public class SellView extends JPanel implements ActionListener, PropertyChangeLi
             JOptionPane.showMessageDialog(this, "Please enter a valid quantity", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        controller.execute(selectedStock, quantity, this.viewModel.getState().getUsername());
-
-//        // Execute the sell order using SellInteractor
-//        SellInteractor sellInteractor = new SellInteractor();
-//        sellInteractor.execute(selectedStock, quantity);
+        controller.execute(selectedStock, quantity, this.viewModel.getState().getPortfolio());
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new SellView().setVisible(true));
-//    }
 }
