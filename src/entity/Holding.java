@@ -47,4 +47,8 @@ public class Holding {
         this.recalculate();
         return this.PnL;
     }
+
+    public StockTransactionHistory getStockTransactionHistory() {
+        return stockTransactionHistory;
+    }
 }
