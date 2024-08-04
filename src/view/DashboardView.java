@@ -27,6 +27,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     private DashboardController controller;
     private JLabel portfolioValueLabel;
     private JLabel welcomeLabel;
+    private JLabel cashLabel;
+    private JLabel profitLabel;
 
     public DashboardView(DashboardViewModel viewModel, DashboardController controller) {
         this.viewModel = viewModel;
@@ -50,7 +52,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
 
         // Top panel for user information
         JPanel topPanel = new JPanel();
-        topPanel.setLayout(new GridLayout(2, 1));
+        topPanel.setLayout(new GridLayout(4, 1));  // Changed to 4 rows
         topPanel.setBackground(Color.DARK_GRAY);
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -64,10 +66,21 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         portfolioValueLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         topPanel.add(portfolioValueLabel);
 
+        // New labels for cash and profit
+        cashLabel = new JLabel("Cash: $0.00");
+        cashLabel.setForeground(Color.WHITE);
+        cashLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        topPanel.add(cashLabel);
+
+        profitLabel = new JLabel("Profit: $0.00");
+        profitLabel.setForeground(Color.WHITE);
+        profitLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        topPanel.add(profitLabel);
+
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Table panel
-        String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
+        String[] columnNames = {"Name", "Ticker", "Qty", "Current Price"};
         Object[][] data = {{}};
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         this.dashboardTable = new JTable(tableModel);
@@ -154,6 +167,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         setVisible(true);
     }
 
+
     private JButton createButton(String text, Color backgroundColor, String toolTip) {
         JButton button = new JButton(text);
         button.setBackground(backgroundColor);
@@ -172,7 +186,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("UserLoggedIn")) {
-            String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
+            String[] columnNames = {"Name", "Ticker", "Qty", "Current Price"};
 
             Portfolio portfolio;
             if (this.viewModel.getState().getPortfolio() == null) {
@@ -187,15 +201,25 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                 DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
                 dashboardTable.setModel(tableModel);
             }
-            this.portfolioValueLabel.setText(this.viewModel.PORTFOLIO_LABEL + portfolio.getAccountValue());
+            this.portfolioValueLabel.setText(this.viewModel.PORTFOLIO_LABEL + portfolio.getPortfolioValue());
             this.welcomeLabel.setText(this.viewModel.WELCOME_LABEL + this.viewModel.getState().getUsername());
+
+            // Update cash and profit labels
+            this.cashLabel.setText("Cash: $" + portfolio.getCash());
+            this.profitLabel.setText("Profit: $" + portfolio.getPnL());
         }
 
         if (evt.getPropertyName().equals("UserLogout")) {
-            String[] columnNames = {"Name", "Ticker", "Qty", "Cost Basis", "Current Price", "Gain ($)", "Gain (%)"};
+            String[] columnNames = {"Name", "Ticker", "Qty", "Current Price"};
             Object[][] data = {};
             DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
             dashboardTable.setModel(tableModel);
+
+            // Reset cash and profit labels
+            this.cashLabel.setText("Cash: $0.00");
+            this.profitLabel.setText("Profit: $0.00");
+            this.profitLabel.setText("Portfolio Value: $0.00");
         }
     }
+
 }

@@ -95,7 +95,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(passwordErrorField);
         this.add(buttons);
 
-        logIn.addActionListener(
+        this.logIn.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -113,7 +113,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(this.logIn)) {
+            loginController.execute(usernameInputField.getText(),
+                    String.valueOf(passwordInputField.getPassword()));
+//                            System.out.println("hello this works");
+        }
     }
 
     @Override

@@ -53,7 +53,7 @@ class PortfolioTest {
         Holding holding = new Holding(stock, 150.0, 10);
         portfolio.addHolding(holding);
         double currentValue = CurrentStockData.getClose() * 10;
-        assertEquals(1000 + currentValue, portfolio.getAccountValue(), 0.01);
+        assertEquals(1000 + currentValue, portfolio.getPortfolioValue(), 0.01);
     }
 
     @org.junit.jupiter.api.Test
@@ -65,7 +65,7 @@ class PortfolioTest {
 
         assertEquals(0, portfolio.getHoldings().size());
 
-        assertEquals(1000.0, portfolio.getAccountValue(), 0.1);
+        assertEquals(1000.0, portfolio.getPortfolioValue(), 0.1);
     }
 
     @org.junit.jupiter.api.Test
@@ -93,7 +93,7 @@ class PortfolioTest {
         Holding holding = new Holding(stock, 150.0, 10);
         portfolio.addHolding(holding);
         portfolio.updateAccountValue(holding, true);
-        assertTrue(portfolio.getAccountValue() > 1000.0);
+        assertTrue(portfolio.getPortfolioValue() > 1000.0);
     }
 
     @org.junit.jupiter.api.Test
@@ -101,6 +101,6 @@ class PortfolioTest {
         Holding holding = new Holding(stock, 150.0, 2);
         portfolio.addHolding(holding);
         double currentValue = CurrentStockData.getClose() * 2;
-        assertEquals(1000 + currentValue, portfolio.getAccountValue());
+        assertEquals(1000 + currentValue, portfolio.getPortfolioValue());
     }
 }

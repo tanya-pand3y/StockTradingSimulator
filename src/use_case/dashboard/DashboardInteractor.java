@@ -18,25 +18,20 @@ public class DashboardInteractor implements DashboardInputBoundary{
     }
 
     public Portfolio getUserPortfolio(String username) {
-        stockQuantityDao.fetchData(username);
-        Portfolio portfolio = new Portfolio(username, 0, stockQuantityDao);
-        portfolio.setData();
-        return portfolio;
+        return new Portfolio(username, 0, stockQuantityDao);
 
     }
 
     public Object[][] getUserPortfolioArray(Portfolio portfolio){
         ArrayList<Object[]> objList = new ArrayList<>();
-        for(Holding holding : portfolio.getHoldings()) {
+
+        for(Holding holding : portfolio.getPositiveQuantityHoldings()) {
             String name = holding.getStock().getName();
             String ticker = holding.getStock().getTicker();
             int quantity = holding.getQuantity();
-            double costbasis = holding.getCostBasis();
             double currentPrice = holding.getStock().getCurrentPrice();
-            double gain = holding.getChangeInValueValue();
-            double gainPercent = currentPrice/costbasis;
 
-            Object[] temp = {name, ticker, quantity, costbasis, currentPrice, gain, gainPercent};
+            Object[] temp = {name, ticker, quantity, currentPrice};
             objList.add(temp);
         }
         Object[][] obj = new Object[objList.size()][];

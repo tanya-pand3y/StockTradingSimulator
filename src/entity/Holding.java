@@ -1,46 +1,50 @@
 package entity;
 
+import data_access.StockQuantityDataAccessInterface;
+
 public class Holding {
     private Stock stock;
-    private double purchasePrice;
     private int quantity;
-    private double changeInValue;
+    private double currentValue;
+    private double PnL;
+    private StockTransactionHistory stockTransactionHistory;
 
-    public Holding(Stock stock, double purchasePrice, int quantity) {
+    public Holding(Stock stock, StockTransactionHistory stockTransactionHistory) {
         this.stock = stock;
-        this.purchasePrice = purchasePrice;
-        this.quantity = quantity;
-        this.changeInValue = (this.stock.getCurrentPrice() - purchasePrice) * quantity;
+        this.stockTransactionHistory = stockTransactionHistory;
+        this.quantity = stockTransactionHistory.getTotalQuantity();
+        this.currentValue = this.stock.getCurrentPrice()*this.quantity;
+        this.PnL = this.currentValue - stockTransactionHistory.getTotalTransactionValue();
     }
 
-    private void recalculate() {
-        this.changeInValue = (stock.getCurrentPrice() - this.purchasePrice) * quantity;
+    public void recalculate() {
+        this.stockTransactionHistory.recalculate();
+        this.quantity = stockTransactionHistory.getTotalQuantity();
+        this.currentValue = this.stock.getCurrentPrice()*this.quantity;
+        this.PnL = this.currentValue - this.stockTransactionHistory.getTotalTransactionValue();
+
+    }
+
+    public void addTransaction(Transaction transaction, String username, StockQuantityDataAccessInterface stockQuantityDao){
+        this.stockTransactionHistory.addTransaction(transaction);
+        stockQuantityDao.addEntry(username, this.stock.getTicker(), transaction.getDate(), transaction.getPrice(), transaction.getQuantity());
+        this.recalculate();
     }
 
     public Stock getStock() {
         return stock;
     }
 
-    public double getCostBasis() {
-        return purchasePrice;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
-    public double getChangeInValueValue() {
+    public double getCurrentValue() {
         this.recalculate();
-        return this.changeInValue;
+        return currentValue;
     }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public double getPnL() {
         this.recalculate();
-    }
-
-    public void reduceQuantity(int quantity) {
-        this.quantity -= quantity;
-        this.recalculate();
+        return this.PnL;
     }
 }
