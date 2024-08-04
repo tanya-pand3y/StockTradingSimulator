@@ -2,9 +2,9 @@ package view;
 
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryController;
-import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -15,11 +15,27 @@ public class UserPurchaseHistoryView extends JPanel implements ActionListener, P
     private UserPurchaseHistoryViewModel viewModel;
     private final JButton searchButton = new JButton("Purchase History");
 
+    // Table components
+    private JTable purchaseHistoryTable;
+    private JScrollPane scrollPane;
+    private String[] columnNames = {"Date", "Price", "Quantity"};
+    private Object[][] data = {}; // Initially no data
 
     public UserPurchaseHistoryView(UserPurchaseHistoryViewModel viewModel, UserPurchaseHistoryController controller) {
         this.viewModel = viewModel;
         this.controller = controller;
         this.viewModel.addPropertyChangeListener(this);
+
+        // Set layout
+        this.setLayout(new BorderLayout());
+
+        // Initialize table
+        purchaseHistoryTable = new JTable(data, columnNames);
+        scrollPane = new JScrollPane(purchaseHistoryTable);
+
+        // Add components to panel
+        this.add(searchButton, BorderLayout.NORTH);
+        this.add(scrollPane, BorderLayout.CENTER);
 
         this.searchButton.addActionListener(
                 new ActionListener() {
@@ -40,7 +56,7 @@ public class UserPurchaseHistoryView extends JPanel implements ActionListener, P
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Additional actions can be added here if needed
     }
 
     /**
@@ -51,9 +67,6 @@ public class UserPurchaseHistoryView extends JPanel implements ActionListener, P
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        // Handle property changes to update the table if needed
     }
-
-//edits
-
 }
