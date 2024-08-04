@@ -191,10 +191,4 @@ public class Portfolio {
         return holdings;
     }
 
-
-    public static void main(String[] args) {
-        StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
-        Portfolio portfolio = new Portfolio("Meer", 100000, stockQuantityDataAccessObject);
-        portfolio.buyStock("AMZN", 10);
-    }
 }
