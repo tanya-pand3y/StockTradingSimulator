@@ -1,18 +1,31 @@
 package entity;
 
-import com.sun.management.HotSpotDiagnosticMXBean;
 import data_access.StockQuantityDataAccessInterface;
+import data_access.StockQuantityDataAccessObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class Portfolio {
     private String username;
-    private double accountValue;
+    private double portfolioValue;
     private double cash;
     private double PnL;
     private ArrayList<Holding> holdings;
     private StockQuantityDataAccessInterface stockQuantityDao;
+
+    private static double convertToDouble(Object number) {
+        if (number instanceof Double) {
+            return (Double) number;
+        } else if (number instanceof Long) {
+            return ((Long) number).doubleValue();
+        } else {
+            throw new IllegalArgumentException("The input number is neither a Double nor a Long");
+        }
+    }
 
     /**
      * Initializes a portfolio
@@ -21,9 +34,39 @@ public class Portfolio {
     public Portfolio (String username, double StartingCash, StockQuantityDataAccessInterface dao){
         this.username = username;
         this.stockQuantityDao = dao;
-        this.accountValue = StartingCash;
-        this.cash = StartingCash;
+
+        dao.fetchData(this.username);
         this.holdings = new ArrayList<>();
+        this.stockQuantityDao.getPriceQuantityMap().forEach((ticker, dates) -> {
+            StockTransactionHistory stockTransactionHistory = new StockTransactionHistory();
+            stockTransactionHistory.setTicker(ticker);
+            dates.forEach((date, details) -> {
+                Transaction transaction = new Transaction(date, convertToDouble(details.get("Price")), (int)(long) details.get("Quantity"));
+                stockTransactionHistory.addTransaction(transaction);
+            });
+            Stock stock = new Stock(ticker);
+            Holding holding = new Holding(stock,stockTransactionHistory);
+            this.holdings.add(holding);
+        });
+        this.portfolioValue = 0.0;
+        this.PnL = 0.0;
+        for (Holding holding : this.holdings) {
+            this.portfolioValue += holding.getCurrentValue();
+            this.PnL += holding.getPnL();
+        }
+
+        this.cash = StartingCash;
+
+    }
+
+    public void recalculate(){
+        this.portfolioValue = 0.0;
+        this.PnL = 0.0;
+        for (Holding holding : this.holdings) {
+            holding.recalculate();
+            this.portfolioValue += holding.getCurrentValue();
+            this.PnL += holding.getPnL();
+        }
     }
 
     /**
@@ -35,14 +78,6 @@ public class Portfolio {
     }
 
     /**
-     * Removes cash
-     * @param cash the cash to remove
-     */
-    public void deductCash(double cash) {
-        this.cash = this.cash - cash;
-    }
-
-    /**
      * Returns the amount of cash in the portfolio
      * @return the amount of cash in the portfolio
      */
@@ -50,50 +85,28 @@ public class Portfolio {
         return cash;
     }
 
-    public ArrayList<Holding> getHoldings() {
-        return holdings;
+    public double getPnL() {
+        return PnL;
     }
 
-    /**
-     * Adds a holding to the portfolio
-     * @param holding The holding to add
-     */
-    public void addHolding (Holding holding) {
-        this.holdings.add(holding);
-        this.updateAccountValue(holding, true);
+    public ArrayList<Holding> getHoldings() {
+        return holdings;
     }
 
     public void removeHolding (String ticker) {
         for (Holding holding : holdings) {
             if (holding.getStock().getTicker().equals(ticker)) {
                 holdings.remove(holding);
-                updateAccountValue();
+                recalculate();
                 break;
             }
 
         }
     }
 
-    private void updateAccountValue(){
-        Double value = 0.0;
+    public Holding getHolding (String ticker) {
         for (Holding holding : holdings) {
-            value += holding.getChangeInValueValue();
-        }
-        this.accountValue = value;
-    }
-
-    public void updateAccountValue(Holding holding, boolean add) {
-        if (add){
-            this.accountValue += holding.getStock().getCurrentPrice() * holding.getQuantity();
-        }else{
-            this.accountValue -= holding.getStock().getCurrentPrice() * holding.getQuantity();
-        }
-
-    }
-
-    public Holding getHolding (Stock stock) {
-        for (Holding holding : holdings) {
-            if (holding.getStock().equals(stock)) {
+            if (holding.getStock().getTicker().equals(ticker)) {
                 return holding;
             }
         }
@@ -114,49 +127,74 @@ public class Portfolio {
         return 0; // Return 0 if no holding with the given stock is found
     }
 
-    public double getAccountValue() {
-        return accountValue;
+    public double getPortfolioValue() {
+        return portfolioValue;
     }
 
     public ArrayList<String> getHeldStocks(){
         ArrayList<String> tickers = new ArrayList<>();
-        for (Holding holding : holdings) {
+        for (Holding holding : this.getPositiveQuantityHoldings()) {
             tickers.add(holding.getStock().getTicker());
         }
         return tickers;
     }
 
-    public void setData(){
-        ArrayList<String> tickers = this.stockQuantityDao.getTicker();
-        ArrayList<Integer> quantities = this.stockQuantityDao.getQuantities();
-        ArrayList<Double> costBasis = this.stockQuantityDao.getPurchasePrices();
-        ArrayList<Stock> stocks = new ArrayList<>();
-        for (String ticker : tickers) {
-            Stock stock = new Stock(ticker);
-            stocks.add(stock);
+    public void buyStock(String ticker, int quantity){
+        Stock stock = new Stock(ticker);
+        if (stock.getCurrentPrice()*quantity > this.cash){
+            System.out.println("Not enough money");
         }
-        for (int i = 0; i<tickers.size(); i++){
-            Holding holding = new Holding(stocks.get(i), costBasis.get(i), quantities.get(i));
-            this.addHolding(holding);
+        else{
+            LocalDateTime currentDate = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = currentDate.format(formatter);
+            Transaction transaction = new Transaction(formattedDate, stock.getCurrentPrice(), quantity);
+            if (this.getHolding(ticker) != null){
+                Holding holding = this.getHolding(ticker);
+                holding.addTransaction(transaction, username, this.stockQuantityDao);
+            }else{
+                StockTransactionHistory stockTransactionHistory = new StockTransactionHistory();
+                stockTransactionHistory.setTicker(ticker);
+                Holding newHolding = new Holding(stock,stockTransactionHistory);
+                newHolding.addTransaction(transaction, username, this.stockQuantityDao);
+                holdings.add(newHolding);
+            }
+            this.cash -= stock.getCurrentPrice()*quantity;
+            recalculate();
         }
+
     }
 
     public void deleteStocks(String ticker, Integer quantity){
-        stockQuantityDao.deleteStocks(this.username, ticker, quantity);
-        System.out.println("Deleting stock " + ticker + " with quantity " + quantity);
-        for (Holding holding : holdings) {
-            if (holding.getStock().getTicker().equals(ticker)) {
-                holding.reduceQuantity(quantity);
-                if (holding.getQuantity() == 0){
-                    this.removeHolding(holding.getStock().getTicker());
-                }
+        Stock stock = new Stock(ticker);
+        Holding holding = this.getHolding(ticker);
+        if (holding.getQuantity() < quantity){
+            System.out.println("Not enough stocks");
+        }else {
+            LocalDateTime currentDate = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDate = currentDate.format(formatter);
+            Transaction transaction = new Transaction(formattedDate, stock.getCurrentPrice(), quantity * -1);
+            holding.addTransaction(transaction, username, this.stockQuantityDao);
+            this.cash += stock.getCurrentPrice() * quantity;
+            recalculate();
+        }
+    }
+
+    public ArrayList<Holding> getPositiveQuantityHoldings(){
+        ArrayList<Holding> holdings = new ArrayList<>();
+        for (Holding holding : this.holdings) {
+            if (holding.getQuantity() > 0) {
+                holdings.add(holding);
             }
         }
-
-
+        return holdings;
     }
 
 
-
-
+    public static void main(String[] args) {
+        StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
+        Portfolio portfolio = new Portfolio("Meer", 100000, stockQuantityDataAccessObject);
+        portfolio.buyStock("AMZN", 10);
+    }
 }

@@ -36,7 +36,7 @@ public class SignupInteractor implements SignupInputBoundary {
             User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), now);
             userDataAccessObject.save(user);
 
-            this.stockQuantityDataAccessObject.createUserCSV(signupInputData.getUsername());
+            this.stockQuantityDataAccessObject.createUserInFirebase(signupInputData.getUsername());
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);
             userPresenter.prepareSuccessView(signupOutputData);
