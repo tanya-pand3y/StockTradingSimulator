@@ -9,12 +9,12 @@ public class QueryStockOutputData {
     private final double currentPrice;
     private final String startDate;
     private final String endDate;
-    private final ArrayList priceHistory;
+    private final ArrayList<Double> priceHistory;
 
     public QueryStockOutputData(String ticker, double currentPrice, String startDate, String endDate, ArrayList priceHistory) {
         this.ticker = ticker;
         this.currentPrice = currentPrice;
-        this.priceHistory = priceHistory != null ? new ArrayList<>(priceHistory) : null;
+        this.priceHistory = priceHistory != null ? new ArrayList<Double>(priceHistory) : null;
         this.startDate = startDate;
         this.endDate = endDate;
     }

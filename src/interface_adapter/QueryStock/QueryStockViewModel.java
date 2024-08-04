@@ -11,7 +11,7 @@ public class QueryStockViewModel extends ViewModel {
     private Double currentPrice;
     private String startDate;
     private String endDate;
-    private ArrayList priceHistory;
+    private ArrayList<Double> priceHistory;
 
     private final PropertyChangeSupport support;
 
@@ -58,17 +58,17 @@ public class QueryStockViewModel extends ViewModel {
         support.firePropertyChange("endDate", oldEndDate, endDate);
     }
 
-    public ArrayList getPriceHistory() {
+    public ArrayList<Double> getPriceHistory() {
         return priceHistory;
     }
-    public void setPriceHistory(ArrayList priceHistory) {
-        ArrayList oldPriceHistory = this.priceHistory;
+    public void setPriceHistory(ArrayList<Double> priceHistory) {
+        ArrayList<Double> oldPriceHistory = this.priceHistory;
         this.priceHistory = priceHistory;
         support.firePropertyChange("priceHistory", oldPriceHistory, priceHistory);
     }
 
     // Method to update the view with new data
-    public void updateView(String ticker, Double currentPrice, String startDate, String endDate, ArrayList priceHistory) {
+    public void updateView(String ticker, Double currentPrice, String startDate, String endDate, ArrayList<Double> priceHistory) {
         setTicker(ticker);
         setCurrentPrice(currentPrice);
         setStartDate(startDate);

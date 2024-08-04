@@ -4,7 +4,6 @@ import interface_adapter.QueryStock.QueryStockController;
 import interface_adapter.QueryStock.QueryStockPresenter;
 import interface_adapter.QueryStock.QueryStockViewModel;
 import use_case.query_stock.QueryStockInputBoundary;
-import use_case.query_stock.QueryStockInputData;
 import use_case.query_stock.QueryStockInteractor;
 import use_case.query_stock.QueryStockOutputBoundary;
 
@@ -12,8 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
