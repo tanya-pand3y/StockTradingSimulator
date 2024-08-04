@@ -191,4 +191,8 @@ public class Portfolio {
         return holdings;
     }
 
+    public ArrayList<Transaction> getUserPurchaseHistory(String ticker) {
+        Holding holding = getHolding(ticker);
+        return holding.getStockTransactionHistory().getTransactions();
+    }
 }
