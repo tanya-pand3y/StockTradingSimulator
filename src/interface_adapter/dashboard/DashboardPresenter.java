@@ -53,4 +53,9 @@ public class DashboardPresenter implements DashboardOutputBoundary {
 
     }
 
+    public void prepareUserPurchaseHistoryView(DashboardOutputData dashboardOutputData) {
+        // todo
+        // userpurchhist.viewmod.getstate...
+    }
+
 }
