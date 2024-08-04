@@ -27,7 +27,7 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         try{
             FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
                     .setProjectId("stocksimulator-9cba4")
-                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream("src/stocksimulator-9cba4-firebase-adminsdk-bnr7o-f20f458974.json")))
+                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream("src/stocksimulator-9cba4-firebase-adminsdk-bnr7o-ae21adfb43.json")))
                     .build();
             db = firestoreOptions.getService();
         }catch(IOException e){
