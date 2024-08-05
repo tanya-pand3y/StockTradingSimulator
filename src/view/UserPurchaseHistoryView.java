@@ -4,6 +4,7 @@ import entity.Holding;
 import entity.Portfolio;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryController;
+
 import org.checkerframework.checker.units.qual.A;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class UserPurchaseHistoryView extends JPanel implements ActionListener, P
         purchaseHistoryTable = new JTable(data, columnNames);
         scrollPane = new JScrollPane(purchaseHistoryTable);
 
-        // Initialize dropdown menu
+
         dropdownMenu = new JComboBox<>();
         dropdownMenu.setPreferredSize(new Dimension(150, 30));
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -103,7 +104,7 @@ public class UserPurchaseHistoryView extends JPanel implements ActionListener, P
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Additional actions can be added here if needed
     }
 
     /**

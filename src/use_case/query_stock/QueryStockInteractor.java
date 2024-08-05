@@ -41,11 +41,6 @@ public void execute(QueryStockInputData inputData) {
     String ticker = inputData.getTicker();
     String startDate = inputData.getStart_date();
     String endDate = inputData.getEnd_date();
-
-    // Debugging: Print the input values
-    System.out.println("Interactor - Ticker: " + ticker);
-    System.out.println("Interactor - Start Date: " + startDate);
-    System.out.println("Interactor - End Date: " + endDate);
     
     ArrayList<Double> priceHistory = null;
 
@@ -54,15 +49,15 @@ public void execute(QueryStockInputData inputData) {
     Double currentPrice = currentDAO.getClose();
 
     // If the user enters a start and end date, get the price history
-    if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+    if (!startDate.isEmpty() && !endDate.isEmpty()) {
         StockHistoryAPIDataAccessObject historyDAO = new StockHistoryAPIDataAccessObject(ticker, startDate, endDate);
         priceHistory = historyDAO.getClose();
     }
 
     // Prepare output data
-    QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, priceHistory);
+    QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, startDate, endDate, priceHistory);
 
     // Present output data
     outputBoundary.present(outputData);
-}
+    }
 }

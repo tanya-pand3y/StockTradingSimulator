@@ -17,13 +17,12 @@ public class QueryStockPresenter implements QueryStockOutputBoundary {
         // Prepare the output data to be displayed
         String ticker = outputData.getTicker();
         Double currentPrice = outputData.getCurrentPrice();
-        ArrayList priceHistory = outputData.getPriceHistory();
-//        String startDate = outputData.getStartDate();
-//        String endDate = outputData.getEndDate();
-        // Optionally, format data or prepare it as needed
+        String startDate = outputData.getStartDate();
+        String endDate = outputData.getEndDate();
+        ArrayList<Double> priceHistory = outputData.getPriceHistory(); //Here
 
         // Pass the prepared data to the ViewModel
-        viewModel.updateView(ticker, currentPrice, priceHistory);
+        viewModel.updateView(ticker, currentPrice, startDate, endDate, priceHistory);
 
     }
 }
