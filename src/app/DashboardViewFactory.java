@@ -8,6 +8,7 @@ import entity.User;
 import entity.UserFactory;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buy.BuyViewModel;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardPresenter;
 import interface_adapter.dashboard.DashboardViewModel;
@@ -41,7 +42,11 @@ public class DashboardViewFactory {
      * @param sellViewModel the Sell View model that it can switch to
      * @return The dashboard view that was created
      */
-    public static DashboardView create(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel) {
+    public static DashboardView create(ViewManagerModel viewManagerModel,
+                                       DashboardViewModel dashboardViewModel,
+                                       SellViewModel sellViewModel,
+                                       LoginViewModel loginViewModel,
+                                       UserPurchaseHistoryViewModel userPurchaseHistoryViewModel) {
 
         DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);

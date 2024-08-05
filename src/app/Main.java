@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.buy.BuyViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
@@ -40,6 +41,7 @@ public class Main {
         DashboardViewModel dashboardViewModel = new DashboardViewModel();
         SellViewModel sellViewModel = new SellViewModel();
         UserPurchaseHistoryViewModel userPurchaseHistoryViewModel = new UserPurchaseHistoryViewModel();
+        BuyViewModel buyViewModel = new BuyViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -58,8 +60,13 @@ public class Main {
         DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel);
         views.add(dashboardView, dashboardView.viewName);
 
+        // Creating sell view
         SellView sellView = SellViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel);
         views.add(sellView, sellView.viewName);
+
+        // Creating buy view
+        BuyView buyView = BuyViewFactory.create(viewManagerModel, dashboardViewModel, buyViewModel);
+        views.add(buyView, buyView.viewName);
 
         UserPurchaseHistoryView userPurchaseHistoryView = UserPurchaseHistoryFactory.create(viewManagerModel, userPurchaseHistoryViewModel, dashboardViewModel);
         views.add(userPurchaseHistoryView, userPurchaseHistoryView.viewName);

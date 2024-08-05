@@ -3,6 +3,8 @@ package interface_adapter.dashboard;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryState;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.buy.BuyState;
+import interface_adapter.buy.BuyViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.sell.SellState;
@@ -17,6 +19,7 @@ public class DashboardPresenter implements DashboardOutputBoundary {
     private final SellViewModel sellViewModel;
     private final LoginViewModel loginViewModel;
     private final UserPurchaseHistoryViewModel userPurchaseHistoryViewModel;
+    private final BuyViewModel buyViewModel;
 
     public DashboardPresenter(ViewManagerModel viewManagerModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
@@ -67,4 +70,14 @@ public class DashboardPresenter implements DashboardOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+
+    public void prepareBuyView(DashboardOutputData dashboardOutputData) {
+        System.out.println("Preparing buy view");
+        BuyState buyState = this.buyViewModel.getState();
+        buyState.setUsername(dashboardOutputData.getUsername());
+        this.buyViewModel.setState(buyState);
+        this.buyViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(buyViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }

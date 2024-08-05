@@ -53,4 +53,8 @@ public class DashboardInteractor implements DashboardInputBoundary{
         this.dashboardPresenter.prepareUserPurchaseHistoryView(dashboardOutputData);
     }
 
+
+    public void prepareBuyView(DashboardOutputData dashboardOutputData) {
+        this.dashboardPresenter.prepareBuyView(dashboardOutputData);
+    }
 }

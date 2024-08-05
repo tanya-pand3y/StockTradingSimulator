@@ -32,4 +32,8 @@ public class DashboardController {
         DashboardOutputData dashboardOutputData = new DashboardOutputData(portfolio.getUsername(), portfolio);
         this.dashboardInteractor.transactionHistoryPressed(dashboardOutputData);
     }
+
+    public void buyButtonClicked(DashboardOutputData dashboardOutputData) {
+        this.dashboardInteractor.prepareBuyView(dashboardOutputData);
+    }
 }
