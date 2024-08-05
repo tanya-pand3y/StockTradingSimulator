@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -95,18 +97,11 @@ public class QueryStockView extends JPanel {
         queryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                handleQueryStock();
-                updateDisplay();
+                if (handleQueryStock()){
+                    updateDisplay();
+                }
             }
         });
-
-        // Add a property change listener to the ViewModel
-//        viewModel.addPropertyChangeListener(new PropertyChangeListener() {
-//            @Override
-//            public void propertyChange(PropertyChangeEvent evt) {
-//                updateDisplay();
-//            }
-//        });
 
     }
 
@@ -147,18 +142,33 @@ public class QueryStockView extends JPanel {
         viewModel.setEndDate("");
         viewModel.setCurrentPrice(0.0);
         viewModel.setPriceHistory(null);
+        viewModel.setDates(null);
 
     }
 
 
-    private void handleQueryStock() {
+    private boolean handleQueryStock() {
         // Get the values from the text fields
         String ticker = tickerField.getText();
         String startDate = startDateField.getText();
         String endDate = endDateField.getText();
 
-        // Pass the data to the controller
-        controller.execute(ticker, startDate, endDate);
+        if (ticker.isEmpty()) {
+            resultArea.setText("Error: Please enter a valid stock ticker.");
+            return false;
+        }
+        if (startDate.isEmpty() && !endDate.isEmpty()) {
+            resultArea.setText("Error: Please enter a start date.");
+            return false;
+        }
+        if (!startDate.isEmpty() && endDate.isEmpty()) {
+            resultArea.setText("Error: Please enter a end date.");
+            return false;
+        }
+            // Pass the data to the controller
+            System.out.println("Ticker: " + ticker);
+            controller.execute(ticker, startDate, endDate);
+            return true;
     }
 
 
@@ -169,67 +179,23 @@ public class QueryStockView extends JPanel {
         ArrayList<Double> priceHistory = viewModel.getPriceHistory();
         String startDate = viewModel.getStartDate();
         String endDate = viewModel.getEndDate();
+        ArrayList<ZonedDateTime> dates = viewModel.getDates();
 
         // Update the result area with the new data
         String resultText = String.format("Ticker: %s\nCurrent Price: $%.2f", ticker, currentPrice);
         resultArea.setText(resultText);
 
         // Update the price history table if price history data is available
-        //if (priceHistory != null && !priceHistory.isEmpty())
-        if (priceHistory != null) {
+        if (priceHistory != null && dates != null) {
             String[] columnNames = {"Date", "Price"};
             Object[][] data = new Object[priceHistory.size()][2];
 
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                Date start = null;
-                Date end = null;
-
-                // Check if startDate and endDate are not empty
-                if (startDate != null && !startDate.trim().isEmpty()) {
-                    start = dateFormat.parse(startDate);
-                }
-//                else {
-//                    // Handle the case where startDate is empty or invalid
-//                    start = new Date(); // Default to current date
-//                }
-
-                if (endDate != null && !endDate.trim().isEmpty()) {
-                    end = dateFormat.parse(endDate);
-                }
-//                else {
-//                    // Handle the case where endDate is empty or invalid
-//                    end = new Date(); // Default to current date
-//                }
-
-//                if (start.after(end)) {
-//                    throw new IllegalArgumentException("Start date cannot be after end date.");
-//                }
-
-                long totalDays = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-                long intervalDays = totalDays / (priceHistory.size() - 1);
-
-                for (int i = 0; i < priceHistory.size(); i++) {
-                    Date date = new Date(start.getTime() + (i * intervalDays * 1000 * 60 * 60 * 24));
-                    data[i][0] = dateFormat.format(date);
-                    data[i][1] = priceHistory.get(i);
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-                // Handle parse exception for date format issues
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                // Handle invalid date range
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Handle other exceptions
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            for (int i = 0; i < priceHistory.size(); i++) {
+                data[i][0] = dates.get(i).format(formatter); // format the ZonedDateTime to a String
+                data[i][1] = priceHistory.get(i);
             }
 
-//            if (priceHistoryTable != null) {
-//                remove(priceHistoryTable);
-//            }
 
             priceHistoryTable = new JTable(data, columnNames);
             GridBagConstraints gbc = new GridBagConstraints();
@@ -242,10 +208,6 @@ public class QueryStockView extends JPanel {
             repaint();
         }
     }
-
-
-
-
 
 
     public static void main(String[] args) {

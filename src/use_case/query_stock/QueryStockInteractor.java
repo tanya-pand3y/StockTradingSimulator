@@ -3,6 +3,7 @@ package use_case.query_stock;
 import data_access.StockCurrentAPIDataAccessObject;
 import data_access.StockHistoryAPIDataAccessObject;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class QueryStockInteractor implements QueryStockInputBoundary {
@@ -43,6 +44,7 @@ public void execute(QueryStockInputData inputData) {
     String endDate = inputData.getEnd_date();
     
     ArrayList<Double> priceHistory = null;
+    ArrayList<ZonedDateTime> date = null;
 
     // Get the current stock information
     StockCurrentAPIDataAccessObject currentDAO = new StockCurrentAPIDataAccessObject(ticker);
@@ -52,10 +54,13 @@ public void execute(QueryStockInputData inputData) {
     if (!startDate.isEmpty() && !endDate.isEmpty()) {
         StockHistoryAPIDataAccessObject historyDAO = new StockHistoryAPIDataAccessObject(ticker, startDate, endDate);
         priceHistory = historyDAO.getClose();
+        date = historyDAO.getDate();
     }
 
+    System.out.println(date);
+
     // Prepare output data
-    QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, startDate, endDate, priceHistory);
+    QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, startDate, endDate, priceHistory, date);
 
     // Present output data
     outputBoundary.present(outputData);

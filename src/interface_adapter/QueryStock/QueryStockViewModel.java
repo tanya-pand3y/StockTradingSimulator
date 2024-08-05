@@ -4,6 +4,7 @@ import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class QueryStockViewModel extends ViewModel {
@@ -12,6 +13,7 @@ public class QueryStockViewModel extends ViewModel {
     private String startDate;
     private String endDate;
     private ArrayList<Double> priceHistory;
+    private ArrayList<ZonedDateTime> dates;
 
     private final PropertyChangeSupport support;
 
@@ -31,6 +33,9 @@ public class QueryStockViewModel extends ViewModel {
     }
     public String getEndDate() {
         return endDate;
+    }
+    public ArrayList<ZonedDateTime> getDates(){
+        return dates;
     }
 
     // Setters for properties
@@ -66,14 +71,20 @@ public class QueryStockViewModel extends ViewModel {
         this.priceHistory = priceHistory;
         support.firePropertyChange("priceHistory", oldPriceHistory, priceHistory);
     }
+    public void setDates(ArrayList<ZonedDateTime> dates) {
+        ArrayList<ZonedDateTime> oldDates = this.dates;
+        this.dates = dates;
+        support.firePropertyChange("dates", oldDates, dates);
+    }
 
     // Method to update the view with new data
-    public void updateView(String ticker, Double currentPrice, String startDate, String endDate, ArrayList<Double> priceHistory) {
+    public void updateView(String ticker, Double currentPrice, String startDate, String endDate, ArrayList<Double> priceHistory, ArrayList<ZonedDateTime> dates) {
         setTicker(ticker);
         setCurrentPrice(currentPrice);
         setStartDate(startDate);
         setEndDate(endDate);
         setPriceHistory(priceHistory);
+        setDates(dates);
     }
 
     // Implement abstract methods
