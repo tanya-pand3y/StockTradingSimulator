@@ -13,6 +13,10 @@ public class Stock {
     private int volume;
     private ZonedDateTime date;
 
+    /**
+     * Creates a stock object given a ticker
+     * @param ticker the ticker
+     */
     public Stock(String ticker) {
         this.ticker = ticker;
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
@@ -23,6 +27,9 @@ public class Stock {
 
     }
 
+    /**
+     * Updates the values of the stock
+     */
     private void updateValues() {
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
         this.currentPrice = apiDataAccessObject.getClose();
@@ -30,12 +37,24 @@ public class Stock {
         this.date = apiDataAccessObject.getDate();
     }
 
+    /**
+     * Returns the name of the stock
+     * @return the name of the stock
+     */
     public String getName() {return this.name;}
 
+    /**
+     * Returns the current stock price
+     * @return the current stock price
+     */
     public double getCurrentPrice() {
         return this.currentPrice;
     }
 
+    /**
+     * Returns the ticker
+     * @return the ticker
+     */
     public String getTicker() {
         return this.ticker;
     }
