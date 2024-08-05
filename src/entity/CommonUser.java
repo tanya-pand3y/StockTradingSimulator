@@ -19,16 +19,28 @@ class CommonUser implements User {
         this.creationTime = creationTime;
     }
 
+    /**
+     * Returns the name of the user
+     * @return the username
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the user password
+     * @return the user password
+     */
     @Override
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Returns a datetime object of the time the user was created
+     * @return a datetime object of the time the user was created
+     */
     @Override
     public LocalDateTime getCreationTime() {
         return creationTime;

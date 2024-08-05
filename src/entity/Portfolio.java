@@ -59,6 +59,9 @@ public class Portfolio {
 
     }
 
+    /**
+     * Recalculates values in the portfolio
+     */
     public void recalculate(){
         this.portfolioValue = 0.0;
         this.PnL = 0.0;
@@ -67,6 +70,14 @@ public class Portfolio {
             this.portfolioValue += holding.getCurrentValue();
             this.PnL += holding.getPnL();
         }
+    }
+
+    /**
+     * Returns the username of the portfolio owner
+     * @return the username of the portfolio owner
+     */
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -85,14 +96,26 @@ public class Portfolio {
         return cash;
     }
 
+    /**
+     * Returns the dollar value of profit/loss in the portfolio
+     * @return the dollar value of profit/loss in the portfolio
+     */
     public double getPnL() {
         return PnL;
     }
 
+    /**
+     * Returns a list of holdings in the portfolio
+     * @return a list of holdings in the portfolio
+     */
     public ArrayList<Holding> getHoldings() {
         return holdings;
     }
 
+    /**
+     * Removes a holding given a ticker
+     * @param ticker the ticker to remove
+     */
     public void removeHolding (String ticker) {
         for (Holding holding : holdings) {
             if (holding.getStock().getTicker().equals(ticker)) {
@@ -104,6 +127,11 @@ public class Portfolio {
         }
     }
 
+    /**
+     * Returns a holding object corresponding to the string ticker input
+     * @param ticker the ticker of the stock
+     * @return a holding object of that stock, if found
+     */
     public Holding getHolding (String ticker) {
         for (Holding holding : holdings) {
             if (holding.getStock().getTicker().equals(ticker)) {
@@ -127,10 +155,18 @@ public class Portfolio {
         return 0; // Return 0 if no holding with the given stock is found
     }
 
+    /**
+     * Returns the dollar value of the portfolio
+     * @return the dollar value of the portfolio
+     */
     public double getPortfolioValue() {
         return portfolioValue;
     }
 
+    /**
+     * Returns a list of tickers corresponding to held stocks
+     * @return a list of tickers corresponding to held stocks
+     */
     public ArrayList<String> getHeldStocks(){
         ArrayList<String> tickers = new ArrayList<>();
         for (Holding holding : this.getPositiveQuantityHoldings()) {
@@ -139,6 +175,11 @@ public class Portfolio {
         return tickers;
     }
 
+    /**
+     * Buys a given quantity of a stock given the ticker
+     * @param ticker the ticker of stock
+     * @param quantity the quantity of stock
+     */
     public void buyStock(String ticker, int quantity){
         Stock stock = new Stock(ticker);
         if (stock.getCurrentPrice()*quantity > this.cash){
@@ -165,6 +206,11 @@ public class Portfolio {
 
     }
 
+    /**
+     * Deletes a given quantity of a stock given the ticker
+     * @param ticker the ticker of the stock
+     * @param quantity the quantity of stock
+     */
     public void deleteStocks(String ticker, Integer quantity){
         Stock stock = new Stock(ticker);
         Holding holding = this.getHolding(ticker);
@@ -181,6 +227,10 @@ public class Portfolio {
         }
     }
 
+    /**
+     * Returns a list of holdings with a quantity greater than zero
+     * @return a list of holdings with a quantity greater than zero
+     */
     public ArrayList<Holding> getPositiveQuantityHoldings(){
         ArrayList<Holding> holdings = new ArrayList<>();
         for (Holding holding : this.holdings) {
@@ -191,6 +241,11 @@ public class Portfolio {
         return holdings;
     }
 
+    /**
+     * Returns the purchase history of the user, given a stock ticker
+     * @param ticker the ticker of stock
+     * @return the purchase history
+     */
     public ArrayList<Transaction> getUserPurchaseHistory(String ticker) {
         Holding holding = getHolding(ticker);
         return holding.getStockTransactionHistory().getTransactions();

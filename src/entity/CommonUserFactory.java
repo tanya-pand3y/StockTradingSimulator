@@ -11,6 +11,13 @@ public class CommonUserFactory implements UserFactory {
      * @return
      */
 
+    /**
+     * Creates and returns a user given parameters
+     * @param name the username
+     * @param password the password
+     * @param ltd the current time
+     * @return the user
+     */
     @Override
     public entity.User create(String name, String password, LocalDateTime ltd) {
         return new CommonUser(name, password, ltd);

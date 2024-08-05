@@ -1,14 +1,16 @@
 package use_case.buy;
 
+import entity.Portfolio;
+
 public class BuyInputData {
     private final String ticker;
     private final int quantity;
-    private final String username;
+    private final Portfolio portfolio;
 
-    public BuyInputData(String ticker, int quantity, String username) {
+    public BuyInputData(String ticker, int quantity, Portfolio portfolio) {
         this.ticker = ticker;
         this.quantity = quantity;
-        this.username = username;
+        this.portfolio = portfolio;
     }
 
     public String getTicker() {
@@ -19,7 +21,7 @@ public class BuyInputData {
         return quantity;
     }
 
-    public String getUsername() {
-        return username;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 }

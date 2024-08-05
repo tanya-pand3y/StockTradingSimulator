@@ -9,14 +9,13 @@ public class UserPurchaseHistory {
     private int quantity;      // Number of shares purchased
     private ZonedDateTime date; // Date and time of the purchase
 
-    // Constructor to initialize all fields
-    public void PurchaseHistory(String ticker, double price, int quantity, ZonedDateTime date) {
-        this.ticker = ticker;
-        this.price = price;
-        this.quantity = quantity;
-        this.date = date;
-    }
-
+    /**
+     * Creates a UserPurchaseHistory object
+     * @param ticker the ticker
+     * @param price the price
+     * @param quantity the quantity
+     * @param date the date
+     */
     public UserPurchaseHistory(String ticker, double price, int quantity, ZonedDateTime date) {
         this.ticker = ticker;
         this.price = price;
@@ -24,27 +23,42 @@ public class UserPurchaseHistory {
         this.date = date;
     }
 
-    // Getter for the stock ticker symbol
+    /**
+     * Returns the stock ticker
+     * @return the stock ticker
+     */
     public String getTicker() {
         return ticker;
     }
 
-    // Getter for the purchase price
+    /**
+     * Returns the purchase price
+     * @return the purchase price
+     */
     public double getPrice() {
         return price;
     }
 
-    // Getter for the quantity of shares purchased
+    /**
+     * Returns the quantity of the transaction
+     * @return the quantity of the transaction
+     */
     public int getQuantity() {
         return quantity;
     }
 
-    // Getter for the date and time of the purchase
+    /**
+     * returns the date and time of the transaction
+     * @return the date and time of the transaction
+     */
     public ZonedDateTime getDate() {
         return date;
     }
 
-    // Override toString to provide a string representation of the PurchaseHistory
+    /**
+     * Returns the string associated with this purchase history
+     * @return the string associated with this purchase history
+     */
     @Override
     public String toString() {
         return "PurchaseHistory{" +

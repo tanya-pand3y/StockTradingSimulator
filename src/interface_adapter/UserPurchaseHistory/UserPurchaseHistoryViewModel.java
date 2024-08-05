@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class UserPurchaseHistoryViewModel extends ViewModel {
-    private final UserPurchaseHistoryState userPurchaseHistoryState = new UserPurchaseHistoryState();
+    private UserPurchaseHistoryState userPurchaseHistoryState = new UserPurchaseHistoryState();
 
     public UserPurchaseHistoryViewModel() {
         super("UserPurchaseHistory");
@@ -18,10 +18,11 @@ public class UserPurchaseHistoryViewModel extends ViewModel {
     public UserPurchaseHistoryState getState() {
         return userPurchaseHistoryState;
     }
+    public void setState(UserPurchaseHistoryState state) {this.userPurchaseHistoryState = state;}
 
     @Override
     public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+        support.firePropertyChange("state", null, this.userPurchaseHistoryState);
     }
 
     @Override
