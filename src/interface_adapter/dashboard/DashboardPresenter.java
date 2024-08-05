@@ -1,5 +1,7 @@
 package interface_adapter.dashboard;
 
+import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryState;
+import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
@@ -14,12 +16,14 @@ public class DashboardPresenter implements DashboardOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final SellViewModel sellViewModel;
     private final LoginViewModel loginViewModel;
+    private final UserPurchaseHistoryViewModel userPurchaseHistoryViewModel;
 
-    public DashboardPresenter(ViewManagerModel viewManagerModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
+    public DashboardPresenter(ViewManagerModel viewManagerModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.sellViewModel = sellViewModel;
         this.dashboardViewModel = dashboardViewModel;
         this.loginViewModel = loginViewModel;
+        this.userPurchaseHistoryViewModel = userPurchaseHistoryViewModel;
     }
     @Override
     public void prepareSellView(DashboardOutputData dashboardOutputData) {
@@ -54,8 +58,13 @@ public class DashboardPresenter implements DashboardOutputBoundary {
     }
 
     public void prepareUserPurchaseHistoryView(DashboardOutputData dashboardOutputData) {
-        // todo
-        // userpurchhist.viewmod.getstate...
+        System.out.println("Preparing user purchase history view");
+        UserPurchaseHistoryState userPurchaseHistoryState = this.userPurchaseHistoryViewModel.getState();
+        userPurchaseHistoryState.setPortfolio(dashboardOutputData.getPortfolio());
+        this.userPurchaseHistoryViewModel.setState(userPurchaseHistoryState);
+        this.userPurchaseHistoryViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(userPurchaseHistoryViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

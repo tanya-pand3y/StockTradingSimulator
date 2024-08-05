@@ -69,6 +69,10 @@ public class Portfolio {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     /**
      * Sets cash
      * @param cash the cash to set
