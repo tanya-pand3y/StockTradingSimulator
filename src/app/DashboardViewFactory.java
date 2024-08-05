@@ -46,17 +46,18 @@ public class DashboardViewFactory {
                                        DashboardViewModel dashboardViewModel,
                                        SellViewModel sellViewModel,
                                        LoginViewModel loginViewModel,
-                                       UserPurchaseHistoryViewModel userPurchaseHistoryViewModel) {
+                                       UserPurchaseHistoryViewModel userPurchaseHistoryViewModel,
+                                       BuyViewModel buyViewModel) {
 
-        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel);
+        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel, buyViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);
     }
 
-    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel){
+    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, BuyViewModel buyViewModel){
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, userPurchaseHistoryViewModel,sellViewModel, loginViewModel, dashboardViewModel);
+        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, userPurchaseHistoryViewModel,sellViewModel, loginViewModel, dashboardViewModel, buyViewModel);
 
         DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject, dashboardPresenter);
 

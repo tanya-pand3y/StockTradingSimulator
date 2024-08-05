@@ -11,6 +11,7 @@ import interface_adapter.sell.SellState;
 import interface_adapter.sell.SellViewModel;
 import use_case.dashboard.DashboardOutputBoundary;
 import use_case.dashboard.DashboardOutputData;
+import view.BuyView;
 
 public class DashboardPresenter implements DashboardOutputBoundary {
 
@@ -21,12 +22,18 @@ public class DashboardPresenter implements DashboardOutputBoundary {
     private final UserPurchaseHistoryViewModel userPurchaseHistoryViewModel;
     private final BuyViewModel buyViewModel;
 
-    public DashboardPresenter(ViewManagerModel viewManagerModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, DashboardViewModel dashboardViewModel) {
+    public DashboardPresenter(ViewManagerModel viewManagerModel,
+                              UserPurchaseHistoryViewModel userPurchaseHistoryViewModel,
+                              SellViewModel sellViewModel,
+                              LoginViewModel loginViewModel,
+                              DashboardViewModel dashboardViewModel,
+                              BuyViewModel buyViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.sellViewModel = sellViewModel;
         this.dashboardViewModel = dashboardViewModel;
         this.loginViewModel = loginViewModel;
         this.userPurchaseHistoryViewModel = userPurchaseHistoryViewModel;
+        this.buyViewModel = buyViewModel;
     }
     @Override
     public void prepareSellView(DashboardOutputData dashboardOutputData) {

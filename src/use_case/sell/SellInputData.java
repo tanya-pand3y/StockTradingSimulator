@@ -37,6 +37,10 @@ public class SellInputData {
         return quantity;
     }
 
+    /**
+     * Returns the portfolio
+     * @return the portfolio
+     */
     public Portfolio getPortfolio() {
         return this.portfolio;
     }
