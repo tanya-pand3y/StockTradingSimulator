@@ -47,4 +47,10 @@ public class DashboardInteractor implements DashboardInputBoundary{
     public void logoutPressed(){
         this.dashboardPresenter.prepareLogout();
     }
+
+    @Override
+    public void transactionHistoryPressed(DashboardOutputData dashboardOutputData) {
+        this.dashboardPresenter.prepareUserPurchaseHistoryView(dashboardOutputData);
+    }
+
 }

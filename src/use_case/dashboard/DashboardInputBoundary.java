@@ -7,4 +7,5 @@ public interface DashboardInputBoundary {
     Portfolio getUserPortfolio(String username);
     void prepareSellView(DashboardOutputData dashboardOutputData);
     void logoutPressed();
+    void transactionHistoryPressed(DashboardOutputData dashboardOutputData);
 }

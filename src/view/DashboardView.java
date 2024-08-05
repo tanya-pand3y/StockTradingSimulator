@@ -1,14 +1,13 @@
 package view;
 
-
 import entity.Portfolio;
 import interface_adapter.dashboard.DashboardController;
 import interface_adapter.dashboard.DashboardViewModel;
 import use_case.dashboard.DashboardOutputData;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +20,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     public final String viewName = "dashboard";
     private final JButton buyButton;
     private final JButton sellButton;
-    private final JButton logoutButton;  // New logout button
+    private final JButton transactionHistoryButton;  // New transaction history button
+    private final JButton logoutButton;  // Logout button
     private JTable dashboardTable;
     private DashboardViewModel viewModel;
     private DashboardController controller;
@@ -98,7 +98,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
 
         // Right panel for market status and buttons
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(6, 1, 0, 10));  // Increased rows to 6 for the logout button
+        rightPanel.setLayout(new GridLayout(7, 1, 0, 10));  // Increased rows to 7 for the new button
         rightPanel.setBackground(Color.DARK_GRAY);
         rightPanel.setPreferredSize(new Dimension(250, 0));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -146,6 +146,20 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                 }
         );
 
+        // Create the transaction history button and add it to the right panel
+        transactionHistoryButton = createButton("Transaction History", new Color(70, 130, 180), "View transaction history");
+        rightPanel.add(transactionHistoryButton);
+
+        transactionHistoryButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Transaction History button pressed");
+                        controller.transactionHistoryPressed(viewModel.getState().getPortfolio());
+                    }
+                }
+        );
+
         // Create the logout button and add it to the right panel
         logoutButton = createButton("Logout", new Color(128, 0, 0), "Logout from the application");
         rightPanel.add(logoutButton);
@@ -166,7 +180,6 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
         // Make the frame visible
         setVisible(true);
     }
-
 
     private JButton createButton(String text, Color backgroundColor, String toolTip) {
         JButton button = new JButton(text);
@@ -218,8 +231,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
             // Reset cash and profit labels
             this.cashLabel.setText("Cash: $0.00");
             this.profitLabel.setText("Profit: $0.00");
-            this.profitLabel.setText("Portfolio Value: $0.00");
+            this.portfolioValueLabel.setText("Portfolio Value: $0.00");
         }
     }
-
 }
