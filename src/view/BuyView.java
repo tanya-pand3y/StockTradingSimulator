@@ -83,6 +83,6 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
             JOptionPane.showMessageDialog(this, "Please enter a valid quantity", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        controller.execute(stockTicker, quantity, this.viewModel.getState().getUsername());
+        controller.execute(stockTicker, quantity, this.viewModel.getState().getPortfolio());
     }
 }

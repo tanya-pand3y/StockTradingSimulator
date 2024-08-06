@@ -1,9 +1,6 @@
 package interface_adapter.sell;
 
 import entity.Portfolio;
-import entity.Stock;
-
-import java.util.List;
 
 public class SellState {
     private String username;
