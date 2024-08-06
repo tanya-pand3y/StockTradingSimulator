@@ -1,6 +1,7 @@
 package use_case.buy;
 
 import data_access.StockQuantityDataAccessInterface;
+import data_access.TiingoAPIDataAccessInterface;
 
 public class BuyInteractor implements BuyInputBoundary {
     final BuyOutputBoundary buyPresenter;
@@ -13,10 +14,16 @@ public class BuyInteractor implements BuyInputBoundary {
     }
 
     public void execute(BuyInputData buyInputData) {
-        // stockQuantityDataAccessObject.addStocks(buyInputData.getUsername(),
-                // buyInputData.getTicker(), buyInputData.getQuantity());
-        buyInputData.getPortfolio().buyStock(buyInputData.getTicker(), buyInputData.getQuantity());
-        BuyOutputData buyOutputData = new BuyOutputData();
-        buyPresenter.prepareSuccessView(buyOutputData);
+        String result = buyInputData.getPortfolio().buyStock(buyInputData.getTicker(), buyInputData.getQuantity());
+        if (result == "") {
+            BuyOutputData buyOutputData = new BuyOutputData();
+            buyPresenter.prepareSuccessView(buyOutputData);
+        } else {
+            buyPresenter.prepareFailView(result);
+        }
+    }
+
+    public void cancel() {
+        buyPresenter.prepareCancelView();
     }
 }

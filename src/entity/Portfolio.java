@@ -162,12 +162,13 @@ public class Portfolio {
      * @param ticker the ticker of stock
      * @param quantity the quantity of stock
      */
-    public void buyStock(String ticker, int quantity){
+    public String buyStock(String ticker, int quantity){
         Stock stock = new Stock(ticker);
         if (stock.getCurrentPrice()*quantity > this.cash){
             System.out.println("Not enough money");
+            return "Insufficient funds!";
         }
-        else{
+        else {
             LocalDateTime currentDate = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDate = currentDate.format(formatter);
@@ -175,7 +176,7 @@ public class Portfolio {
             if (this.getHolding(ticker) != null){
                 Holding holding = this.getHolding(ticker);
                 holding.addTransaction(transaction, username, this.stockQuantityDao);
-            }else{
+            } else {
                 StockTransactionHistory stockTransactionHistory = new StockTransactionHistory();
                 stockTransactionHistory.setTicker(ticker);
                 Holding newHolding = new Holding(stock,stockTransactionHistory);
@@ -185,7 +186,7 @@ public class Portfolio {
             this.cash -= stock.getCurrentPrice()*quantity;
             recalculate();
         }
-
+        return "";
     }
 
     /**

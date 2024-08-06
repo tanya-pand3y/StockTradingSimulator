@@ -15,4 +15,8 @@ public class BuyController {
         BuyInputData inputData = new BuyInputData(stockTicker, quantity, portfolio);
         interactor.execute(inputData);
     }
+
+    public void cancel() {
+        interactor.cancel();
+    }
 }

@@ -1,6 +1,8 @@
 package app;
 
+import data_access.StockCurrentAPIDataAccessObject;
 import data_access.StockQuantityDataAccessObject;
+import data_access.TiingoAPIDataAccessInterface;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyController;
 import interface_adapter.buy.BuyPresenter;

@@ -25,8 +25,15 @@ public class BuyPresenter implements BuyOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    public void prepareCancelView() {
+        System.out.println("Returning to dashboard, buy cancelled");
+        viewManagerModel.setActiveView(dashboardViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
     public void prepareFailView(String errorMessage) {
         System.out.println("Epic fail!! " + errorMessage);
+        buyViewModel.setErrorMessage(errorMessage);
         // TODO implement!
     }
 }
