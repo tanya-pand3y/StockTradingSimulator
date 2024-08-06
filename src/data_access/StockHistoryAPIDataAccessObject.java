@@ -10,6 +10,12 @@ public class StockHistoryAPIDataAccessObject extends TiingoAPIDataAccessObject i
     private final ArrayList<ZonedDateTime> dateArray;
     private final ArrayList<Integer> volumeArray;
 
+    /**
+     * Creates a Stock History DAO given a ticker and dates
+     * @param ticker the ticker
+     * @param startDate the start date
+     * @param endDate the end date
+     */
     public StockHistoryAPIDataAccessObject(String ticker, String startDate, String endDate) {
         super(ticker, startDate, endDate);
         this.closeArray = new ArrayList<>();
@@ -27,22 +33,30 @@ public class StockHistoryAPIDataAccessObject extends TiingoAPIDataAccessObject i
 
     }
 
+    /**
+     * Returns the close price of the stock
+     * @return the close price of the stock
+     */
     @Override
     public ArrayList<Double> getClose() {
         return this.closeArray;
     }
 
+    /**
+     * Returns the date of the data
+     * @return the date of the data
+     */
     @Override
     public ArrayList<ZonedDateTime> getDate() {
         return this.dateArray;
     }
 
+    /**
+     * Returns an ArrayList containing trading volumes on each day
+     * @return an ArrayList containing trading volumes on each day
+     */
     @Override
     public ArrayList<Integer> getVolume() {
         return this.volumeArray;
-    }
-
-    public static void main(String[] args) {
-        StockCurrentAPIDataAccessObject accessObject = new StockCurrentAPIDataAccessObject("MSFT");
     }
 }

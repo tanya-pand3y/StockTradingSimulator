@@ -15,28 +15,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class StockQuantityDataAccessObject implements StockQuantityDataAccessInterface {
     private Firestore db = null;
     private ArrayList<String> tickers = new ArrayList<>();
     private Map<String, Map<String, Map<String, Object>>> priceQuantityMap = new HashMap<>();
 
+    /**
+     * Creates a StockQuantity DAO
+     */
     public StockQuantityDataAccessObject(){
-        // Use the application default credentials
-        try{
+        try {
             FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
                     .setProjectId("stocksimulator-9cba4")
                     .setCredentials(GoogleCredentials.fromStream(new FileInputStream("src/stocksimulator-9cba4-firebase-adminsdk-bnr7o-02d508deaa.json")))
                     .build();
             db = firestoreOptions.getService();
-        }catch(IOException e){
+        } catch(IOException e) {
             System.out.println("Firebase File not found");
         }
-
-
     }
 
+    /**
+     * Fetches the data given a username
+     * @param username the username of the User to fetch data for
+     */
     public void fetchData(String username) {
         Map<String, Object> userData = new HashMap<>();
         ApiFuture<DocumentSnapshot> future = db.collection("UserPortfolioData").document(username).get();
@@ -55,6 +58,14 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         this.priceQuantityMap = convertData(userData);
     }
 
+    /**
+     * Adds a transaction entry
+     * @param username the username
+     * @param ticker the ticker
+     * @param date the date
+     * @param price the price
+     * @param quantity the quantity
+     */
     public void addEntry(String username, String ticker, String date, Double price, int quantity) {
         DocumentReference docRef = db.collection("UserPortfolioData").document(username);
         ApiFuture<DocumentSnapshot> future = docRef.get();
@@ -85,6 +96,11 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         }
     }
 
+    /**
+     * Deletes a holding
+     * @param username the username
+     * @param ticker the ticker
+     */
     public void deleteHolding(String username, String ticker) {
         DocumentReference docRef = db.collection("UserPortfolioData").document(username);
         ApiFuture<WriteResult> writeResult = docRef.update(ticker, FieldValue.delete());
@@ -97,6 +113,10 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         }
     }
 
+    /**
+     * Creates a user in Firebase
+     * @param username the username of that user
+     */
     public void createUserInFirebase(String username) {
         DocumentReference docRef = db.collection("UserPortfolioData").document(username);
         Map<String, Object> userData = new HashMap<>();
@@ -143,10 +163,18 @@ public class StockQuantityDataAccessObject implements StockQuantityDataAccessInt
         return tickers;
     }
 
+    /**
+     * Returns a list of tickers owned
+     * @return a list of tickers owned
+     */
     public ArrayList<String> getTicker() {
         return tickers;
     }
 
+    /**
+     * Returns a map between price and quantity
+     * @return a map between price and quantity
+     */
     public Map<String, Map<String, Map<String, Object>>> getPriceQuantityMap() {
         return priceQuantityMap;
     }

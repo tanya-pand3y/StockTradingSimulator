@@ -3,7 +3,6 @@ package data_access;
 import entity.User;
 
 public interface UserLoginDataAccessInterface {
-    boolean existByName(String Identifier);
 
     void save(User user);
 

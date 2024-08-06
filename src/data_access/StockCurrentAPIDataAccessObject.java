@@ -10,6 +10,10 @@ public class StockCurrentAPIDataAccessObject extends TiingoAPIDataAccessObject i
     private final ZonedDateTime date;
     private final int volume;
 
+    /**
+     * Creates a data access object for a given stock ticker
+     * @param ticker the stock ticker
+     */
     public StockCurrentAPIDataAccessObject(String ticker) {
         super(ticker);
         JSONObject jsonObject = this.getApiArray().getJSONObject(0);
@@ -18,27 +22,30 @@ public class StockCurrentAPIDataAccessObject extends TiingoAPIDataAccessObject i
         this.volume = jsonObject.getInt("volume");
     }
 
+    /**
+     * Returns the close price
+     * @return the close price
+     */
     @Override
     public Double getClose() {
         return close;
     }
 
+    /**
+     * Returns the trading volume
+     * @return the trading volume
+     */
     @Override
     public int getVolume() {
         return volume;
     }
+
+    /**
+     * Returns the date of the data
+     * @return the date of the data
+     */
     @Override
     public ZonedDateTime getDate() {
         return date;
-    }
-
-
-
-
-    public static void main(String[] args) {
-        StockCurrentAPIDataAccessObject accessObject = new StockCurrentAPIDataAccessObject("MSFT");
-        System.out.println(accessObject.getClose());
-        System.out.println(accessObject.getVolume());
-        System.out.println(accessObject.getDate());
     }
 }

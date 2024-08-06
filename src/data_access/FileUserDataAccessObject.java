@@ -12,13 +12,16 @@ import java.util.Map;
 public class FileUserDataAccessObject implements UserSignupDataAccessInterface, UserLoginDataAccessInterface {
 
     private final File csvFile;
-
     private final Map<String, Integer> headers = new LinkedHashMap<>();
-
     private final Map<String, User> accounts = new HashMap<>();
-
     private UserFactory userFactory;
 
+    /**
+     * Creates an object of FileUserDataAccessObject
+     * @param csvPath the path of the csv where the file is
+     * @param userFactory the UserFactory associated with the user type
+     * @throws IOException if unable to find the csv
+     */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
@@ -51,22 +54,29 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
         }
     }
 
-    @Override
-    public boolean existByName(String nameIdentifier) {
-        return false;
-    }
-
+    /**
+     * Saves the values for a given user
+     * @param user the user
+     */
     @Override
     public void save(User user) {
         accounts.put(user.getName(), user);
         this.save();
     }
 
+    /**
+     * Gets a User given the username
+     * @param username the username
+     * @return the associated User
+     */
     @Override
     public User get(String username) {
         return accounts.get(username);
     }
 
+    /**
+     * Saves the data
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -87,7 +97,6 @@ public class FileUserDataAccessObject implements UserSignupDataAccessInterface, 
             throw new RuntimeException(e);
         }
     }
-
 
     /**
      * Return whether a user exists with username identifier.

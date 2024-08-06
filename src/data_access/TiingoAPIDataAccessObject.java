@@ -12,6 +12,10 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
     private final String ticker;
     private final String name;
 
+    /**
+     * Creates an API data access object
+     * @param ticker the ticker
+     */
     public TiingoAPIDataAccessObject(String ticker) {
         this.ticker = ticker;
         this.name = this.getNameOfStock();
@@ -19,6 +23,12 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
         this.apiArray = this.getAPIData(this.ticker);
     }
 
+    /**
+     * Creates an API data access object with start and end dates
+     * @param ticker the ticker
+     * @param startDate the start date
+     * @param endDate the end date
+     */
     public TiingoAPIDataAccessObject(String ticker, String startDate, String endDate) {
         this.ticker = ticker;
         this.name = this.getNameOfStock();
@@ -26,6 +36,10 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
         this.apiArray = this.getAPIData(this.ticker);
     }
 
+    /**
+     * Returns the name of the stock
+     * @return the name of the stock
+     */
     private String getNameOfStock(){
         String name = "";
         String urlString = "https://api.tiingo.com/tiingo/daily/" + this.ticker;
@@ -59,6 +73,11 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
 
     }
 
+    /**
+     * Gets the API data for a given stock ticker
+     * @param ticker the ticker
+     * @return the API data as a JSON array
+     */
     private JSONArray getAPIData(String ticker) {
         JSONArray jsonArray = null;
         try {
@@ -93,14 +112,26 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
         return jsonArray;
     }
 
+    /**
+     * Returns the API array
+     * @return the API array
+     */
     public JSONArray getApiArray() {
         return apiArray;
     }
 
+    /**
+     * Returns the ticker
+     * @return the ticker
+     */
     public String getTicker() {
         return ticker;
     }
 
+    /**
+     * Returns the name
+     * @return the name
+     */
     public String getName() {
         return this.name;
     }
