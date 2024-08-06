@@ -1,5 +1,6 @@
 package interface_adapter.dashboard;
 
+import interface_adapter.QueryStock.QueryStockViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryState;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.ViewManagerModel;
@@ -21,20 +22,24 @@ public class DashboardPresenter implements DashboardOutputBoundary {
     private final LoginViewModel loginViewModel;
     private final UserPurchaseHistoryViewModel userPurchaseHistoryViewModel;
     private final BuyViewModel buyViewModel;
+    private final QueryStockViewModel queryStockViewModel;
 
     public DashboardPresenter(ViewManagerModel viewManagerModel,
                               UserPurchaseHistoryViewModel userPurchaseHistoryViewModel,
                               SellViewModel sellViewModel,
                               LoginViewModel loginViewModel,
                               DashboardViewModel dashboardViewModel,
-                              BuyViewModel buyViewModel) {
+                              BuyViewModel buyViewModel,
+                              QueryStockViewModel queryStockViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.sellViewModel = sellViewModel;
         this.dashboardViewModel = dashboardViewModel;
         this.loginViewModel = loginViewModel;
         this.userPurchaseHistoryViewModel = userPurchaseHistoryViewModel;
         this.buyViewModel = buyViewModel;
+        this.queryStockViewModel = queryStockViewModel;
     }
+
     @Override
     public void prepareSellView(DashboardOutputData dashboardOutputData) {
         System.out.println("Preparing sell view");
@@ -67,6 +72,7 @@ public class DashboardPresenter implements DashboardOutputBoundary {
 
     }
 
+    @Override
     public void prepareUserPurchaseHistoryView(DashboardOutputData dashboardOutputData) {
         System.out.println("Preparing user purchase history view");
         UserPurchaseHistoryState userPurchaseHistoryState = this.userPurchaseHistoryViewModel.getState();
@@ -77,7 +83,7 @@ public class DashboardPresenter implements DashboardOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
-
+    @Override
     public void prepareBuyView(DashboardOutputData dashboardOutputData) {
         System.out.println("Preparing buy view");
         BuyState buyState = this.buyViewModel.getState();
@@ -87,5 +93,11 @@ public class DashboardPresenter implements DashboardOutputBoundary {
         this.buyViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(buyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareStockQuery() {
+        this.viewManagerModel.setActiveView(queryStockViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

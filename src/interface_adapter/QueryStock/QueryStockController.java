@@ -14,4 +14,8 @@ public class QueryStockController {
         QueryStockInputData inputData = new QueryStockInputData(ticker, startDate, endDate);
         interactor.execute(inputData);
     }
+
+    public void backButtonPressed(){
+        this.interactor.backButtonPressed();
+    }
 }

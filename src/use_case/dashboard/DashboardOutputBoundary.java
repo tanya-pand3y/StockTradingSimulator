@@ -7,6 +7,7 @@ public interface DashboardOutputBoundary {
     void prepareUserPurchaseHistoryView(DashboardOutputData dashboardOutputData);
     void prepareLogout();
     void prepareBuyView(DashboardOutputData dashboardOutputData);
+    void prepareStockQuery();
 
 }
 

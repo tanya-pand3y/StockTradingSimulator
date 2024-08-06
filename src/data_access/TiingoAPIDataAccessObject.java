@@ -34,7 +34,7 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
-            String API_KEY = "e721e5590df56f3f1cda874c922ee7a0bb1a5079";
+            String API_KEY = "77ccaaa9724942aab6e2f2d43a0d70731b83cc35";
             connection.setRequestProperty("Authorization", "Token " + API_KEY);
 
             int responseCode = connection.getResponseCode();
@@ -68,7 +68,7 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
 
             // Add request headers
             connection.setRequestProperty("Accept", "application/json");
-            String API_KEY = "e721e5590df56f3f1cda874c922ee7a0bb1a5079";
+            String API_KEY = "77ccaaa9724942aab6e2f2d43a0d70731b83cc35";
             connection.setRequestProperty("Authorization", "Token " + API_KEY);
 
             int responseCode = connection.getResponseCode();

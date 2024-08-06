@@ -36,4 +36,8 @@ public class DashboardController {
     public void buyButtonClicked(DashboardOutputData dashboardOutputData) {
         this.dashboardInteractor.prepareBuyView(dashboardOutputData);
     }
+
+    public void stockQueryPressed(){
+        this.dashboardInteractor.stockQueryPressed();
+    }
 }

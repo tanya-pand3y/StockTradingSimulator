@@ -6,6 +6,7 @@ import data_access.UserSignupDataAccessInterface;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
+import interface_adapter.QueryStock.QueryStockViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.buy.BuyViewModel;
@@ -47,17 +48,18 @@ public class DashboardViewFactory {
                                        SellViewModel sellViewModel,
                                        LoginViewModel loginViewModel,
                                        UserPurchaseHistoryViewModel userPurchaseHistoryViewModel,
-                                       BuyViewModel buyViewModel) {
+                                       BuyViewModel buyViewModel,
+                                       QueryStockViewModel queryStockViewModel) {
 
-        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel, buyViewModel);
+        DashboardController dashboardController = createDashboardUseCase(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel, buyViewModel, queryStockViewModel);
         return new DashboardView(dashboardViewModel, dashboardController);
     }
 
-    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, BuyViewModel buyViewModel){
+    private static DashboardController createDashboardUseCase(ViewManagerModel viewManagerModel, DashboardViewModel dashboardViewModel, SellViewModel sellViewModel, LoginViewModel loginViewModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, BuyViewModel buyViewModel, QueryStockViewModel queryStockViewModel){
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, userPurchaseHistoryViewModel,sellViewModel, loginViewModel, dashboardViewModel, buyViewModel);
+        DashboardOutputBoundary dashboardPresenter = new DashboardPresenter(viewManagerModel, userPurchaseHistoryViewModel,sellViewModel, loginViewModel, dashboardViewModel, buyViewModel, queryStockViewModel);
 
         DashboardInputBoundary dashboardInteractor = new DashboardInteractor(stockQuantityDataAccessObject, dashboardPresenter);
 

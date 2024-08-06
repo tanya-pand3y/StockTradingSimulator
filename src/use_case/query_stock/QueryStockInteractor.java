@@ -65,4 +65,9 @@ public void execute(QueryStockInputData inputData) {
     // Present output data
     outputBoundary.present(outputData);
     }
+
+    @Override
+    public void backButtonPressed() {
+        this.outputBoundary.prepareDashboardView();
+    }
 }

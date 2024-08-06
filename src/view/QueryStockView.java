@@ -11,14 +11,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class QueryStockView extends JPanel {
+    public final String viewName = "QueryStockView";
     private JTextField tickerField;
     private JTextField startDateField;
     private JTextField endDateField;
@@ -28,6 +26,7 @@ public class QueryStockView extends JPanel {
     private final QueryStockController controller;
     private final QueryStockViewModel viewModel;
     private JButton resetButton; // Declare the reset button
+    private JButton backButton;  // Declare the back button
 
     public QueryStockView(QueryStockController controller, QueryStockViewModel viewModel) {
         this.controller = controller;
@@ -38,6 +37,10 @@ public class QueryStockView extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Set preferred size to increase the window size
+        setPreferredSize(new Dimension(800, 1000));
+
         resultArea = new JTextArea(10, 30);
         resultArea.setEditable(false);
 
@@ -46,6 +49,8 @@ public class QueryStockView extends JPanel {
         startDateField = new JTextField(10);
         endDateField = new JTextField(10);
         queryButton = new JButton("Query Stock");
+        resetButton = new JButton("Reset");
+        backButton = new JButton("Back");
 
         // Add components to the panel
         gbc.gridx = 0;
@@ -56,11 +61,10 @@ public class QueryStockView extends JPanel {
         gbc.gridy = 0;
         add(tickerField, gbc);
 
-        //reset button
+        // Add reset button
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        resetButton = new JButton("Reset");
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,19 +97,40 @@ public class QueryStockView extends JPanel {
         gbc.gridy = 4;
         add(resultArea, gbc);
 
-        // Add action listener to the button
+        // Add back button
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle back button action
+                System.out.println("Back button pressed");
+                // You can add more logic here to switch views
+            }
+        });
+        add(backButton, gbc);
+
+        // Add action listener to the query button
         queryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (handleQueryStock()){
+                if (handleQueryStock()) {
                     updateDisplay();
                 }
             }
         });
 
+        backButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controller.backButtonPressed();
+                    }
+                }
+        );
     }
 
-    //Reset view method
+    // Reset view method
     private void resetView() {
         // Clear input fields
         tickerField.setText("");
@@ -143,9 +168,7 @@ public class QueryStockView extends JPanel {
         viewModel.setCurrentPrice(0.0);
         viewModel.setPriceHistory(null);
         viewModel.setDates(null);
-
     }
-
 
     private boolean handleQueryStock() {
         // Get the values from the text fields
@@ -162,23 +185,20 @@ public class QueryStockView extends JPanel {
             return false;
         }
         if (!startDate.isEmpty() && endDate.isEmpty()) {
-            resultArea.setText("Error: Please enter a end date.");
+            resultArea.setText("Error: Please enter an end date.");
             return false;
         }
-            // Pass the data to the controller
-            System.out.println("Ticker: " + ticker);
-            controller.execute(ticker, startDate, endDate);
-            return true;
+        // Pass the data to the controller
+        System.out.println("Ticker: " + ticker);
+        controller.execute(ticker, startDate, endDate);
+        return true;
     }
-
 
     private void updateDisplay() {
         // Get the updated data from the ViewModel
         String ticker = viewModel.getTicker();
         Double currentPrice = viewModel.getCurrentPrice();
         ArrayList<Double> priceHistory = viewModel.getPriceHistory();
-        String startDate = viewModel.getStartDate();
-        String endDate = viewModel.getEndDate();
         ArrayList<ZonedDateTime> dates = viewModel.getDates();
 
         // Update the result area with the new data
@@ -196,7 +216,6 @@ public class QueryStockView extends JPanel {
                 data[i][1] = priceHistory.get(i);
             }
 
-
             priceHistoryTable = new JTable(data, columnNames);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridx = 1;
@@ -209,30 +228,7 @@ public class QueryStockView extends JPanel {
         }
     }
 
-
     public static void main(String[] args) {
-        // Create the ViewModel
-        QueryStockViewModel viewModel = new QueryStockViewModel("QueryStockViewModel");
 
-        // Create the real presenter
-        QueryStockOutputBoundary presenter = new QueryStockPresenter(viewModel);
-
-        // Create the real interactor
-        QueryStockInputBoundary interactor = new QueryStockInteractor(presenter);
-
-        // Create the controller with the real interactor
-        QueryStockController controller = new QueryStockController(interactor);
-
-        // Create the view
-        QueryStockView view = new QueryStockView(controller, viewModel);
-
-        // Set up the frame
-        JFrame frame = new JFrame("Query Stock View");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(view, BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
-

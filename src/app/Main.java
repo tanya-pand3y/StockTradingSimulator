@@ -1,5 +1,6 @@
 package app;
 
+import interface_adapter.QueryStock.QueryStockViewModel;
 import interface_adapter.buy.BuyViewModel;
 import interface_adapter.UserPurchaseHistory.UserPurchaseHistoryViewModel;
 import interface_adapter.dashboard.DashboardViewModel;
@@ -11,9 +12,10 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -42,6 +44,7 @@ public class Main {
         SellViewModel sellViewModel = new SellViewModel();
         UserPurchaseHistoryViewModel userPurchaseHistoryViewModel = new UserPurchaseHistoryViewModel();
         BuyViewModel buyViewModel = new BuyViewModel();
+        QueryStockViewModel queryStockViewModel = new QueryStockViewModel();
 
 //        SignupView signupView = app.SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel);
 //        views.add(signupView, signupView.viewName);
@@ -57,7 +60,7 @@ public class Main {
         views.add(loginView, loginView.viewName);
 
         // Creating Dashboard View
-        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel, buyViewModel);
+        DashboardView dashboardView = DashboardViewFactory.create(viewManagerModel, dashboardViewModel, sellViewModel, loginViewModel, userPurchaseHistoryViewModel, buyViewModel, queryStockViewModel);
         views.add(dashboardView, dashboardView.viewName);
 
         // Creating sell view
@@ -70,6 +73,9 @@ public class Main {
 
         UserPurchaseHistoryView userPurchaseHistoryView = UserPurchaseHistoryFactory.create(viewManagerModel, userPurchaseHistoryViewModel, dashboardViewModel);
         views.add(userPurchaseHistoryView, userPurchaseHistoryView.viewName);
+
+        QueryStockView queryStockView = QueryStockFactory.create(viewManagerModel, queryStockViewModel, dashboardViewModel);
+        views.add(queryStockView, queryStockView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();

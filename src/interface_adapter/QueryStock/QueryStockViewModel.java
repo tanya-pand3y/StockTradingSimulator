@@ -17,8 +17,8 @@ public class QueryStockViewModel extends ViewModel {
 
     private final PropertyChangeSupport support;
 
-    public QueryStockViewModel(String viewName) {
-        super(viewName);
+    public QueryStockViewModel() {
+        super("QueryStockView");
         support = new PropertyChangeSupport(this);
     }
 

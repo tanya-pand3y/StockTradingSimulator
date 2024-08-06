@@ -9,4 +9,5 @@ public interface DashboardInputBoundary {
     void logoutPressed();
     void transactionHistoryPressed(DashboardOutputData dashboardOutputData);
     void prepareBuyView(DashboardOutputData dashboardOutputData);
+    void stockQueryPressed();
 }

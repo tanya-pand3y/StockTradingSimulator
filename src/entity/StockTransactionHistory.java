@@ -38,6 +38,7 @@ public class StockTransactionHistory {
      * @return a list of transactions in the history
      */
     public ArrayList<Transaction> getTransactions() {
+        recalculate();
         return transactions;
     }
 

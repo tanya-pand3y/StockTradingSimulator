@@ -6,5 +6,6 @@ public interface QueryStockInputBoundary {
      * @param inputData the input data required to view a stock.
      */
     void execute(QueryStockInputData inputData);
+    void backButtonPressed();
 
 }

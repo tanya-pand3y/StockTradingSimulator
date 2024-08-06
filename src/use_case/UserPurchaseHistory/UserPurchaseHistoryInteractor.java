@@ -1,6 +1,4 @@
 package use_case.UserPurchaseHistory;
-
-import data_access.UserPurchaseHistoryDataAccessInterface;
 import entity.Portfolio;
 import entity.Transaction;
 import entity.UserPurchaseHistory;

@@ -1,21 +1,19 @@
 package entity;
 
 import data_access.StockQuantityDataAccessInterface;
-import data_access.StockQuantityDataAccessObject;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
 public class Portfolio {
-    private String username;
+    private final String username;
     private double portfolioValue;
     private double cash;
     private double PnL;
-    private ArrayList<Holding> holdings;
-    private StockQuantityDataAccessInterface stockQuantityDao;
+    private final ArrayList<Holding> holdings;
+    private final StockQuantityDataAccessInterface stockQuantityDao;
 
     private static double convertToDouble(Object number) {
         if (number instanceof Double) {
@@ -27,11 +25,7 @@ public class Portfolio {
         }
     }
 
-    /**
-     * Initializes a portfolio
-     * @param StartingCash the amount of starting cash
-     */
-    public Portfolio (String username, double StartingCash, StockQuantityDataAccessInterface dao){
+    public Portfolio (String username, StockQuantityDataAccessInterface dao){
         this.username = username;
         this.stockQuantityDao = dao;
 
@@ -50,12 +44,13 @@ public class Portfolio {
         });
         this.portfolioValue = 0.0;
         this.PnL = 0.0;
+        this.cash = 5000;
         for (Holding holding : this.holdings) {
             this.portfolioValue += holding.getCurrentValue();
             this.PnL += holding.getPnL();
+            this.cash -= holding.getStockTransactionHistory().getTotalTransactionValue();
         }
 
-        this.cash = StartingCash;
 
     }
 
@@ -65,10 +60,12 @@ public class Portfolio {
     public void recalculate(){
         this.portfolioValue = 0.0;
         this.PnL = 0.0;
+        this.cash = 5000;
         for (Holding holding : this.holdings) {
             holding.recalculate();
             this.portfolioValue += holding.getCurrentValue();
             this.PnL += holding.getPnL();
+            this.cash -= holding.getStockTransactionHistory().getTotalTransactionValue();
         }
     }
 
@@ -110,21 +107,6 @@ public class Portfolio {
      */
     public ArrayList<Holding> getHoldings() {
         return holdings;
-    }
-
-    /**
-     * Removes a holding given a ticker
-     * @param ticker the ticker to remove
-     */
-    public void removeHolding (String ticker) {
-        for (Holding holding : holdings) {
-            if (holding.getStock().getTicker().equals(ticker)) {
-                holdings.remove(holding);
-                recalculate();
-                break;
-            }
-
-        }
     }
 
     /**

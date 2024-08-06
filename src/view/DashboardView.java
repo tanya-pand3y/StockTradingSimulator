@@ -20,7 +20,8 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
     public final String viewName = "dashboard";
     private final JButton buyButton;
     private final JButton sellButton;
-    private final JButton transactionHistoryButton;  // New transaction history button
+    private final JButton transactionHistoryButton;  // Transaction history button
+    private final JButton stockQueryButton;  // Stock query button
     private final JButton logoutButton;  // Logout button
     private JTable dashboardTable;
     private DashboardViewModel viewModel;
@@ -98,7 +99,7 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
 
         // Right panel for market status and buttons
         JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(7, 1, 0, 10));  // Increased rows to 7 for the new button
+        rightPanel.setLayout(new GridLayout(8, 1, 0, 10));  // Increased rows to 8 for the new button
         rightPanel.setBackground(Color.DARK_GRAY);
         rightPanel.setPreferredSize(new Dimension(250, 0));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -158,6 +159,20 @@ public class DashboardView extends JPanel implements ActionListener, PropertyCha
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Transaction History button pressed");
                         controller.transactionHistoryPressed(viewModel.getState().getPortfolio());
+                    }
+                }
+        );
+
+        // Create the stock query button and add it to the right panel
+        stockQueryButton = createButton("Stock Query", new Color(255, 214, 0), "Query stock information");
+        rightPanel.add(stockQueryButton);
+
+        stockQueryButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Stock Query button pressed");
+                        controller.stockQueryPressed();
                     }
                 }
         );

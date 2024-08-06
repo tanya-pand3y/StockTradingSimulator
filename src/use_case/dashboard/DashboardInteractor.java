@@ -18,7 +18,7 @@ public class DashboardInteractor implements DashboardInputBoundary{
     }
 
     public Portfolio getUserPortfolio(String username) {
-        return new Portfolio(username, 0, stockQuantityDao);
+        return new Portfolio(username, stockQuantityDao);
 
     }
 
@@ -39,6 +39,7 @@ public class DashboardInteractor implements DashboardInputBoundary{
         return obj;
     }
 
+    @Override
     public void prepareSellView(DashboardOutputData dashboardOutputData){
         this.dashboardPresenter.prepareSellView(dashboardOutputData);
     }
@@ -53,8 +54,13 @@ public class DashboardInteractor implements DashboardInputBoundary{
         this.dashboardPresenter.prepareUserPurchaseHistoryView(dashboardOutputData);
     }
 
-
+    @Override
     public void prepareBuyView(DashboardOutputData dashboardOutputData) {
         this.dashboardPresenter.prepareBuyView(dashboardOutputData);
+    }
+
+    @Override
+    public void stockQueryPressed() {
+        this.dashboardPresenter.prepareStockQuery();
     }
 }
