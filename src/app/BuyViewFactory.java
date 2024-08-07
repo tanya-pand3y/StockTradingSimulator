@@ -28,7 +28,7 @@ public class BuyViewFactory {
                                                   BuyViewModel buyViewModel) {
         StockQuantityDataAccessObject stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
         BuyOutputBoundary buyPresenter = new BuyPresenter(buyViewModel, dashboardViewModel, viewManagerModel);
-        BuyInputBoundary buyInteractor = new BuyInteractor(buyPresenter, stockQuantityDataAccessObject);
+        BuyInputBoundary buyInteractor = new BuyInteractor(buyPresenter);
         return new BuyController(buyInteractor);
     }
 }

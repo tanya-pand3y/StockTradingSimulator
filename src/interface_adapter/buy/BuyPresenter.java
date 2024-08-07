@@ -36,4 +36,8 @@ public class BuyPresenter implements BuyOutputBoundary {
         buyViewModel.setErrorMessage(errorMessage);
         // TODO implement!
     }
+
+    public void setSharePrice(double sharePrice) {
+        buyViewModel.setSharePrice(sharePrice);
+    }
 }

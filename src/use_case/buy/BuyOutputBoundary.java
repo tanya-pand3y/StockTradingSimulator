@@ -4,4 +4,5 @@ public interface BuyOutputBoundary {
     void prepareSuccessView(BuyOutputData buyOutputData);
     void prepareCancelView();
     void prepareFailView(String error);
+    void setSharePrice(double sharePrice);
 }

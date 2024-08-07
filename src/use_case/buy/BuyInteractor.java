@@ -1,16 +1,11 @@
 package use_case.buy;
 
-import data_access.StockQuantityDataAccessInterface;
-import data_access.TiingoAPIDataAccessInterface;
+import data_access.StockCurrentAPIDataAccessObject;
 
 public class BuyInteractor implements BuyInputBoundary {
     final BuyOutputBoundary buyPresenter;
-    final StockQuantityDataAccessInterface stockQuantityDataAccessObject;
-
-    public BuyInteractor(BuyOutputBoundary buyOutputBoundary,
-                         StockQuantityDataAccessInterface stockQuantityDataAccessObject) {
+    public BuyInteractor(BuyOutputBoundary buyOutputBoundary) {
         this.buyPresenter = buyOutputBoundary;
-        this.stockQuantityDataAccessObject = stockQuantityDataAccessObject;
     }
 
     public void execute(BuyInputData buyInputData) {
@@ -25,5 +20,13 @@ public class BuyInteractor implements BuyInputBoundary {
 
     public void cancel() {
         buyPresenter.prepareCancelView();
+    }
+
+    @Override
+    public double getSharePrice(String ticker) {
+        StockCurrentAPIDataAccessObject tiingoAPI = new StockCurrentAPIDataAccessObject(ticker);
+        double price = tiingoAPI.getClose();
+        buyPresenter.setSharePrice(price);
+        return price;
     }
 }

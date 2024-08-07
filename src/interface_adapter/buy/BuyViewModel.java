@@ -11,6 +11,8 @@ public class BuyViewModel extends ViewModel {
     public final String EXECUTE_LABEL = "Buy";
     private String errorMessage;
     public static final String ERROR_MESSAGE_PROPERTY = "errorMessage";
+    private double sharePrice;
+    public static final String SHARE_PRICE_PROPERTY = "sharePrice";
     private BuyState state = new BuyState();
 
     public BuyViewModel() {
@@ -33,6 +35,12 @@ public class BuyViewModel extends ViewModel {
     public void setState(BuyState state) {
         support.firePropertyChange("state", this.state, state);
         this.state = state;
+    }
+
+    public void setSharePrice(double sharePrice) {
+        double oldSharePrice = this.sharePrice;
+        this.sharePrice = sharePrice;
+        support.firePropertyChange(SHARE_PRICE_PROPERTY, oldSharePrice, sharePrice);
     }
 
     public BuyState getState() {

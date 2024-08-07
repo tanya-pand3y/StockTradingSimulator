@@ -17,8 +17,9 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
     private JTextField stockTickerField;
     private JTextField quantityField;
-    private JLabel currentPriceLabel;
-    private JLabel totalPriceLabel;
+    private JLabel sharePriceLabel;
+    private JLabel orderPriceLabel;
+    private JButton getQuoteButton;
     private JButton buyButton;
     private JButton cancelButton;
 
@@ -35,40 +36,49 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
         // Main panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 2));
+        mainPanel.setLayout(new GridLayout(5, 2));
         mainPanel.setBackground(Color.DARK_GRAY);
 
         // Stock ticker input
-        JLabel stockTickerLabel = new JLabel(this.viewModel.TICKER_LABEL);
+        JLabel stockTickerLabel = new JLabel("Ticker:");
         stockTickerLabel.setForeground(Color.WHITE);
         this.stockTickerField = new JTextField();
         mainPanel.add(stockTickerLabel);
         mainPanel.add(stockTickerField);
 
-        // Current price display
-        JLabel currentPriceTextLabel = new JLabel("Current Price:");
-        currentPriceTextLabel.setForeground(Color.WHITE);
-        this.currentPriceLabel = new JLabel("399.61"); // Example price
-        this.currentPriceLabel.setForeground(Color.WHITE);
-        mainPanel.add(currentPriceTextLabel);
-        mainPanel.add(currentPriceLabel);
-
         // Quantity input
-        JLabel quantityLabel = new JLabel(this.viewModel.QUANTITY_LABEL);
+        JLabel quantityLabel = new JLabel("Quantity:");
         quantityLabel.setForeground(Color.WHITE);
         this.quantityField = new JTextField();
-        this.quantityField.setText("");
-        this.quantityField.addActionListener(e -> updateTotalPrice());
         mainPanel.add(quantityLabel);
         mainPanel.add(quantityField);
 
-//        // Total price display
-//        JLabel totalPriceTextLabel = new JLabel("Total Order Price:");
-//        totalPriceTextLabel.setForeground(Color.WHITE);
-//        this.totalPriceLabel = new JLabel("3996.10"); // Example total price
-//        this.totalPriceLabel.setForeground(Color.WHITE);
-//        mainPanel.add(totalPriceTextLabel);
-//        mainPanel.add(totalPriceLabel);
+        // Get Quote button
+        this.getQuoteButton = new JButton("Get Quote");
+        this.getQuoteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fetchQuote();
+            }
+        });
+        mainPanel.add(new JLabel()); // Empty cell for layout
+        mainPanel.add(getQuoteButton);
+
+        // Share Price display
+        JLabel sharePriceTextLabel = new JLabel("Current Price:");
+        sharePriceTextLabel.setForeground(Color.WHITE);
+        this.sharePriceLabel = new JLabel("0.00");
+        this.sharePriceLabel.setForeground(Color.WHITE);
+        mainPanel.add(sharePriceTextLabel);
+        mainPanel.add(sharePriceLabel);
+
+        // Order Price display
+        JLabel orderPriceTextLabel = new JLabel("Total Order Price:");
+        orderPriceTextLabel.setForeground(Color.WHITE);
+        this.orderPriceLabel = new JLabel("0.00");
+        this.orderPriceLabel.setForeground(Color.WHITE);
+        mainPanel.add(orderPriceTextLabel);
+        mainPanel.add(orderPriceLabel);
 
         add(mainPanel, BorderLayout.CENTER);
 
@@ -79,12 +89,7 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
 
         // Cancel button
         this.cancelButton = new JButton("Cancel");
-        this.cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancel();
-                System.out.println("Cancel buy");
-            }
-        });
+        this.cancelButton.addActionListener(e -> System.out.println("Cancel"));
         buttonPanel.add(cancelButton);
 
         // Buy button
@@ -93,7 +98,6 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
             @Override
             public void actionPerformed(ActionEvent e) {
                 executeBuyOrder();
-                System.out.println("Buy " + quantityField.getText());
             }
         });
         buttonPanel.add(buyButton);
@@ -113,17 +117,33 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else if (BuyViewModel.SHARE_PRICE_PROPERTY.equals(evt.getPropertyName())) {
+            updateSharePrice((Double) evt.getNewValue());
         }
+    }
+
+    private void fetchQuote() {
+        String stockTicker = stockTickerField.getText();
+        if (stockTicker == null || stockTicker.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ticker", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        controller.fetchSharePrice(stockTicker);
+    }
+
+    private void updateSharePrice(double sharePrice) {
+        this.sharePriceLabel.setText(String.format("%.2f", sharePrice));
+        updateTotalPrice();
     }
 
     private void updateTotalPrice() {
         try {
             int quantity = Integer.parseInt(quantityField.getText());
-            double currentPrice = Double.parseDouble(currentPriceLabel.getText());
-            double totalPrice = quantity * currentPrice;
-            totalPriceLabel.setText(String.format("%.2f", totalPrice));
+            double sharePrice = Double.parseDouble(sharePriceLabel.getText());
+            double totalPrice = quantity * sharePrice;
+            orderPriceLabel.setText(String.format("%.2f", totalPrice));
         } catch (NumberFormatException e) {
-            totalPriceLabel.setText("0.00");
+            orderPriceLabel.setText("0.00");
         }
     }
 
@@ -137,9 +157,5 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
             return;
         }
         controller.execute(stockTicker, quantity, this.viewModel.getState().getPortfolio());
-    }
-
-    private void cancel() {
-        controller.cancel();
     }
 }
