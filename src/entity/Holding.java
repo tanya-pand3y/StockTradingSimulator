@@ -26,6 +26,7 @@ public class Holding {
      * Recalculates holding values
      */
     public void recalculate() {
+        this.stock.updateValues();
         this.stockTransactionHistory.recalculate();
         this.quantity = stockTransactionHistory.getTotalQuantity();
         this.currentValue = this.stock.getCurrentPrice()*this.quantity;
