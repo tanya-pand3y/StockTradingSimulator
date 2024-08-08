@@ -1,14 +1,16 @@
-package entity;
+package use_case.login;
 
-import static org.junit.jupiter.api.Assertions.*;
+import entity.User;
+
 import java.time.LocalDateTime;
 
-public class userTest implements User {
+public class TestUser implements User {
+
     private final String name;
     private final String password;
     private final LocalDateTime creationTime;
 
-    public userTest(String name, String password, LocalDateTime creationTime) {
+    public TestUser(String name, String password, LocalDateTime creationTime) {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;

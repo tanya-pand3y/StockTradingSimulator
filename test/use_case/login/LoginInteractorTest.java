@@ -5,9 +5,6 @@ import data_access.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import entity.User;
-import entity.userTest;
-import data_access.InMemoryUserDataAccessObject;
-import use_case.login.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -28,7 +25,7 @@ class LoginInteractorTest {
         loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
 
         // Setting up some test users
-        userDataAccessObject.save(new userTest("testUser", "correctPassword", LocalDateTime.now()));
+        userDataAccessObject.save(new TestUser("testUser", "correctPassword", LocalDateTime.now()));
     }
 
     @Test
