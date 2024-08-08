@@ -10,8 +10,6 @@ public class Stock {
     private final String name;
     private final String ticker;
     private double currentPrice;
-    private int volume;
-    private ZonedDateTime date;
 
     /**
      * Creates a stock object given a ticker
@@ -22,19 +20,15 @@ public class Stock {
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
         this.name = apiDataAccessObject.getName();
         this.currentPrice = apiDataAccessObject.getClose();
-        this.volume = apiDataAccessObject.getVolume();
-        this.date = apiDataAccessObject.getDate();
 
     }
 
     /**
      * Updates the values of the stock
      */
-    private void updateValues() {
+    void updateValues() {
         StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);
         this.currentPrice = apiDataAccessObject.getClose();
-        this.volume = apiDataAccessObject.getVolume();
-        this.date = apiDataAccessObject.getDate();
     }
 
     /**
