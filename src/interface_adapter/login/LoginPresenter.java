@@ -24,6 +24,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the main view.
+        System.out.println("LoginPresenter.prepareSuccessView");
         DashboardState dashboardState = dashboardViewModel.getState();
         dashboardState.setUsername(response.getUsername());
         this.dashboardViewModel.setState(dashboardState);

@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Stock</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Stock (entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Stock</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package entity;
+&nbsp;
+&nbsp;import data_access.StockCurrentAPIDataAccessInterface;
+&nbsp;import data_access.StockCurrentAPIDataAccessObject;
+&nbsp;
+&nbsp;import java.time.ZonedDateTime;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;
+&nbsp;public class Stock {
+&nbsp;    private final String name;
+&nbsp;    private final String ticker;
+&nbsp;    private double currentPrice;
+&nbsp;    private int volume;
+&nbsp;    private ZonedDateTime date;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a stock object given a ticker
+&nbsp;     * @param ticker the ticker
+&nbsp;     */
+<b class="nc">&nbsp;    public Stock(String ticker) {</b>
+<b class="nc">&nbsp;        this.ticker = ticker;</b>
+<b class="nc">&nbsp;        StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);</b>
+<b class="nc">&nbsp;        this.name = apiDataAccessObject.getName();</b>
+<b class="nc">&nbsp;        this.currentPrice = apiDataAccessObject.getClose();</b>
+<b class="nc">&nbsp;        this.volume = apiDataAccessObject.getVolume();</b>
+<b class="nc">&nbsp;        this.date = apiDataAccessObject.getDate();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Updates the values of the stock
+&nbsp;     */
+&nbsp;    private void updateValues() {
+<b class="nc">&nbsp;        StockCurrentAPIDataAccessInterface apiDataAccessObject = new StockCurrentAPIDataAccessObject(this.ticker);</b>
+<b class="nc">&nbsp;        this.currentPrice = apiDataAccessObject.getClose();</b>
+<b class="nc">&nbsp;        this.volume = apiDataAccessObject.getVolume();</b>
+<b class="nc">&nbsp;        this.date = apiDataAccessObject.getDate();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the name of the stock
+&nbsp;     * @return the name of the stock
+&nbsp;     */
+<b class="nc">&nbsp;    public String getName() {return this.name;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the current stock price
+&nbsp;     * @return the current stock price
+&nbsp;     */
+&nbsp;    public double getCurrentPrice() {
+<b class="nc">&nbsp;        return this.currentPrice;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the ticker
+&nbsp;     * @return the ticker
+&nbsp;     */
+&nbsp;    public String getTicker() {
+<b class="nc">&nbsp;        return this.ticker;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-08-08 13:55</div>
+</div>
+</body>
+</html>
