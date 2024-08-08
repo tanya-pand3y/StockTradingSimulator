@@ -1,6 +1,5 @@
 package use_case.query_stock;
 
-import static org.junit.jupiter.api.Assertions.*;
 public class TestQueryStockOutputBoundary implements QueryStockOutputBoundary {
 
     private QueryStockOutputData outputData;

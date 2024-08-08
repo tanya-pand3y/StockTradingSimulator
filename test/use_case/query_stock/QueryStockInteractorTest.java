@@ -1,11 +1,7 @@
 package use_case.query_stock;
 
-import data_access.StockCurrentAPIDataAccessObject;
-import data_access.StockHistoryAPIDataAccessObject;
-import interface_adapter.QueryStock.QueryStockPresenter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.query_stock.QueryStockOutputData;
 
 import static org.junit.jupiter.api.Assertions.*;
 
