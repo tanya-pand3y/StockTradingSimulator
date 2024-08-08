@@ -82,14 +82,6 @@ public class Portfolio {
     }
 
     /**
-     * Sets cash
-     * @param cash the cash to set
-     */
-    public void setCash(double cash) {
-        this.cash = cash;
-    }
-
-    /**
      * Returns the amount of cash in the portfolio
      * @return the amount of cash in the portfolio
      */
@@ -125,20 +117,6 @@ public class Portfolio {
             }
         }
         return null;
-    }
-
-    /**
-     * Returns the quantity of a stock held in a portfolio
-     * @param stock the stock to search for
-     * @return the quantity of that stock in a holding in a portfolio
-     */
-    public int getQuantityByStock(Stock stock) {
-        for (Holding holding : holdings) {
-            if (holding.getStock().equals(stock)) {
-                return holding.getQuantity();
-            }
-        }
-        return 0; // Return 0 if no holding with the given stock is found
     }
 
     /**
