@@ -57,8 +57,6 @@ public void execute(QueryStockInputData inputData) {
         date = historyDAO.getDate();
     }
 
-    System.out.println(date);
-
     // Prepare output data
     QueryStockOutputData outputData = new QueryStockOutputData(ticker, currentPrice, startDate, endDate, priceHistory, date);
 
