@@ -1,4 +1,4 @@
-# StockEd | CSC207 group project
+# StockEd; | CSC207 group project
 
 **Team Name:** Doubly Linked List
 
