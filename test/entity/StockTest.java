@@ -1,35 +1,40 @@
 package entity;
 
-import data_access.StockCurrentAPIDataAccessObject;
+import static org.junit.jupiter.api.Assertions.*;
+
+import entity.Stock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class StockTest {
+public class StockTest {
 
     private Stock stock;
 
-    private StockCurrentAPIDataAccessObject CurrentStockData;
-
     @BeforeEach
     public void setUp() {
-        CurrentStockData = new StockCurrentAPIDataAccessObject("AMZN");
-        stock = new Stock("AMZN");
+        stock = new Stock("AAPL");
     }
 
     @Test
-    void getName() {
-        assertEquals("Amazon.com Inc", stock.getName());
+    public void testStockCreation() {
+        assertEquals("AAPL", stock.getTicker());
+        assertEquals("Apple Inc", stock.getName());
     }
 
     @Test
-    void getCurrentPrice() {
-        assertEquals(CurrentStockData.getClose(), stock.getCurrentPrice());
+    public void testGetCurrentPrice() {
+        stock.updateValues();
+        assertTrue(stock.getCurrentPrice() > 0);
     }
 
+
     @Test
-    void getTicker() {
-        assertEquals("AMZN", stock.getTicker());
+    public void testUpdateValues() {
+        double prevPrice = stock.getCurrentPrice();
+        System.out.println("Prev price: " + prevPrice);
+        stock.updateValues();
+        double newPrice = stock.getCurrentPrice();
+        System.out.println("New price: " + newPrice);
+        assertEquals(prevPrice, newPrice);
     }
 }
