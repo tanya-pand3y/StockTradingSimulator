@@ -3,6 +3,7 @@ package app;
 import data_access.StockQuantityDataAccessInterface;
 import data_access.StockQuantityDataAccessObject;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
@@ -24,10 +25,10 @@ public class SignupUseCaseFactory {
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
-    public static SignupView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel) {
+    public static SignupView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, DashboardViewModel dashboardViewModel) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel);
+            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, dashboardViewModel);
             return new SignupView(signupController, signupViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -36,12 +37,12 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, DashboardViewModel dashboardViewModel) throws IOException {
         UserSignupDataAccessInterface userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
         StockQuantityDataAccessInterface stockQuantityDataAccessObject = new StockQuantityDataAccessObject();
 
         // Notice how we pass this method's parameters to the Presenter.
-        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, dashboardViewModel);
 
         UserFactory userFactory = new CommonUserFactory();
 

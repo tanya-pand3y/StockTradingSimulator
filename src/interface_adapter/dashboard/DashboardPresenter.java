@@ -63,6 +63,9 @@ public class DashboardPresenter implements DashboardOutputBoundary {
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername("");
         loginState.setPassword("");
+        loginState.setLoginError(null);
+        loginState.setUsername(null);
+        loginState.setPasswordError(null);
         loginState.setLoggedIn(false);
         loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();

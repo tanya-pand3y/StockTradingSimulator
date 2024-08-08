@@ -1,6 +1,8 @@
 package interface_adapter.signup;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.dashboard.DashboardState;
+import interface_adapter.dashboard.DashboardViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_case.signup.SignupOutputBoundary;
@@ -14,15 +16,15 @@ import java.time.format.DateTimeFormatter;
 public class SignupPresenter implements SignupOutputBoundary {
 
     private final SignupViewModel signupViewModel;
-    private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
+    private DashboardViewModel dashboardViewModel;
 
     public SignupPresenter(ViewManagerModel viewManagerModel,
                            SignupViewModel signupViewModel,
-                           LoginViewModel loginViewModel) {
+                           DashboardViewModel dashboardViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
-        this.loginViewModel = loginViewModel;
+        this.dashboardViewModel = dashboardViewModel;
     }
 
     @Override
@@ -31,13 +33,12 @@ public class SignupPresenter implements SignupOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
-        SignupState signupState = signupViewModel.getState();
-        LoginState loginState = loginViewModel.getState();
-        loginState.setUsername(response.getUsername());
-        this.loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
+        DashboardState dashboardState = dashboardViewModel.getState();
+        dashboardState.setUsername(response.getUsername());
+        dashboardViewModel.setState(dashboardState);
+        dashboardViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(loginViewModel.getViewName());
+        viewManagerModel.setActiveView(dashboardViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

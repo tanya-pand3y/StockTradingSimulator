@@ -1,52 +1,83 @@
 package entity;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class TransactionTest {
-    private Transaction transaction;
-
-    @BeforeEach
-    void setUp() {
-        // Initialize with sample data
-        transaction = new Transaction("2024-08-08", 50.0, 10);
+public class TransactionTest {
+  
+    @Test
+    public void testGetPrice() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 15.0, 10);
+        double expectedPrice = 15.0;
+        Assertions.assertEquals(expectedPrice, transaction.getPrice(), "Expected transaction price does not match");
     }
 
     @Test
-    void testConstructor() {
-        assertNotNull(transaction);
-        assertEquals("2024-08-08", transaction.getDate());
-        assertEquals(50.0, transaction.getPrice());
-        assertEquals(10, transaction.getQuantity());
+    public void testGetPriceWithZeroValue() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 0.0, 0);
+        double expectedPrice = 0.0;
+        Assertions.assertEquals(expectedPrice, transaction.getPrice(), "Expected transaction price does not match");
     }
 
     @Test
-    void testGetPrice() {
-        assertEquals(50.0, transaction.getPrice());
+    public void testGetPriceWithNegativeValue() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", -15.0, 10);
+        double expectedPrice = -15.0;
+        Assertions.assertEquals(expectedPrice, transaction.getPrice(), "Expected transaction price does not match");
+    }
+    @Test
+    public void testGetQuantity() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 15.0, 10);
+        int expectedQuantity = 10;
+        Assertions.assertEquals(expectedQuantity, transaction.getQuantity(), "Expected transaction quantity does not match");
     }
 
     @Test
-    void testGetQuantity() {
-        assertEquals(10, transaction.getQuantity());
+    public void testGetQuantityWithZeroValue() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 0.0, 0);
+        int expectedQuantity = 0;
+        Assertions.assertEquals(expectedQuantity, transaction.getQuantity(), "Expected transaction quantity does not match");
     }
 
     @Test
-    void testGetDate() {
-        assertEquals("2024-08-08", transaction.getDate());
+    public void testGetQuantityWithNegativeValue() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", -15.0, -10);
+        int expectedQuantity = -10;
+        Assertions.assertEquals(expectedQuantity, transaction.getQuantity(), "Expected transaction quantity does not match");
     }
 
     @Test
-    void testGetTotalAmount() {
-        assertEquals(500.0, transaction.getTotalAmount()); // 50.0 * 10
+    public void testGetDate() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 15.0, 10);
+        String expectedDate = "2024-05-01T18:30:45Z";
+        Assertions.assertEquals(expectedDate, transaction.getDate(), "Expected transaction date does not match");
     }
 
     @Test
-    void testNegativeValues() {
-        Transaction negativeTransaction = new Transaction("2024-08-08", -50.0, -10);
-        assertEquals(-50.0, negativeTransaction.getPrice());
-        assertEquals(-10, negativeTransaction.getQuantity());
-        assertEquals(500.0, negativeTransaction.getTotalAmount()); // -50.0 * -10
+    public void testGetDateWithDifferentFormat() {
+        Transaction transaction = new Transaction("2024/05/01 6:30:45 PM", 15.0, 10);
+        String expectedDate = "2024/05/01 6:30:45 PM";
+        Assertions.assertEquals(expectedDate, transaction.getDate(), "Expected transaction date does not match");
+    }
+
+    @Test
+    public void testGetTotalAmount() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 15.0, 10);
+        double expectedTotalAmount = 150.0;
+        Assertions.assertEquals(expectedTotalAmount, transaction.getTotalAmount(), "Expected transaction total amount does not match");
+    }
+
+    @Test
+    public void testGetTotalAmountWithZeroValues() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", 0.0, 0);
+        double expectedTotalAmount = 0.0;
+        Assertions.assertEquals(expectedTotalAmount, transaction.getTotalAmount(), "Expected transaction total amount does not match");
+    }
+
+    @Test
+    public void testGetTotalAmountWithNegativeValues() {
+        Transaction transaction = new Transaction("2024-05-01T18:30:45Z", -15.0, -10);
+        double expectedTotalAmount = 150.0;
+        Assertions.assertEquals(expectedTotalAmount, transaction.getTotalAmount(), "Expected transaction total amount does not match");
     }
 }

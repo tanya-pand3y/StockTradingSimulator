@@ -2,9 +2,13 @@ package entity;
 
 import data_access.StockQuantityDataAccessInterface;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class Portfolio {
@@ -231,6 +235,20 @@ public class Portfolio {
      */
     public ArrayList<Transaction> getUserPurchaseHistory(String ticker) {
         Holding holding = getHolding(ticker);
+        ArrayList<Transaction> transactions = holding.getStockTransactionHistory().getTransactions();
+        Collections.sort(transactions, new Comparator<Transaction>() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            @Override
+            public int compare(Transaction o1, Transaction o2) {
+                try {
+                    return dateFormat.parse(o1.getDate()).compareTo(dateFormat.parse(o2.getDate()));
+                } catch (ParseException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        });
+
         return holding.getStockTransactionHistory().getTransactions();
     }
 }

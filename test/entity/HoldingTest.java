@@ -1,104 +1,74 @@
 package entity;
 
 import data_access.StockQuantityDataAccessInterface;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Map;
+import static org.mockito.Mockito.*;
 
 public class HoldingTest {
+    @Test
+    public void testHoldingConstructor() {
+        Stock mockStock = mock(Stock.class);
+        when(mockStock.getCurrentPrice()).thenReturn(123.45);
+        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
+        when(mockHistory.getTotalQuantity()).thenReturn(100);
+        when(mockHistory.getTotalTransactionValue()).thenReturn(12300.0);
 
-    private class MockStock extends Stock {
-        private double mockPrice;
-        private String mockTicker;
-
-        public MockStock(String ticker, double price) {
-            super(ticker);
-            this.mockTicker = ticker;
-            this.mockPrice = price;
-        }
-
-        @Override
-        public double getCurrentPrice() {
-            return mockPrice;
-        }
-
-        @Override
-        public String getTicker() {
-            return mockTicker;
-        }
-    }
-
-    private class MockStockQuantityDataAccess implements StockQuantityDataAccessInterface {
-        @Override
-        public ArrayList<String> getTicker() {
-            return new ArrayList<>();
-        }
-
-        @Override
-        public Map<String, Map<String, Map<String, Object>>> getPriceQuantityMap() {
-            return null;
-        }
-
-        @Override
-        public void fetchData(String username) {
-        }
-
-        @Override
-        public void addEntry(String username, String ticker, String date, Double price, int quantity) {
-            // Mock implementation
-        }
-
-        @Override
-        public void createUserInFirebase(String username) {
-            // Mock implementation
-        }
-    }
-
-    private Stock stock;
-    private StockTransactionHistory stockTransactionHistory;
-    private Holding holding;
-    private Transaction transaction;
-
-    @BeforeEach
-    void setUp() {
-        stock = new MockStock("AAPL", 150.0); // Mock stock with a price of 150.0
-        stockTransactionHistory = new StockTransactionHistory();
-        holding = new Holding(stock, stockTransactionHistory);
-        transaction = new Transaction("2024-08-08", 150.0, 10); // TotalAmount = 1500.0
+        Holding holding = new Holding(mockStock, mockHistory);
+        assertEquals(mockStock, holding.getStock());
+        assertEquals(100, holding.getQuantity());
+        assertEquals(12345.0, holding.getCurrentValue(), 0.1);
+        assertEquals(45.0, holding.getPnL(), 0.1);
     }
 
     @Test
-    void testInitialValues() {
-        assertNotNull(holding);
-        assertEquals(stock, holding.getStock());
-        assertEquals(0, holding.getQuantity());
-        assertEquals(0.0, holding.getCurrentValue());
-        assertEquals(0.0, holding.getPnL());
-    }
+    public void testRecalculate() {
+        Stock mockStock = mock(Stock.class);
+        when(mockStock.getCurrentPrice()).thenReturn(123.45);
+        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
+        when(mockHistory.getTotalQuantity()).thenReturn(100);
+        when(mockHistory.getTotalTransactionValue()).thenReturn(12300.0);
 
-    @Test
-    void testAddTransaction() {
-        holding.addTransaction(transaction, "user1", new MockStockQuantityDataAccess());
-
-        assertEquals(10, holding.getQuantity());
-        assertEquals(1500.0, holding.getCurrentValue()); // 150.0 * 10
-        assertEquals(0.0, holding.getPnL()); // TotalTransactionValue is 0 initially
-    }
-
-    @Test
-    void testRecalculate() {
-        holding.addTransaction(transaction, "user1", new MockStockQuantityDataAccess());
-
-        // Change the stock price and recalculate
-        stock = new MockStock("AAPL", 160.0); // Update stock price to 160.0
-        holding = new Holding(stock, stockTransactionHistory);
+        Holding holding = new Holding(mockStock, mockHistory);
         holding.recalculate();
 
-        assertEquals(10, holding.getQuantity());
-        assertEquals(1600.0, holding.getCurrentValue()); // 160.0 * 10
-        assertEquals(100.0, holding.getPnL()); // New PnL after stock price update (1600.0 - 1500.0)
+        assertEquals(12345.0, holding.getCurrentValue(), 0.1);
+        assertEquals(45.0, holding.getPnL(), 0.1);
+    }
+
+    @Test
+    public void testGetCurrentValue() {
+        Stock mockStock = mock(Stock.class);
+        when(mockStock.getCurrentPrice()).thenReturn(123.45);
+        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
+        when(mockHistory.getTotalQuantity()).thenReturn(100);
+        when(mockHistory.getTotalTransactionValue()).thenReturn(12300.0);
+
+        Holding holding = new Holding(mockStock, mockHistory);
+        double currentValue = holding.getCurrentValue();
+
+        assertEquals(12345.0, currentValue, 0.1);
+    }
+
+    @Test
+    public void testGetPnL() {
+        Stock mockStock = mock(Stock.class);
+        when(mockStock.getCurrentPrice()).thenReturn(123.45);
+        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
+        when(mockHistory.getTotalQuantity()).thenReturn(100);
+        when(mockHistory.getTotalTransactionValue()).thenReturn(12300.0);
+
+        Holding holding = new Holding(mockStock, mockHistory);
+        double pnl = holding.getPnL();
+        assertEquals(45.0, pnl, 0.1);
+    }
+
+    @Test
+    public void testGetStockTransactionHistory() {
+        Stock mockStock = mock(Stock.class);
+        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
+
+        Holding holding = new Holding(mockStock, mockHistory);
+        assertEquals(mockHistory, holding.getStockTransactionHistory());
     }
 }
