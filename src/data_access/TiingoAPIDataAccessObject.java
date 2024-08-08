@@ -1,5 +1,7 @@
 package data_access;
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,6 +13,7 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
     private final String url;
     private final String ticker;
     private final String name;
+    private String API_KEY = null;
 
     /**
      * Creates an API data access object
@@ -20,7 +23,14 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
         this.ticker = ticker;
         this.name = this.getNameOfStock();
         this.url = "https://api.tiingo.com/tiingo/daily/" + ticker + "/prices";
+        try (BufferedReader br = new BufferedReader(new FileReader("API_KEY"))) {
+            this.API_KEY = br.readLine();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
         this.apiArray = this.getAPIData(this.ticker);
+
     }
 
     /**
@@ -29,10 +39,16 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
      * @param startDate the start date
      * @param endDate the end date
      */
-    public TiingoAPIDataAccessObject(String ticker, String startDate, String endDate) {
+    public TiingoAPIDataAccessObject(String ticker, String startDate, String endDate){
         this.ticker = ticker;
         this.name = this.getNameOfStock();
         this.url = "https://api.tiingo.com/tiingo/daily/" + ticker + "/prices?startDate=" + startDate + "&endDate=" + endDate;
+        try (BufferedReader br = new BufferedReader(new FileReader("API_KEY"))) {
+            this.API_KEY = br.readLine();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
         this.apiArray = this.getAPIData(this.ticker);
     }
 
@@ -41,6 +57,12 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
      * @return the name of the stock
      */
     private String getNameOfStock(){
+        try (BufferedReader br = new BufferedReader(new FileReader("API_KEY"))) {
+            this.API_KEY = br.readLine();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
         String name = "";
         String urlString = "https://api.tiingo.com/tiingo/daily/" + this.ticker;
         try {
@@ -48,7 +70,6 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/json");
-            String API_KEY = "77ccaaa9724942aab6e2f2d43a0d70731b83cc35";
             connection.setRequestProperty("Authorization", "Token " + API_KEY);
 
             int responseCode = connection.getResponseCode();
@@ -87,7 +108,6 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
 
             // Add request headers
             connection.setRequestProperty("Accept", "application/json");
-            String API_KEY = "77ccaaa9724942aab6e2f2d43a0d70731b83cc35";
             connection.setRequestProperty("Authorization", "Token " + API_KEY);
 
             int responseCode = connection.getResponseCode();
@@ -135,6 +155,4 @@ abstract class TiingoAPIDataAccessObject implements TiingoAPIDataAccessInterface
     public String getName() {
         return this.name;
     }
-
-
 }
