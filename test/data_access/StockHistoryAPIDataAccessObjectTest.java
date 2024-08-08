@@ -1,6 +1,5 @@
 package data_access;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
