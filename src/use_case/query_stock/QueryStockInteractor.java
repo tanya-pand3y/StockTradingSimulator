@@ -37,7 +37,12 @@ public class QueryStockInteractor implements QueryStockInputBoundary {
 //
 //        //outputBoundary.present(outputData);
 //    }
-public void execute(QueryStockInputData inputData) {
+
+    /**
+     * Executes the use case with user input
+     * @param inputData the input data required to view a stock.
+     */
+    public void execute(QueryStockInputData inputData) {
     // Retrieve Stock data
     String ticker = inputData.getTicker();
     String startDate = inputData.getStart_date();
@@ -63,6 +68,10 @@ public void execute(QueryStockInputData inputData) {
     // Present output data
     outputBoundary.present(outputData);
     }
+
+    /**
+     * prepares the dashboard view after user presses the back button
+     */
 
     @Override
     public void backButtonPressed() {
