@@ -175,4 +175,9 @@ public class BuyView extends JPanel implements ActionListener, PropertyChangeLis
         }
         controller.execute(stockTicker, quantity, this.viewModel.getState().getPortfolio());
     }
+
+    //Added this for testing purposes
+    public BuyController getController() {
+        return controller;
+    }
 }
