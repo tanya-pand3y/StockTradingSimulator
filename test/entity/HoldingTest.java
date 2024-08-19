@@ -80,12 +80,4 @@ public class HoldingTest {
         assertEquals(mockStock, holding.getStock());
     }
 
-//    @Test
-//    public void testGetQuantity() {
-//        Stock mockStock = mock(Stock.class);
-//        StockTransactionHistory mockHistory = mock(StockTransactionHistory.class);
-//        Holding holding = new Holding(mockStock, mockHistory);
-//        assertEquals(mockHistory, holding.getQuantity());
-//    }
-
 }
