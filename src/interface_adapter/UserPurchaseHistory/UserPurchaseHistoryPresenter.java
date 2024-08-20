@@ -17,6 +17,9 @@ public class UserPurchaseHistoryPresenter implements UserPurchaseHistoryOutputBo
         this.dashboardViewModel = dashboardViewModel;
     }
 
+    /**
+     * Prepares the dashboard view
+     */
     @Override
     public void prepareDashboardView() {
         viewManagerModel.setActiveView(dashboardViewModel.getViewName());

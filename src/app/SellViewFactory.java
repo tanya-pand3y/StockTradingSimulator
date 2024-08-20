@@ -11,9 +11,19 @@ import use_case.sell.SellInteractor;
 import use_case.sell.SellOutputBoundary;
 import view.SellView;
 
+/**
+ * Creates sell views
+ */
 public class SellViewFactory {
     SellViewFactory() {}
 
+    /**
+     * Creates a sell view
+     * @param viewManagerModel the view manager model
+     * @param dashboardViewModel the dashboard view model
+     * @param sellViewModel the sell view model
+     * @return the sell view
+     */
     public static SellView create(ViewManagerModel viewManagerModel,
                                   DashboardViewModel dashboardViewModel,
                                   SellViewModel sellViewModel) {

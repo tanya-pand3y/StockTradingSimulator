@@ -20,51 +20,51 @@ public class SignupState {
     // Because of the previous copy constructor, the default constructor must be explicit.
     public SignupState() {}
 
+    /**
+     * Returns the username
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns the username error
+     * @return the username error
+     */
     public String getUsernameError() {
         return usernameError;
     }
 
+    /**
+     * Returns the password
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
-    }
-
+    /**
+     * Sets the username
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Sets the username error
+     * @param usernameError the username error
+     */
     public void setUsernameError(String usernameError) {
         this.usernameError = usernameError;
     }
 
+    /**
+     * Set the password
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
     }
 }

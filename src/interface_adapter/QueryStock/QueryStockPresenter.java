@@ -20,6 +20,10 @@ public class QueryStockPresenter implements QueryStockOutputBoundary {
         this.dashboardViewModel = dashboardViewModel;
     }
 
+    /**
+     * Presents the output data
+     * @param outputData the output data
+     */
     @Override
     public void present(QueryStockOutputData outputData) {
         // Prepare the output data to be displayed
@@ -35,6 +39,9 @@ public class QueryStockPresenter implements QueryStockOutputBoundary {
 
     }
 
+    /**
+     * Prepares the dashboard view
+     */
     @Override
     public void prepareDashboardView() {
         viewManagerModel.setActiveView(dashboardViewModel.getViewName());

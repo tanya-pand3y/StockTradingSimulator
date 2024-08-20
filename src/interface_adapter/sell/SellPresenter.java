@@ -17,6 +17,10 @@ public class SellPresenter implements SellOutputBoundary {
         this.dashboardViewModel = dashboardViewModel;
     }
 
+    /**
+     * Prepares success view
+     * @param response the output data
+     */
     @Override
     public void prepareSuccessView(SellOutputData response) {
         System.out.println("Returning to dashboard, sale successful");
@@ -25,6 +29,10 @@ public class SellPresenter implements SellOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * Prepares fail view
+     * @param error the error
+     */
     @Override
     public void prepareFailView(String error) {
         // TODO implement

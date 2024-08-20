@@ -20,11 +20,21 @@ import view.SignupView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Creates signup views
+ */
 public class SignupUseCaseFactory {
 
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
+    /**
+     * Creates a signup view
+     * @param viewManagerModel the view manager model
+     * @param signupViewModel the signup view model
+     * @param dashboardViewModel the dashboard view model
+     * @return the signup view
+     */
     public static SignupView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, DashboardViewModel dashboardViewModel) {
 
         try {

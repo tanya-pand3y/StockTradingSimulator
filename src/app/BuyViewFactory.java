@@ -13,9 +13,19 @@ import use_case.buy.BuyInteractor;
 import use_case.buy.BuyOutputBoundary;
 import view.BuyView;
 
+/**
+ * Creates buy views
+ */
 public class BuyViewFactory {
     BuyViewFactory() {};
 
+    /**
+     * Creates a buy view
+     * @param viewManagerModel the view manager model
+     * @param dashboardViewModel the dashboard view model
+     * @param buyViewModel the buy view model
+     * @return the buy view
+     */
     public static BuyView create(ViewManagerModel viewManagerModel,
                                  DashboardViewModel dashboardViewModel,
                                  BuyViewModel buyViewModel) {

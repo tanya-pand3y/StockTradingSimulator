@@ -27,6 +27,10 @@ public class SignupPresenter implements SignupOutputBoundary {
         this.dashboardViewModel = dashboardViewModel;
     }
 
+    /**
+     * Prepares a success view
+     * @param response the data
+     */
     @Override
     public void prepareSuccessView(SignupOutputData response) {
         // On success, switch to the login view.
@@ -42,6 +46,10 @@ public class SignupPresenter implements SignupOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * Prepares a fail view
+     * @param error the error message
+     */
     @Override
     public void prepareFailView(String error) {
         SignupState signupState = signupViewModel.getState();

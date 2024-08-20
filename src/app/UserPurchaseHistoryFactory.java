@@ -29,7 +29,18 @@ import view.UserPurchaseHistoryView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Creates user purchase history views
+ */
 public class UserPurchaseHistoryFactory {
+
+    /**
+     * Creates a user purchase history view
+     * @param viewManagerModel the view manager model
+     * @param userPurchaseHistoryViewModel the user purchase history view model
+     * @param dashboardViewModel the dashboard view model
+     * @return returns the user purchase history view
+     */
     public static UserPurchaseHistoryView create(ViewManagerModel viewManagerModel, UserPurchaseHistoryViewModel userPurchaseHistoryViewModel, DashboardViewModel dashboardViewModel) {
 
         try {

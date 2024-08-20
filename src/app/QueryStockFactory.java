@@ -17,7 +17,19 @@ import view.QueryStockView;
 
 import java.io.IOException;
 
+/**
+ * Creates QueryStock views
+ */
 public class QueryStockFactory {
+
+    /**
+     * Creates a query stock view
+     * @param viewManagerModel the view manager model
+     * @param queryStockViewModel the query stock view model
+     * @param dashboardViewModel the dashboard view model
+     * @return the query stock view
+     * @throws IOException when stock can't be foudn
+     */
     public static QueryStockView create(ViewManagerModel viewManagerModel, QueryStockViewModel queryStockViewModel, DashboardViewModel dashboardViewModel) throws IOException {
         QueryStockController queryStockController = createQueryStockUseCase(viewManagerModel, queryStockViewModel, dashboardViewModel);
         return new QueryStockView(queryStockController, queryStockViewModel);

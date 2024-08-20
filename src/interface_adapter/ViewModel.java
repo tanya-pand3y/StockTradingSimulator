@@ -6,9 +6,18 @@ public abstract class ViewModel {
 
     private String viewName;
 
+    /**
+     * Creates a view model with a name
+     * @param viewName the name
+     */
     public ViewModel(String viewName) {
         this.viewName = viewName;
     }
+
+    /**
+     * Returns the view name
+     * @return the view name
+     */
     public String getViewName() {
         return this.viewName;
     }

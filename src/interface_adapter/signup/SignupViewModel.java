@@ -17,26 +17,43 @@ public class SignupViewModel extends ViewModel {
 
     private SignupState state = new SignupState();
 
+    /**
+     * Creates a signup view model
+     */
     public SignupViewModel() {
         super("sign up");
     }
 
+    /**
+     * Sets the state
+     * @param state the state
+     */
     public void setState(SignupState state) {
         this.state = state;
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
+
+    /**
+     * Updates after a property change
+     */
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
 
+    /**
+     * Adds a property change listener
+     * @param listener the listener
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Gets the state
+     * @return the state
+     */
     public SignupState getState() {
         return state;
     }
