@@ -6,6 +6,9 @@
 
 **Project Name: StockEd;**
 
+## Main Screen - Dashboard
+<img width="1440" alt="Screenshot 2024-08-21 at 10 12 06 AM" src="https://github.com/user-attachments/assets/18fef358-7129-48b2-a8fe-9245f2fd03dd">
+
 ### Installation Instructions - How to run:
 1. Running the main class located in src will start the login GUI.
 2. If you already have an account login using your username and password. If registering a new user, click the signup button to go to the signup page where you can create a new user.
