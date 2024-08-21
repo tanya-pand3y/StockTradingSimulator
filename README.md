@@ -4,15 +4,16 @@
 
 **Domain:** Stock trading simulator
 
+**Project Name: StockEd;**
+
 ### Installation Instructions - How to run:
-1. Running the main method in app/Main.java this will start the login GUI. You can click signUp button to go to the signup page where you can create a new user. This will create a new user in users.csv.
-2. You can view users.csv to see the usernames and passwords you can use. You can also go into UserPortfolioData to view the portfolio data of the user.
-Note: Since the buy use case is not implemented, you cannot buy any stocks as of now. However, for the purpose demonstrating the other use cases we have created two UserPortfolioData csv files namely- Meer.csv and Tanya.csv. We estimate to finish the implementation for buy use case and fix related bugs latest by Wednesday.
-3. Choose between Meer (password 1234) and Tanya (password 123).
-4. When you login using Meer or Tanya you will be able to view their stock portfolios. Further if you press sell you can choose a stock and sell it. This will also update Meer.csv/Tanya.csv appropriately.  
+1. Running the main class located in src will start the login GUI.
+2. If you already have an account login using your username and password. If registering a new user, click the signup button to go to the signup page where you can create a new user.
+3. Upon logging in, the dashboard shows all the stocks a user owns 
+4. 
 
 ### **Software Specification:**
-To give users a platform to invest in stocks, view their profits and losses, their own and other’s portfolios, view stock price trends, and use fake money to buy and sell stocks. The target audience are finance enthusiasts who want to learn stock trading. 
+To give users a platform to invest in stocks by allowing them to view their profits and losses, view stock price trends, view their transaction history and use fake money to buy and sell stocks. The target audience are finance enthusiasts who want to learn stock trading. 
 
 ### **User Stories:**
 1. Sophia is a self-taught finance enthusiast eager to improve her trading skills. She explores other users' portfolios on our platform for inspiration, learning new strategies and techniques. By comparing different approaches, she refines her own trading style and progresses steadily in her trading journey. Using fake money, she practices buying and selling stocks without any financial risk. She also tracks her profits and losses, views detailed stock price trends, and analyzes the historical performance of stocks to make better investment decisions. [Team Story]
